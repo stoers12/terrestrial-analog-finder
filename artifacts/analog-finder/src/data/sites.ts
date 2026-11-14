@@ -1,10 +1,13 @@
 /**
- * Curated site catalogue for the Terrestrial Analog Finder.
+ * Site catalogue for the Terrestrial Analog Finder.
  *
- * Values are indicative figures compiled from published mission and field
- * summaries (LRO LOLA/Diviner, MRO HiRISE/CTX/CRISM, MOLA, Mars 2020 and MSL
- * results, WorldClim/ERA5-style climate normals). They are good enough to rank
- * sites against each other; they are not survey-grade measurements.
+ * Moon and Mars targets are a curated REFERENCE table: values are rounded from
+ * published mission results (see TARGET_REFERENCE) and are indicative only.
+ *
+ * Earth sites are editorial seeds (name, geology tags, isolation, status). Their
+ * temperature, pressure, precipitation, wind and relief are NOT stored here: they
+ * are measured at load time from NASA POWER and a global DEM by the API server and
+ * merged in by hydrateEarthSite().
  */
 
 export type Body = "moon" | "mars" | "earth";
@@ -36,6 +39,15 @@ export const GEOLOGY_LABELS: Record<GeologyTag, string> = {
 
 export type AnalogStatus = "established" | "emerging" | "proposed";
 
+/** Provenance of the measured values on an Earth site. */
+export interface Measured {
+  elevationM: number;
+  reliefM: number;
+  climateSource: string;
+  elevationSource: string;
+  fetchedAt: string;
+}
+
 export interface Site {
   id: string;
   name: string;
@@ -51,6 +63,8 @@ export interface Site {
   precipMm: number;
   /** Surface atmospheric pressure, kPa (0 on the Moon, about 0.6 on Mars) */
   pressureKpa: number;
+  /** Annual mean near-surface wind speed, m/s (0 on the Moon) */
+  windMs: number;
   geology: GeologyTag[];
   /** Relief / slope difficulty, 0 (flat plain) to 10 (steep, broken terrain) */
   ruggedness: number;
@@ -58,6 +72,8 @@ export interface Site {
   isolation: number;
   /** Earth sites only: how the site is regarded as an analog today */
   status?: AnalogStatus;
+  /** Earth sites only: where the measured values came from */
+  measured?: Measured;
   /** One or two sentences on why the site matters */
   summary: string;
   /** Moon/Mars sites: what a base or landing there is for */
@@ -77,6 +93,7 @@ export const TARGET_SITES: Site[] = [
     minTempC: -170,
     precipMm: 0,
     pressureKpa: 0,
+    windMs: 0,
     geology: ["impact-crater", "fine-regolith-dust", "permafrost-ice"],
     ruggedness: 7,
     isolation: 10,
@@ -95,6 +112,7 @@ export const TARGET_SITES: Site[] = [
     minTempC: -165,
     precipMm: 0,
     pressureKpa: 0,
+    windMs: 0,
     geology: ["ancient-crystalline", "fine-regolith-dust", "impact-crater"],
     ruggedness: 6,
     isolation: 10,
@@ -113,6 +131,7 @@ export const TARGET_SITES: Site[] = [
     minTempC: -170,
     precipMm: 0,
     pressureKpa: 0,
+    windMs: 0,
     geology: ["basalt-volcanic", "lava-tubes", "fine-regolith-dust"],
     ruggedness: 4,
     isolation: 10,
@@ -131,6 +150,7 @@ export const TARGET_SITES: Site[] = [
     minTempC: -170,
     precipMm: 0,
     pressureKpa: 0,
+    windMs: 0,
     geology: ["basalt-volcanic", "lava-tubes", "fine-regolith-dust"],
     ruggedness: 2,
     isolation: 10,
@@ -149,6 +169,7 @@ export const TARGET_SITES: Site[] = [
     minTempC: -170,
     precipMm: 0,
     pressureKpa: 0,
+    windMs: 0,
     geology: ["impact-crater", "basalt-volcanic", "fine-regolith-dust"],
     ruggedness: 8,
     isolation: 10,
@@ -169,6 +190,7 @@ export const TARGET_SITES: Site[] = [
     minTempC: -90,
     precipMm: 0,
     pressureKpa: 0.7,
+    windMs: 5,
     geology: ["clay-sulfate", "impact-crater", "basalt-volcanic", "sand-dunes"],
     ruggedness: 5,
     isolation: 10,
@@ -187,6 +209,7 @@ export const TARGET_SITES: Site[] = [
     minTempC: -90,
     precipMm: 0,
     pressureKpa: 0.85,
+    windMs: 4,
     geology: ["impact-crater", "clay-sulfate", "sand-dunes"],
     ruggedness: 8,
     isolation: 10,
@@ -205,6 +228,7 @@ export const TARGET_SITES: Site[] = [
     minTempC: -90,
     precipMm: 0,
     pressureKpa: 0.8,
+    windMs: 5,
     geology: ["clay-sulfate", "basalt-volcanic"],
     ruggedness: 2,
     isolation: 10,
@@ -223,6 +247,7 @@ export const TARGET_SITES: Site[] = [
     minTempC: -120,
     precipMm: 0,
     pressureKpa: 0.9,
+    windMs: 6,
     geology: ["permafrost-ice", "fine-regolith-dust"],
     ruggedness: 1,
     isolation: 10,
@@ -241,6 +266,7 @@ export const TARGET_SITES: Site[] = [
     minTempC: -100,
     precipMm: 0,
     pressureKpa: 0.2,
+    windMs: 4,
     geology: ["basalt-volcanic", "lava-tubes"],
     ruggedness: 6,
     isolation: 10,
@@ -259,6 +285,7 @@ export const TARGET_SITES: Site[] = [
     minTempC: -90,
     precipMm: 0,
     pressureKpa: 0.8,
+    windMs: 5,
     geology: ["clay-sulfate", "basalt-volcanic", "ancient-crystalline"],
     ruggedness: 4,
     isolation: 10,
@@ -268,7 +295,21 @@ export const TARGET_SITES: Site[] = [
   },
 ];
 
-export const EARTH_SITES: Site[] = [
+export interface EarthSeed {
+  id: string;
+  name: string;
+  body: "earth";
+  region: string;
+  lat: number;
+  lon: number;
+  geology: GeologyTag[];
+  /** Editorial estimate, 0 (roadside) to 10 (nowhere). Not measured. */
+  isolation: number;
+  status: AnalogStatus;
+  summary: string;
+}
+
+export const EARTH_SEEDS: EarthSeed[] = [
   {
     id: "earth-atacama",
     name: "Atacama Desert, Yungay",
@@ -276,12 +317,7 @@ export const EARTH_SITES: Site[] = [
     region: "Chile",
     lat: -24.1,
     lon: -69.9,
-    meanTempC: 17,
-    minTempC: -2,
-    precipMm: 2,
-    pressureKpa: 90,
     geology: ["evaporite-salts", "fine-regolith-dust", "clay-sulfate"],
-    ruggedness: 2,
     isolation: 8,
     status: "established",
     summary: "The driest non-polar place on Earth, with perchlorate-bearing soils that resemble Martian regolith.",
@@ -293,12 +329,7 @@ export const EARTH_SITES: Site[] = [
     region: "Nunavut, Canada",
     lat: 75.4,
     lon: -89.7,
-    meanTempC: -16,
-    minTempC: -45,
-    precipMm: 150,
-    pressureKpa: 101,
     geology: ["impact-crater", "permafrost-ice", "glacial-periglacial"],
-    ruggedness: 4,
     isolation: 10,
     status: "established",
     summary: "A 23 million year old impact crater in a polar desert, home to the Haughton-Mars Project.",
@@ -310,12 +341,7 @@ export const EARTH_SITES: Site[] = [
     region: "California, USA",
     lat: 36.5,
     lon: -117.1,
-    meanTempC: 25,
-    minTempC: 3,
-    precipMm: 60,
-    pressureKpa: 101,
     geology: ["evaporite-salts", "sand-dunes", "fine-regolith-dust"],
-    ruggedness: 5,
     isolation: 4,
     status: "established",
     summary: "Salt flats, alluvial fans and dunes used for rover tests and Mars field geology.",
@@ -327,12 +353,7 @@ export const EARTH_SITES: Site[] = [
     region: "Hawaii, USA",
     lat: 19.4,
     lon: -155.3,
-    meanTempC: 16,
-    minTempC: 8,
-    precipMm: 2500,
-    pressureKpa: 87,
     geology: ["basalt-volcanic", "lava-tubes", "fine-regolith-dust"],
-    ruggedness: 3,
     isolation: 3,
     status: "established",
     summary: "Fresh basalt flows and lava tubes used for lunar regolith simulants and resource-extraction trials.",
@@ -344,12 +365,7 @@ export const EARTH_SITES: Site[] = [
     region: "Antarctica",
     lat: -77.5,
     lon: 162.5,
-    meanTempC: -20,
-    minTempC: -50,
-    precipMm: 50,
-    pressureKpa: 101,
     geology: ["permafrost-ice", "glacial-periglacial", "ancient-crystalline", "fine-regolith-dust", "evaporite-salts"],
-    ruggedness: 6,
     isolation: 10,
     status: "established",
     summary: "The coldest, driest desert on Earth: ice-cemented ground and salt-rich soils close to Mars mid-latitudes.",
@@ -361,12 +377,7 @@ export const EARTH_SITES: Site[] = [
     region: "Andalusia, Spain",
     lat: 37.7,
     lon: -6.55,
-    meanTempC: 17,
-    minTempC: 3,
-    precipMm: 650,
-    pressureKpa: 100,
     geology: ["clay-sulfate"],
-    ruggedness: 3,
     isolation: 3,
     status: "established",
     summary: "An acidic river rich in iron and sulfates with life in extreme chemistry, used for Mars drilling tests.",
@@ -378,12 +389,7 @@ export const EARTH_SITES: Site[] = [
     region: "Highlands, Iceland",
     lat: 65,
     lon: -16.75,
-    meanTempC: -2,
-    minTempC: -20,
-    precipMm: 450,
-    pressureKpa: 89,
     geology: ["basalt-volcanic", "glacial-periglacial", "fine-regolith-dust"],
-    ruggedness: 6,
     isolation: 8,
     status: "established",
     summary: "Barren basalt and ash where Apollo crews trained and where Mars-style volcano-ice interactions are studied.",
@@ -395,12 +401,7 @@ export const EARTH_SITES: Site[] = [
     region: "Arizona, USA",
     lat: 35.03,
     lon: -111.02,
-    meanTempC: 12,
-    minTempC: -8,
-    precipMm: 300,
-    pressureKpa: 83,
     geology: ["impact-crater", "fine-regolith-dust"],
-    ruggedness: 4,
     isolation: 3,
     status: "established",
     summary: "The best-preserved young impact crater on Earth, used for Apollo astronaut geology training.",
@@ -412,12 +413,7 @@ export const EARTH_SITES: Site[] = [
     region: "Tenerife, Spain",
     lat: 28.27,
     lon: -16.64,
-    meanTempC: 9,
-    minTempC: -5,
-    precipMm: 400,
-    pressureKpa: 79,
     geology: ["basalt-volcanic", "fine-regolith-dust", "lava-tubes"],
-    ruggedness: 5,
     isolation: 4,
     status: "established",
     summary: "A high-altitude volcanic caldera with thin air and barren pumice plains used for Mars rover field tests.",
@@ -429,12 +425,7 @@ export const EARTH_SITES: Site[] = [
     region: "Idaho, USA",
     lat: 43.4,
     lon: -113.5,
-    meanTempC: 6,
-    minTempC: -15,
-    precipMm: 380,
-    pressureKpa: 84,
     geology: ["basalt-volcanic", "lava-tubes", "fine-regolith-dust"],
-    ruggedness: 4,
     isolation: 6,
     status: "emerging",
     summary: "A vast young basalt field with open lava tubes, where Apollo astronauts practised cave and lava-field geology.",
@@ -446,12 +437,7 @@ export const EARTH_SITES: Site[] = [
     region: "Svalbard, Norway",
     lat: 79.4,
     lon: 13.5,
-    meanTempC: -5,
-    minTempC: -25,
-    precipMm: 200,
-    pressureKpa: 101,
     geology: ["permafrost-ice", "glacial-periglacial", "basalt-volcanic", "clay-sulfate"],
-    ruggedness: 5,
     isolation: 9,
     status: "emerging",
     summary: "Volcanic vents, carbonates and permafrost used by the AMASE Mars science campaigns.",
@@ -463,12 +449,7 @@ export const EARTH_SITES: Site[] = [
     region: "Bolivia",
     lat: -20.2,
     lon: -67.5,
-    meanTempC: 10,
-    minTempC: -10,
-    precipMm: 200,
-    pressureKpa: 64,
     geology: ["evaporite-salts", "fine-regolith-dust"],
-    ruggedness: 0.5,
     isolation: 6,
     status: "emerging",
     summary: "The world's largest salt flat at 3,650 m: a dead-flat, thin-air surface for rover navigation tests.",
@@ -480,12 +461,7 @@ export const EARTH_SITES: Site[] = [
     region: "Afar, Ethiopia",
     lat: 14.24,
     lon: 40.3,
-    meanTempC: 34,
-    minTempC: 25,
-    precipMm: 100,
-    pressureKpa: 101,
     geology: ["evaporite-salts", "basalt-volcanic", "clay-sulfate"],
-    ruggedness: 3,
     isolation: 8,
     status: "emerging",
     summary: "Hot, acidic brine pools and sulfur deposits that bound the limits of life, a model for Martian salt lakes.",
@@ -497,12 +473,7 @@ export const EARTH_SITES: Site[] = [
     region: "Sonora, Mexico",
     lat: 31.9,
     lon: -113.5,
-    meanTempC: 24,
-    minTempC: 2,
-    precipMm: 100,
-    pressureKpa: 99,
     geology: ["basalt-volcanic", "sand-dunes"],
-    ruggedness: 4,
     isolation: 7,
     status: "emerging",
     summary: "Dark lava and maar craters next to active dunes, another Apollo training ground.",
@@ -514,12 +485,7 @@ export const EARTH_SITES: Site[] = [
     region: "Qinghai, China",
     lat: 37.4,
     lon: 95,
-    meanTempC: 4,
-    minTempC: -15,
-    precipMm: 50,
-    pressureKpa: 72,
     geology: ["evaporite-salts", "sand-dunes", "fine-regolith-dust", "clay-sulfate"],
-    ruggedness: 2,
     isolation: 8,
     status: "emerging",
     summary: "A high, cold, hyperarid basin with wind-carved yardangs that closely resemble Martian landforms.",
@@ -531,12 +497,7 @@ export const EARTH_SITES: Site[] = [
     region: "Jordan",
     lat: 29.6,
     lon: 35.4,
-    meanTempC: 20,
-    minTempC: 3,
-    precipMm: 50,
-    pressureKpa: 91,
     geology: ["sand-dunes", "ancient-crystalline", "clay-sulfate"],
-    ruggedness: 5,
     isolation: 5,
     status: "proposed",
     summary: "Granite and sandstone massifs, red dunes and dry channels in a hyperarid valley. Already used as a Mars film location, and has no formal analog programme yet.",
@@ -548,12 +509,7 @@ export const EARTH_SITES: Site[] = [
     region: "Kerman, Iran",
     lat: 30.5,
     lon: 59,
-    meanTempC: 28,
-    minTempC: 5,
-    precipMm: 30,
-    pressureKpa: 95,
     geology: ["sand-dunes", "evaporite-salts", "fine-regolith-dust"],
-    ruggedness: 4,
     isolation: 9,
     status: "proposed",
     summary: "Among the hottest surfaces on Earth, with kilometre-scale yardang fields and some of the tallest dunes on Earth.",
@@ -565,12 +521,7 @@ export const EARTH_SITES: Site[] = [
     region: "Chad",
     lat: 21,
     lon: 17.5,
-    meanTempC: 20,
-    minTempC: 0,
-    precipMm: 20,
-    pressureKpa: 90,
     geology: ["basalt-volcanic", "sand-dunes", "impact-crater"],
-    ruggedness: 7,
     isolation: 10,
     status: "proposed",
     summary: "Extinct volcanoes, calderas and lava fields ringed by Sahara dunes, one of the most remote places on Earth.",
@@ -582,12 +533,7 @@ export const EARTH_SITES: Site[] = [
     region: "Ladakh, India",
     lat: 33.1,
     lon: 78,
-    meanTempC: 0,
-    minTempC: -25,
-    precipMm: 100,
-    pressureKpa: 58,
     geology: ["evaporite-salts", "permafrost-ice", "glacial-periglacial", "ancient-crystalline"],
-    ruggedness: 6,
     isolation: 8,
     status: "proposed",
     summary: "A cold, thin-air salt basin at about 4,500 m with permafrost and ancient crystalline ranges. A cold-desert setting with no formal analog programme yet.",
@@ -599,12 +545,7 @@ export const EARTH_SITES: Site[] = [
     region: "Oman",
     lat: 23.3,
     lon: 58,
-    meanTempC: 28,
-    minTempC: 10,
-    precipMm: 100,
-    pressureKpa: 99,
     geology: ["ancient-crystalline", "clay-sulfate", "basalt-volcanic"],
-    ruggedness: 6,
     isolation: 5,
     status: "proposed",
     summary: "Exposed mantle rock that reacts with water to make carbonates and clays, like the olivine and carbonate rocks mapped around Nili Fossae on Mars.",
@@ -616,25 +557,76 @@ export const EARTH_SITES: Site[] = [
     region: "Lanzarote, Spain",
     lat: 29.15,
     lon: -13.43,
-    meanTempC: 21,
-    minTempC: 13,
-    precipMm: 140,
-    pressureKpa: 101,
     geology: ["basalt-volcanic", "lava-tubes"],
-    ruggedness: 3,
     isolation: 3,
     status: "emerging",
     summary: "A lava tube system on a volcanic island, in a region used for ESA geology and cave training.",
   },
 ];
 
-export const ALL_SITES: Site[] = [...TARGET_SITES, ...EARTH_SITES];
+/** Relief (metres within ~15 km) to the 0-10 ruggedness scale used for comparison. */
+export function reliefToRuggedness(reliefM: number): number {
+  return Math.min(10, 10 * Math.sqrt(Math.max(0, reliefM) / 2500));
+}
+
+export interface MeasuredInput {
+  elevationM: number;
+  reliefM: number;
+  tMeanC: number;
+  tMinC: number;
+  precipMm: number;
+  pressureKpa: number;
+  windMs: number;
+  climateSource: string;
+  elevationSource: string;
+  fetchedAt: string;
+}
+
+/** Merge editorial seed data with measured values into a full Site. */
+export function hydrateEarthSite(seed: EarthSeed, m: MeasuredInput): Site {
+  return {
+    ...seed,
+    meanTempC: round(m.tMeanC, 1),
+    minTempC: round(m.tMinC, 1),
+    precipMm: Math.round(m.precipMm),
+    pressureKpa: round(m.pressureKpa, 1),
+    windMs: round(m.windMs, 1),
+    ruggedness: round(reliefToRuggedness(m.reliefM), 1),
+    measured: {
+      elevationM: Math.round(m.elevationM),
+      reliefM: Math.round(m.reliefM),
+      climateSource: m.climateSource,
+      elevationSource: m.elevationSource,
+      fetchedAt: m.fetchedAt,
+    },
+  };
+}
+
+function round(n: number, d: number) {
+  const f = 10 ** d;
+  return Math.round(n * f) / f;
+}
+
+/** Where each reference value for a Moon or Mars target comes from. */
+export const TARGET_REFERENCE: Record<"moon" | "mars", { values: string; geology: string }> = {
+  moon: {
+    values:
+      "Surface temperatures rounded from LRO Diviner results (Paige et al. 2010, Williams et al. 2017); relief and illumination from LRO LOLA; no atmosphere, so no pressure or wind.",
+    geology: "Geology tags and isolation are curated from published site-characterisation work (Artemis candidate regions, lunar pit and lava-tube studies).",
+  },
+  mars: {
+    values:
+      "Temperature, pressure and wind rounded from MSL REMS, InSight APSS and Mars 2020 MEDA reports; relief from MOLA and HiRISE landing-site studies.",
+    geology: "Geology tags and isolation are curated from landing-site workshop reports (Jezero, Gale, Oxia, Mawrth) and mid-latitude ice studies.",
+  },
+};
 
 export const DATA_SOURCES = [
-  { name: "LRO LOLA and Diviner", body: "Moon", use: "Topography, slopes and surface temperature" },
-  { name: "Mars Orbiter Laser Altimeter (MOLA)", body: "Mars", use: "Elevation and slopes" },
-  { name: "MRO HiRISE, CTX and CRISM", body: "Mars", use: "Geology, mineralogy and landing-site context" },
-  { name: "Mars 2020 and MSL rover results", body: "Mars", use: "Surface temperature, pressure and rock types" },
-  { name: "WorldClim and ERA5 climate normals", body: "Earth", use: "Temperature and precipitation" },
-  { name: "SRTM and USGS geology", body: "Earth", use: "Terrain and rock type" },
+  { name: "NASA POWER climatology (MERRA-2)", body: "Earth", use: "Measured: temperature, precipitation, pressure and wind per site and grid cell", measured: true },
+  { name: "Global DEM, SRTM-based (via OpenTopoData)", body: "Earth", use: "Measured: elevation and local relief per site and grid cell", measured: true },
+  { name: "NASA GIBS Blue Marble", body: "Earth", use: "Measured: base map imagery", measured: true },
+  { name: "LRO Diviner and LOLA", body: "Moon", use: "Reference table: surface temperature, relief and illumination", measured: false },
+  { name: "MSL REMS, InSight APSS, Mars 2020 MEDA", body: "Mars", use: "Reference table: temperature, pressure and wind", measured: false },
+  { name: "MOLA and HiRISE landing-site studies", body: "Mars", use: "Reference table: relief and geology", measured: false },
+  { name: "Published analog literature", body: "Earth", use: "Curated: geology tags, isolation, analog status", measured: false },
 ];

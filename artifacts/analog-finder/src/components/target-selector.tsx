@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { GEOLOGY_LABELS, TARGET_SITES, type Site } from "@/data/sites";
+import { GEOLOGY_LABELS, TARGET_REFERENCE, TARGET_SITES, type Site } from "@/data/sites";
 import { fmt } from "@/lib/analog-ui";
 import { cn } from "@/lib/utils";
 
@@ -85,6 +85,9 @@ export function TargetSelector({ target, onChange }: Props) {
               </div>
             ))}
           </div>
+          <p className="mt-2 text-[10px] leading-snug opacity-65" data-testid="text-target-reference">
+            Reference data (curated, indicative). {TARGET_REFERENCE[target.body as "moon" | "mars"].values}
+          </p>
           <div className="mt-2 flex flex-wrap gap-1">
             {target.geology.map((g) => (
               <span key={g} className="rounded-sm border border-secondary-foreground/25 px-1.5 py-0.5 text-[11px]">{GEOLOGY_LABELS[g]}</span>

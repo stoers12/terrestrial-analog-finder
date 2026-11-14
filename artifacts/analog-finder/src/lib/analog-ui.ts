@@ -1,5 +1,6 @@
 import type { AnalogStatus, Site } from "@/data/sites";
-import { DIMENSIONS, type Match } from "@/lib/similarity";
+import { DIMENSIONS, type DimensionKey, type DimensionScores, type Match } from "@/lib/similarity";
+import { GEOLOGY_LABELS } from "@/data/sites";
 
 /** Heat colour for a 0-100 score: cool slate at the bottom, signal orange at the top. */
 export function scoreColor(score: number, alpha = 1): string {
@@ -34,7 +35,63 @@ export const fmt = {
   mm: (m: number) => `${m} mm/yr`,
   lat: (l: number) => `${Math.abs(l).toFixed(1)}° ${l >= 0 ? "N" : "S"}`,
   ten: (n: number) => `${n}/10`,
+  wind: (w: number) => (w === 0 ? "none" : `${w} m/s`),
+  metres: (m: number) => `${m.toLocaleString("en-US")} m`,
 };
+
+const bodyName = (t: Site) => (t.body === "moon" ? "the Moon" : "Mars");
+
+export interface Rehearsal {
+  /** What a field team could test at this site, from the dimensions that match well */
+  tests: string[];
+  /** Where the analogy is weak or breaks, from the dimensions that match poorly */
+  gaps: string[];
+}
+
+/**
+ * Plain-language reading of a comparison, written from the actual per-dimension scores.
+ * Dimensions missing from `dims` (not measurable for grid cells) are skipped.
+ */
+export function rehearsal(target: Site, site: Site, dims: Partial<DimensionScores>, sharedGeology: string[] = [], missingGeology: string[] = []): Rehearsal {
+  const tests: string[] = [];
+  const gaps: string[] = [];
+  const pct = (k: DimensionKey) => `${Math.round((dims[k] ?? 0) * 100)}%`;
+  const has = (k: DimensionKey) => dims[k] !== undefined;
+  const where = bodyName(target);
+
+  if (has("thermal")) {
+    if ((dims.thermal ?? 0) >= 0.65)
+      tests.push(`Cold-soak batteries, seals and suits: coldest-month nights average ${fmt.temp(site.minTempC)} here against ${fmt.temp(target.minTempC)} on ${where} (temperature match ${pct("thermal")}).`);
+    else
+      gaps.push(`Temperature: nights here average ${fmt.temp(site.minTempC)} but ${fmt.temp(target.minTempC)} on ${where} (match ${pct("thermal")}), so thermal hardware cannot be stress-tested to mission limits.`);
+  }
+  if (has("atmosphere")) {
+    if ((dims.atmosphere ?? 0) >= 0.55)
+      tests.push(`Thin, dry-air operations: ${fmt.kpa(site.pressureKpa)} and ${fmt.mm(site.precipMm)} suit corrosion, sensor-drift and ice-sublimation trials (air and water match ${pct("atmosphere")}).`);
+    else
+      gaps.push(`Air and water: ${fmt.kpa(site.pressureKpa)} and ${fmt.mm(site.precipMm)} against ${fmt.kpa(target.pressureKpa)} and ${fmt.mm(target.precipMm)} on ${where} (match ${pct("atmosphere")}).`);
+  }
+  if (has("terrain")) {
+    if ((dims.terrain ?? 0) >= 0.7)
+      tests.push(`Mobility and navigation drills: ${site.measured ? `${fmt.metres(site.measured.reliefM)} of relief within about 15 km` : "similar relief"} gives terrain close to the target's (match ${pct("terrain")}).`);
+    else
+      gaps.push(`Terrain: relief of ${fmt.ten(site.ruggedness)} against ${fmt.ten(target.ruggedness)} on ${where}, so rover mobility results would not transfer directly (match ${pct("terrain")}).`);
+  }
+  if (has("dust")) {
+    if ((dims.dust ?? 0) >= 0.65)
+      tests.push(`Dust and abrasion: mean wind ${fmt.wind(site.windMs)} with ${fmt.mm(site.precipMm)} lets crews test seals, filters and panel soiling (match ${pct("dust")}).`);
+    else
+      gaps.push(`Wind and dust: mean wind ${fmt.wind(site.windMs)} against ${fmt.wind(target.windMs)} on ${where} (match ${pct("dust")}).`);
+  }
+  if (has("light") && (dims.light ?? 0) < 0.5)
+    gaps.push(`Sun geometry: latitude ${fmt.lat(site.lat)} against ${fmt.lat(target.lat)}, so shadows and power-generation angles will differ (match ${pct("light")}).`);
+  else if (has("light") && Math.abs(target.lat) > 65 && Math.abs(site.lat) > 65)
+    tests.push(`Low-sun operations: both sit at high latitude, so long shadows and solar-panel pointing can be rehearsed (match ${pct("light")}).`);
+
+  if (sharedGeology.length) tests.push(`Sample and drill on shared settings: ${sharedGeology.map((g) => GEOLOGY_LABELS[g as keyof typeof GEOLOGY_LABELS] ?? g).join(", ")}.`);
+  if (missingGeology.length) gaps.push(`Geology: no ${missingGeology.map((g) => (GEOLOGY_LABELS[g as keyof typeof GEOLOGY_LABELS] ?? g).toLowerCase()).join(", ")} here.`);
+  return { tests, gaps };
+}
 
 export function explain(target: Site, m: Match): string[] {
   const dims = [...DIMENSIONS].sort((a, b) => m.dimensions[b.key] - m.dimensions[a.key]);

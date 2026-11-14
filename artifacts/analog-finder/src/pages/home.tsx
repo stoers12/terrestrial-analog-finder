@@ -1,7 +1,13 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { TARGET_SITES, type AnalogStatus } from "@/data/sites";
-import { DEFAULT_WEIGHTS, rankAnalogs, type DimensionKey, type Weights } from "@/lib/similarity";
+import { Loader2, TriangleAlert } from "lucide-react";
+import { TARGET_SITES, type AnalogStatus, type Site } from "@/data/sites";
+import { useEarthSites, useGrid } from "@/hooks/use-earth-sites";
+import { cellKey, findDiscoveries, scoreGrid } from "@/lib/discoveries";
+import { Discoveries } from "@/components/discoveries";
+import { DiscoveryDetail } from "@/components/discovery-detail";
+import { Button } from "@/components/ui/button";
+import { DEFAULT_WEIGHTS, DIMENSIONS, rankAnalogs, type DimensionKey, type Weights } from "@/lib/similarity";
 import { TargetSelector } from "@/components/target-selector";
 import { AnalogMap } from "@/components/analog-map";
 import { RankedList } from "@/components/ranked-list";
@@ -22,6 +28,35 @@ const FILTERS: { id: Filter; label: string }[] = [
 ];
 
 export default function Home() {
+  const { sites, isLoading, error, refetch } = useEarthSites();
+  if (!sites) {
+    return (
+      <div className="grid min-h-[100dvh] place-items-center bg-secondary p-6 text-secondary-foreground" data-testid="status-loading-sites">
+        <div className="max-w-sm text-center">
+          {error ? (
+            <>
+              <TriangleAlert className="mx-auto h-7 w-7 text-primary" />
+              <div className="font-display mt-3 text-xl font-bold">Could not load measured data</div>
+              <p className="mt-1 text-sm opacity-80">{error.message}</p>
+              <Button className="mt-4" onClick={() => refetch()} data-testid="button-retry">Try again</Button>
+            </>
+          ) : (
+            <>
+              <Loader2 className="mx-auto h-7 w-7 animate-spin text-primary" />
+              <div className="font-mono mt-3 text-[11px] uppercase tracking-[0.3em] opacity-70">
+                {isLoading ? "Measuring Earth sites" : "Loading"}
+              </div>
+              <p className="mt-2 text-sm opacity-80">Pulling climate from NASA POWER and elevation from a global terrain model. The first visit can take a few seconds.</p>
+            </>
+          )}
+        </div>
+      </div>
+    );
+  }
+  return <HomeLoaded earthSites={sites} />;
+}
+
+function HomeLoaded({ earthSites }: { earthSites: Site[] }) {
   const [targetId, setTargetId] = useState(TARGET_SITES[0].id);
   const [weights, setWeights] = useState<Weights>(DEFAULT_WEIGHTS);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -29,12 +64,20 @@ export default function Home() {
   const [minScore, setMinScore] = useState(0);
 
   const target = TARGET_SITES.find((t) => t.id === targetId) ?? TARGET_SITES[0];
-  const ranked = useMemo(() => rankAnalogs(target, weights), [target, weights]);
+  const ranked = useMemo(() => rankAnalogs(target, weights, earthSites), [target, weights, earthSites]);
   const withRank = useMemo(() => ranked.map((match, i) => ({ match, rank: i + 1 })), [ranked]);
   const visible = useMemo(
     () => withRank.filter(({ match }) => (filter === "all" || match.site.status === filter) && match.score >= minScore),
     [withRank, filter, minScore],
   );
+
+  const [selectedCell, setSelectedCell] = useState<string | null>(null);
+  const [showHeat, setShowHeat] = useState(true);
+  const grid = useGrid();
+  const cells = grid.data?.cells;
+  const scored = useMemo(() => (cells ? scoreGrid(target, cells, weights) : null), [cells, target, weights]);
+  const discoveries = useMemo(() => (scored ? findDiscoveries(scored, earthSites) : []), [scored, earthSites]);
+  const activeDiscovery = discoveries.findIndex((d) => cellKey(d.cell) === selectedCell);
 
   const effectiveId = selectedId ?? visible[0]?.match.site.id ?? ranked[0]?.site.id ?? null;
   const selected = withRank.find((r) => r.match.site.id === effectiveId) ?? null;
@@ -42,6 +85,11 @@ export default function Home() {
   const changeTarget = (id: string) => {
     setTargetId(id);
     setSelectedId(null);
+    setSelectedCell(null);
+  };
+  const pickSite = (id: string) => {
+    setSelectedId(id);
+    setSelectedCell(null);
   };
 
   return (
@@ -68,7 +116,7 @@ export default function Home() {
             We cannot go yet. <span className="text-body-accent">Where on Earth</span> should we rehearse?
           </h1>
           <p className="mt-2 max-w-2xl text-sm text-muted-foreground md:text-base">
-            Pick a Moon or Mars base site. {ranked.length} Earth field sites are ranked live on six dimensions, including candidates no analog programme uses yet.
+            Pick a Moon or Mars base site. {ranked.length} Earth field sites are ranked live on {DIMENSIONS.length} dimensions using measured NASA POWER climate and terrain data, and a global grid search looks for places nobody has catalogued.
           </p>
         </motion.div>
 
@@ -76,12 +124,41 @@ export default function Home() {
 
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
           <div className="min-w-0 space-y-6">
-            <AnalogMap matches={visible} selectedId={effectiveId} onSelect={setSelectedId} />
-            <SiteDetail target={target} match={selected?.match ?? null} rank={selected?.rank ?? 0} />
+            <AnalogMap
+              matches={visible}
+              selectedId={selectedCell ? null : effectiveId}
+              onSelect={pickSite}
+              heat={scored}
+              cellSizeDeg={grid.data?.status.cellSizeDeg ?? 4}
+              showHeat={showHeat}
+              onToggleHeat={setShowHeat}
+              discoveries={discoveries}
+              selectedCellKey={selectedCell}
+              onSelectCell={setSelectedCell}
+            />
+            {activeDiscovery >= 0 && grid.data ? (
+              <DiscoveryDetail
+                target={target}
+                discovery={discoveries[activeDiscovery]}
+                rank={activeDiscovery + 1}
+                climateSource={grid.data.climateSource}
+                elevationSource={grid.data.elevationSource}
+                cellSizeDeg={grid.data.status.cellSizeDeg}
+              />
+            ) : (
+              <SiteDetail target={target} match={selected?.match ?? null} rank={selected?.rank ?? 0} />
+            )}
           </div>
 
           <aside className="space-y-4">
-            <BestNew ranked={ranked} onSelect={(id) => setSelectedId(id)} />
+            <BestNew ranked={ranked} onSelect={pickSite} />
+            <Discoveries
+              discoveries={discoveries}
+              progress={grid.data?.status ?? null}
+              loadError={grid.error as Error | null}
+              selectedKey={selectedCell}
+              onSelect={setSelectedCell}
+            />
             <section className="rounded-md border border-foreground/15 bg-card/60 p-3">
               <div className="mb-3 flex items-baseline justify-between px-1">
                 <h3 className="font-display text-lg font-bold">Ranking</h3>
@@ -110,7 +187,7 @@ export default function Home() {
                 <RankedList
                   items={visible}
                   selectedId={effectiveId}
-                  onSelect={setSelectedId}
+                  onSelect={pickSite}
                   targetKey={target.id}
                   onClearFilters={() => {
                     setFilter("all");
@@ -128,12 +205,14 @@ export default function Home() {
         </div>
 
         <CoverageMatrix
+          earthSites={earthSites}
           weights={weights}
           targetId={target.id}
           selectedId={effectiveId}
           onPick={(t, s) => {
             setTargetId(t);
             setSelectedId(s);
+            setSelectedCell(null);
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
         />
@@ -141,8 +220,10 @@ export default function Home() {
 
       <footer className="border-t border-foreground/10">
         <div className="mx-auto flex max-w-[1500px] flex-wrap justify-between gap-2 px-4 py-5 text-xs text-muted-foreground md:px-6">
-          <span>Built for the NASA Space Apps Challenge 2026. Uses open NASA and partner-agency data.</span>
-          <span className="font-mono">Indicative values · not survey-grade</span>
+          <span>
+            Built for the NASA Space Apps Challenge 2026. Earth climate from NASA POWER, terrain from a global DEM, imagery from NASA GIBS. Moon and Mars values are a curated reference table.
+          </span>
+          <span className="font-mono">Measured Earth data · reference Moon/Mars data</span>
         </div>
       </footer>
     </div>

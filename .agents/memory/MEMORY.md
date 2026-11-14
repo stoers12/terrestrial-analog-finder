@@ -1,0 +1,1 @@
+- [Data honesty rule](data-sources-gotchas.md) — measured vs reference vs editorial labelling; UI definitions must match the calculation

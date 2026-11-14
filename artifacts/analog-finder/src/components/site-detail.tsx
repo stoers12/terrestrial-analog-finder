@@ -2,8 +2,8 @@ import { useEffect, useRef } from "react";
 import { motion, AnimatePresence, animate } from "framer-motion";
 import { Check, ShieldAlert, X } from "lucide-react";
 import { GEOLOGY_LABELS, type Site } from "@/data/sites";
-import { DIMENSIONS, type Match } from "@/lib/similarity";
-import { explain, fmt, limits, scoreColor, STATUS_HINT, STATUS_LABEL, verdict } from "@/lib/analog-ui";
+import { DIMENSIONS, type Dimension, type DimensionScores, type Match } from "@/lib/similarity";
+import { explain, fmt, limits, rehearsal, scoreColor, STATUS_HINT, STATUS_LABEL, verdict } from "@/lib/analog-ui";
 import { cn } from "@/lib/utils";
 
 function CountUp({ value }: { value: number }) {
@@ -23,24 +23,24 @@ function CountUp({ value }: { value: number }) {
   return <span ref={ref}>{value.toFixed(1)}</span>;
 }
 
-function Radar({ match }: { match: Match }) {
+export function Radar({ dimensions = DIMENSIONS, values }: { dimensions?: Dimension[]; values: Partial<DimensionScores> }) {
   const R = 92;
   const cx = 130;
   const cy = 120;
-  const n = DIMENSIONS.length;
+  const n = dimensions.length;
   const pt = (i: number, r: number) => {
     const a = (Math.PI * 2 * i) / n - Math.PI / 2;
     return [cx + Math.cos(a) * r, cy + Math.sin(a) * r];
   };
   const path = (vals: number[]) =>
     vals.map((v, i) => pt(i, Math.max(0.02, v) * R)).map(([x, y], i) => `${i ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`).join(" ") + " Z";
-  const vals = DIMENSIONS.map((d) => match.dimensions[d.key]);
+  const vals = dimensions.map((d) => values[d.key] ?? 0);
   return (
     <svg viewBox="0 0 260 240" className="w-full max-w-[300px]" data-testid="chart-radar">
       {[0.25, 0.5, 0.75, 1].map((r) => (
         <path key={r} d={path(Array(n).fill(r))} fill="none" stroke="hsl(var(--foreground) / .14)" strokeDasharray={r === 1 ? "" : "2 3"} />
       ))}
-      {DIMENSIONS.map((d, i) => {
+      {dimensions.map((d, i) => {
         const [x, y] = pt(i, R);
         const [lx, ly] = pt(i, R + 18);
         return (
@@ -85,13 +85,15 @@ export function SiteDetail({ target, match, rank }: Props) {
   }
   const e = match.site;
   const v = verdict(match.score);
+  const reh = rehearsal(target, e, match.dimensions, match.sharedGeology, match.missingGeology);
   const rows: [string, string, string, number?][] = [
     ["Mean temperature", fmt.temp(target.meanTempC), fmt.temp(e.meanTempC)],
-    ["Coldest night", fmt.temp(target.minTempC), fmt.temp(e.minTempC)],
+    ["Coldest-month night", fmt.temp(target.minTempC), fmt.temp(e.minTempC)],
     ["Surface pressure", fmt.kpa(target.pressureKpa), fmt.kpa(e.pressureKpa)],
     ["Precipitation", fmt.mm(target.precipMm), fmt.mm(e.precipMm)],
-    ["Relief", fmt.ten(target.ruggedness), fmt.ten(e.ruggedness)],
-    ["Isolation", fmt.ten(target.isolation), fmt.ten(e.isolation)],
+    ["Wind (mean)", fmt.wind(target.windMs), fmt.wind(e.windMs)],
+    ["Relief", fmt.ten(target.ruggedness), `${fmt.ten(e.ruggedness)}${e.measured ? ` (${fmt.metres(e.measured.reliefM)})` : ""}`],
+    ["Isolation", fmt.ten(target.isolation), `${fmt.ten(e.isolation)} (est.)`],
     ["Latitude", fmt.lat(target.lat), fmt.lat(e.lat)],
   ];
   return (
@@ -131,7 +133,7 @@ export function SiteDetail({ target, match, rank }: Props) {
 
         <div className="grid gap-6 p-5 md:grid-cols-[300px_minmax(0,1fr)]">
           <div>
-            <Radar match={match} />
+            <Radar values={match.dimensions} />
             <div className="mt-2 space-y-1.5">
               {DIMENSIONS.map((d, i) => (
                 <div key={d.key} className="flex items-center gap-2 text-xs">
@@ -185,6 +187,28 @@ export function SiteDetail({ target, match, rank }: Props) {
             <div className="space-y-2 text-sm leading-relaxed">
               {explain(target, match).map((p, i) => <p key={i}>{p}</p>)}
             </div>
+
+            <div className="grid gap-3 sm:grid-cols-2" data-testid="panel-rehearsal">
+              <div className="rounded-sm border-l-2 border-secondary bg-muted/50 px-3 py-2">
+                <div className="mb-1 text-xs font-semibold uppercase tracking-wider">What a team could test here</div>
+                <ul className="list-disc space-y-1 pl-4 text-xs text-muted-foreground">
+                  {reh.tests.length ? reh.tests.map((t, i) => <li key={i}>{t}</li>) : <li>Nothing matches strongly enough to recommend as a rehearsal.</li>}
+                </ul>
+              </div>
+              <div className="rounded-sm border-l-2 border-primary bg-muted/50 px-3 py-2">
+                <div className="mb-1 text-xs font-semibold uppercase tracking-wider">Where the analogy breaks</div>
+                <ul className="list-disc space-y-1 pl-4 text-xs text-muted-foreground">
+                  {reh.gaps.length ? reh.gaps.map((t, i) => <li key={i}>{t}</li>) : <li>No dimension is clearly weak for this pairing.</li>}
+                </ul>
+              </div>
+            </div>
+
+            {e.measured && (
+              <p className="text-[11px] text-muted-foreground" data-testid="text-provenance">
+                Measured values: {e.measured.climateSource}; {e.measured.elevationSource}. Fetched {new Date(e.measured.fetchedAt).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}.
+                Isolation and geology tags are editorial estimates.
+              </p>
+            )}
           </div>
         </div>
 

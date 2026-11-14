@@ -1,4 +1,4 @@
-import { EARTH_SITES, type GeologyTag, type Site } from "@/data/sites";
+import { reliefToRuggedness, type GeologyTag, type Site } from "@/data/sites";
 
 export type DimensionKey =
   | "thermal"
@@ -6,6 +6,7 @@ export type DimensionKey =
   | "geology"
   | "terrain"
   | "light"
+  | "dust"
   | "isolation";
 
 export interface Dimension {
@@ -41,6 +42,11 @@ export const DIMENSIONS: Dimension[] = [
     description: "Latitude, which sets how the Sun moves across the sky",
   },
   {
+    key: "dust",
+    label: "Wind and dust",
+    description: "Mean wind speed and aridity, which drive dust lofting and abrasion",
+  },
+  {
     key: "isolation",
     label: "Isolation",
     description: "Remoteness from infrastructure and rescue",
@@ -55,8 +61,12 @@ export const DEFAULT_WEIGHTS: Weights = {
   geology: 5,
   terrain: 2,
   light: 2,
+  dust: 2,
   isolation: 1,
 };
+
+/** Dimensions that can be measured for any point on Earth, so the global grid can score them. */
+export const MEASURABLE_DIMENSIONS: DimensionKey[] = ["thermal", "atmosphere", "terrain", "light", "dust"];
 
 export type DimensionScores = Record<DimensionKey, number>;
 
@@ -107,6 +117,14 @@ function lightScore(a: Site, b: Site): number {
   return 1 - clamp01(Math.abs(Math.abs(a.lat) - Math.abs(b.lat)) / 90);
 }
 
+function dustScore(a: Site, b: Site): number {
+  const wind = 1 - clamp01(Math.abs(a.windMs - b.windMs) / 10);
+  // Aridity: 1 for no rain at all, falling to 0 at 600 mm/yr.
+  const arid = (p: number) => 1 - clamp01(p / 600);
+  const dry = 1 - Math.abs(arid(a.precipMm) - arid(b.precipMm));
+  return 0.6 * wind + 0.4 * dry;
+}
+
 function isolationScore(a: Site, b: Site): number {
   return 1 - clamp01(Math.abs(a.isolation - b.isolation) / 10);
 }
@@ -119,6 +137,7 @@ export function compareSites(target: Site, earth: Site, weights: Weights): Match
     geology: geo.score,
     terrain: terrainScore(target, earth),
     light: lightScore(target, earth),
+    dust: dustScore(target, earth),
     isolation: isolationScore(target, earth),
   };
   let total = 0;
@@ -137,10 +156,79 @@ export function compareSites(target: Site, earth: Site, weights: Weights): Match
   };
 }
 
-export function rankAnalogs(target: Site, weights: Weights, earthSites: Site[] = EARTH_SITES): Match[] {
+export function rankAnalogs(target: Site, weights: Weights, earthSites: Site[]): Match[] {
   return earthSites
     .map((e) => compareSites(target, e, weights))
     .sort((a, b) => b.score - a.score);
+}
+
+export interface GridCellData {
+  lat: number;
+  lon: number;
+  elevationM: number;
+  reliefM: number;
+  tMeanC: number;
+  tMinC: number;
+  precipMm: number;
+  pressureKpa: number;
+  windMs: number;
+}
+
+export interface CellMatch {
+  cell: GridCellData;
+  site: Site;
+  /** Weighted similarity over the measurable dimensions only, 0 to 100 */
+  score: number;
+  /** Per-dimension similarity, 0 to 1, for the measurable dimensions */
+  dimensions: Partial<DimensionScores>;
+}
+
+export function cellToSite(cell: GridCellData): Site {
+  const ns = cell.lat >= 0 ? "N" : "S";
+  const ew = cell.lon >= 0 ? "E" : "W";
+  return {
+    id: `cell-${cell.lat}-${cell.lon}`,
+    name: `${Math.abs(cell.lat).toFixed(0)}° ${ns}, ${Math.abs(cell.lon).toFixed(0)}° ${ew}`,
+    body: "earth",
+    region: "Grid cell centre",
+    lat: cell.lat,
+    lon: cell.lon,
+    meanTempC: Math.round(cell.tMeanC * 10) / 10,
+    minTempC: Math.round(cell.tMinC * 10) / 10,
+    precipMm: Math.round(cell.precipMm),
+    pressureKpa: Math.round(cell.pressureKpa * 10) / 10,
+    windMs: Math.round(cell.windMs * 10) / 10,
+    geology: [],
+    ruggedness: Math.round(reliefToRuggedness(cell.reliefM) * 10) / 10,
+    isolation: 0,
+    summary: "",
+    measured: {
+      elevationM: Math.round(cell.elevationM),
+      reliefM: Math.round(cell.reliefM),
+      climateSource: "",
+      elevationSource: "",
+      fetchedAt: "",
+    },
+  };
+}
+
+/** Score one grid cell using only what can be measured everywhere (no geology, no isolation). */
+export function scoreCell(target: Site, cell: GridCellData, weights: Weights): CellMatch {
+  const site = cellToSite(cell);
+  const all: Partial<DimensionScores> = {
+    thermal: thermalScore(target, site),
+    atmosphere: atmosphereScore(target, site),
+    terrain: terrainScore(target, site),
+    light: lightScore(target, site),
+    dust: dustScore(target, site),
+  };
+  let total = 0;
+  let weightSum = 0;
+  for (const k of MEASURABLE_DIMENSIONS) {
+    total += (all[k] ?? 0) * weights[k];
+    weightSum += weights[k];
+  }
+  return { cell, site, score: weightSum === 0 ? 0 : (total / weightSum) * 100, dimensions: all };
 }
 
 /** Great-circle distance in km, used for "how far is the nearest analog from X" style hints. */

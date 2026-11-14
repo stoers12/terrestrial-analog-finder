@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: measurements
+    description: Measured Earth climate and terrain data
 paths:
   /healthz:
     get:
@@ -24,8 +26,171 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /measurements:
+    post:
+      operationId: measureSites
+      tags: [measurements]
+      summary: Measured climate and terrain for a list of points
+      description: >
+        Returns NASA POWER climatology and DEM-derived elevation and relief for each
+        point. Results are cached in the database; uncached points are fetched live.
+        Fails with 502 if an upstream source cannot supply a value.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MeasureRequest"
+      responses:
+        "200":
+          description: Measured points
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MeasureResponse"
+        "502":
+          description: An upstream data source failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /grid:
+    get:
+      operationId: getGrid
+      tags: [measurements]
+      summary: Global land grid with measured values
+      description: >
+        Every land cell of a coarse global grid that has been measured so far, plus the
+        progress of the background job that fills the grid.
+      responses:
+        "200":
+          description: Grid cells and job status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GridResponse"
 components:
   schemas:
+    MeasurePoint:
+      type: object
+      properties:
+        id:
+          type: string
+        lat:
+          type: number
+        lon:
+          type: number
+      required: [id, lat, lon]
+    MeasureRequest:
+      type: object
+      properties:
+        points:
+          type: array
+          maxItems: 60
+          items:
+            $ref: "#/components/schemas/MeasurePoint"
+      required: [points]
+    MeasuredValues:
+      type: object
+      properties:
+        elevationM:
+          type: number
+          description: Terrain elevation at the point, metres
+        reliefM:
+          type: number
+          description: Highest minus lowest elevation in a small ring around the point, metres
+        tMeanC:
+          type: number
+          description: Annual mean 2 m air temperature, degrees C
+        tMinC:
+          type: number
+          description: Mean daily minimum temperature of the coldest month, degrees C
+        precipMm:
+          type: number
+          description: Annual precipitation, mm
+        pressureKpa:
+          type: number
+          description: Annual mean surface pressure, kPa
+        windMs:
+          type: number
+          description: Annual mean 10 m wind speed, m/s
+      required: [elevationM, reliefM, tMeanC, tMinC, precipMm, pressureKpa, windMs]
+    MeasuredPoint:
+      allOf:
+        - $ref: "#/components/schemas/MeasuredValues"
+        - type: object
+          properties:
+            id:
+              type: string
+            lat:
+              type: number
+            lon:
+              type: number
+            climateSource:
+              type: string
+            elevationSource:
+              type: string
+            fetchedAt:
+              type: string
+          required: [id, lat, lon, climateSource, elevationSource, fetchedAt]
+    MeasureResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/MeasuredPoint"
+      required: [results]
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required: [error]
+    GridCell:
+      allOf:
+        - $ref: "#/components/schemas/MeasuredValues"
+        - type: object
+          properties:
+            lat:
+              type: number
+            lon:
+              type: number
+          required: [lat, lon]
+    GridStatus:
+      type: object
+      properties:
+        phase:
+          type: string
+          enum: [idle, land-mask, climate, done, error]
+        cellSizeDeg:
+          type: number
+        cellsTotal:
+          type: integer
+        landCells:
+          type: integer
+        measured:
+          type: integer
+        failed:
+          type: integer
+        error:
+          type: string
+          nullable: true
+      required: [phase, cellSizeDeg, cellsTotal, landCells, measured, failed, error]
+    GridResponse:
+      type: object
+      properties:
+        status:
+          $ref: "#/components/schemas/GridStatus"
+        climateSource:
+          type: string
+        elevationSource:
+          type: string
+        cells:
+          type: array
+          items:
+            $ref: "#/components/schemas/GridCell"
+      required: [status, climateSource, elevationSource, cells]
     HealthStatus:
       type: object
       properties:

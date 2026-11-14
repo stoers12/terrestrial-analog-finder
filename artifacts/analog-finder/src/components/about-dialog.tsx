@@ -19,9 +19,13 @@ export function AboutDialog() {
         </DialogHeader>
         <div className="space-y-5 text-sm leading-relaxed">
           <p>
-            Each Earth site is compared to the chosen Moon or Mars site on six dimensions. Each dimension produces a similarity between 0 and 1. The overall score is the weighted
-            average of the six, scaled to 0-100. Pressure and precipitation are compared on a log scale, so 85 versus 90 kPa is close but 0.7 versus 90 kPa is far. Geology rewards
-            covering the target's settings more than it penalises extra Earth features.
+            Each Earth site is compared to the chosen Moon or Mars site on seven dimensions. Each dimension produces a similarity between 0 and 1. The overall score is the weighted
+            average of the seven, scaled to 0-100. Pressure and precipitation are compared on a log scale, so 85 versus 90 kPa is close but 0.7 versus 90 kPa is far. Geology rewards
+            covering the target's settings more than it penalises extra Earth features. Wind and dust combines mean wind speed (60%) with aridity from annual rainfall (40%).
+          </p>
+          <p>
+            The global search scores every land cell of a 4° grid with the same functions but only on the five dimensions that can be measured everywhere: temperature, air and water, terrain,
+            sun geometry, and wind and dust. Geology and isolation are skipped because no global layer for them is loaded, so a high-scoring cell is a lead to investigate, not a confirmed analog.
           </p>
           <div className="grid gap-2 sm:grid-cols-2">
             {DIMENSIONS.map((d) => (
@@ -37,17 +41,20 @@ export function AboutDialog() {
               {DATA_SOURCES.map((s) => (
                 <li key={s.name} className="flex flex-wrap justify-between gap-2 px-3 py-2">
                   <span className="font-medium">{s.name}</span>
-                  <span className="text-xs text-muted-foreground"><span className="font-mono">{s.body}</span> · {s.use}</span>
+                  <span className="text-xs text-muted-foreground">
+                    <span className={s.measured ? "font-mono font-semibold text-foreground" : "font-mono"}>{s.measured ? "measured" : "reference"}</span> · <span className="font-mono">{s.body}</span> · {s.use}
+                  </span>
                 </li>
               ))}
             </ul>
           </div>
           <p className="rounded-sm border-l-2 border-primary bg-primary/10 px-3 py-2">
-            Honesty note: site values are indicative figures compiled from published mission and climate summaries. They are good enough to rank sites against each other, not
-            survey-grade. A production version would ingest the raster datasets above directly and sample them per site. No Earth site can reproduce lunar or Martian air pressure,
-            gravity or radiation; the scores measure how good a rehearsal is, not an equivalence.
+            Honesty note: for Earth, temperature, precipitation, pressure and wind are 2001-2025 NASA POWER climatology (MERRA-2, about 50 km resolution, so mountain sites are smoothed), and relief
+            is measured from a global terrain model within about 15 km. "Coldest-month night" is the mean daily minimum of the coldest month, not the single coldest night. Moon and Mars values are
+            a curated reference table rounded from published mission results; they are indicative, not survey-grade, and large rasters such as LOLA, MOLA and HiRISE are not ingested. Geology tags, isolation
+            scores and analog status are editorial judgments. No Earth site can reproduce lunar or Martian air pressure, gravity or radiation; the scores measure how good a rehearsal is, not an equivalence.
           </p>
-          <p className="text-xs text-muted-foreground">Built for the NASA Space Apps Challenge 2026 using open NASA and partner-agency data.</p>
+          <p className="text-xs text-muted-foreground">Built for the NASA Space Apps Challenge 2026. Earth data from NASA POWER, a global DEM and NASA GIBS imagery.</p>
         </div>
       </DialogContent>
     </Dialog>

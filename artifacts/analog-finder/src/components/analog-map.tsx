@@ -1,14 +1,23 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { MapContainer, Marker, TileLayer, Tooltip, useMap } from "react-leaflet";
+import { MapContainer, Marker, Rectangle, TileLayer, Tooltip, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import type { Match } from "@/lib/similarity";
+import type { CellMatch, Match } from "@/lib/similarity";
+import { cellKey, type Discovery } from "@/lib/discoveries";
 import { scoreColor, STATUS_LABEL } from "@/lib/analog-ui";
 
 interface Props {
   matches: { match: Match; rank: number }[];
   selectedId: string | null;
   onSelect: (id: string) => void;
+  /** Scored grid cells for the heat layer; null while the grid is unavailable */
+  heat: CellMatch[] | null;
+  cellSizeDeg: number;
+  showHeat: boolean;
+  onToggleHeat: (v: boolean) => void;
+  discoveries: Discovery[];
+  selectedCellKey: string | null;
+  onSelectCell: (key: string) => void;
 }
 
 function FlyTo({ lat, lon }: { lat?: number; lon?: number }) {
@@ -25,9 +34,27 @@ function FlyTo({ lat, lon }: { lat?: number; lon?: number }) {
   return null;
 }
 
-export function AnalogMap({ matches, selectedId, onSelect }: Props) {
+export function AnalogMap({ matches, selectedId, onSelect, heat, cellSizeDeg, showHeat, onToggleHeat, discoveries, selectedCellKey, onSelectCell }: Props) {
   const [ready, setReady] = useState(false);
-  const selected = matches.find((m) => m.match.site.id === selectedId)?.match.site;
+  const selectedSite = matches.find((m) => m.match.site.id === selectedId)?.match.site;
+  const selectedDisc = discoveries.find((d) => cellKey(d.cell) === selectedCellKey);
+  const focus = selectedCellKey ? selectedDisc?.cell : selectedSite;
+
+  const discMarkers = useMemo(
+    () =>
+      discoveries.map((d, i) => {
+        const sel = cellKey(d.cell) === selectedCellKey;
+        const size = sel ? 30 : 24;
+        const icon = L.divIcon({
+          className: "mk-wrap",
+          iconSize: [size, size],
+          iconAnchor: [size / 2, size / 2],
+          html: `<div style="width:${size}px;height:${size}px;display:grid;place-items:center;border-radius:4px;background:hsl(var(--primary));color:hsl(var(--primary-foreground));font:700 11px var(--app-font-mono, monospace);border:2px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,.45);transform:rotate(45deg)"><span style="transform:rotate(-45deg)">D${i + 1}</span></div>`,
+        });
+        return { d, i, icon };
+      }),
+    [discoveries, selectedCellKey],
+  );
 
   const markers = useMemo(
     () =>
@@ -53,6 +80,7 @@ export function AnalogMap({ matches, selectedId, onSelect }: Props) {
         zoom={2}
         minZoom={2}
         worldCopyJump
+        preferCanvas
         scrollWheelZoom
         className="h-full w-full"
         whenReady={() => setTimeout(() => setReady(true), 250)}
@@ -63,6 +91,32 @@ export function AnalogMap({ matches, selectedId, onSelect }: Props) {
           maxNativeZoom={8}
           maxZoom={8}
         />
+        {showHeat &&
+          heat?.map((h) => (
+            <Rectangle
+              key={cellKey(h.cell)}
+              bounds={[
+                [h.cell.lat - cellSizeDeg / 2, h.cell.lon - cellSizeDeg / 2],
+                [h.cell.lat + cellSizeDeg / 2, h.cell.lon + cellSizeDeg / 2],
+              ]}
+              pathOptions={{ stroke: false, fillColor: scoreColor(h.score), fillOpacity: 0.55 }}
+              eventHandlers={{ click: () => onSelectCell(cellKey(h.cell)) }}
+            />
+          ))}
+        {discMarkers.map(({ d, i, icon }) => (
+          <Marker
+            key={cellKey(d.cell)}
+            position={[d.cell.lat, d.cell.lon]}
+            icon={icon}
+            zIndexOffset={900}
+            eventHandlers={{ click: () => onSelectCell(cellKey(d.cell)) }}
+          >
+            <Tooltip direction="top" offset={[0, -12]} className="mk-tip">
+              <div className="font-semibold">D{i + 1} · {d.site.name}</div>
+              <div className="font-mono text-[11px] opacity-80">{d.score.toFixed(1)} · discovery</div>
+            </Tooltip>
+          </Marker>
+        ))}
         {markers.map(({ match, rank, icon }) => (
           <Marker
             key={match.site.id}
@@ -79,8 +133,13 @@ export function AnalogMap({ matches, selectedId, onSelect }: Props) {
             </Tooltip>
           </Marker>
         ))}
-        <FlyTo lat={selected?.lat} lon={selected?.lon} />
+        <FlyTo lat={focus?.lat} lon={focus?.lon} />
       </MapContainer>
+
+      <label className="absolute right-3 top-3 z-[500] flex cursor-pointer items-center gap-2 rounded-md border border-foreground/10 bg-card/90 px-3 py-2 text-xs shadow-lg backdrop-blur">
+        <input type="checkbox" checked={showHeat} onChange={(e) => onToggleHeat(e.target.checked)} data-testid="toggle-heat" className="h-3.5 w-3.5 accent-[hsl(var(--primary))]" />
+        Heat layer{heat ? ` (${heat.length} cells)` : ""}
+      </label>
 
       {/* Legend */}
       <div className="pointer-events-none absolute bottom-3 left-3 z-[500] rounded-md bg-card/90 p-3 text-[11px] shadow-lg backdrop-blur border border-foreground/10">
@@ -89,6 +148,7 @@ export function AnalogMap({ matches, selectedId, onSelect }: Props) {
           <span className="flex items-center gap-2"><i className="inline-block h-3 w-3 rounded-full border-2 border-foreground bg-muted" /> Established</span>
           <span className="flex items-center gap-2"><i className="inline-block h-3 w-3 rounded-full border-2 border-dashed border-foreground bg-muted" /> Emerging</span>
           <span className="flex items-center gap-2"><i className="inline-block h-2.5 w-2.5 rotate-45 border-2 border-primary bg-muted" /> Proposed new</span>
+          <span className="flex items-center gap-2"><i className="inline-block h-3 w-3 rotate-45 bg-primary" /> Grid discovery (D1, D2...)</span>
         </div>
         <div className="mt-3 mb-1 font-mono uppercase tracking-widest text-muted-foreground text-[10px]">Score</div>
         <div className="h-2 w-32 rounded-full" style={{ background: `linear-gradient(90deg, ${scoreColor(35)}, ${scoreColor(57)}, ${scoreColor(80)})` }} />

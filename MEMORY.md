@@ -1,0 +1,1 @@
+- [Data source gotchas](data-sources-gotchas.md) — tile/elevation/POWER quirks and measured-vs-reference honesty rules
