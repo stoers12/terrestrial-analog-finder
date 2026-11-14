@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Terrestrial Analog Finder"
+description = "An interactive map and comparison tool that matches candidate Moon and Mars base or landing sites to the Earth locations that best resemble them (terrain, temperature, aridity, geology, isolation), built for the NASA Space Apps Challenge 2026 analog-sites challenge."
+version = "1.0.0"
+id = "artifacts/analog-finder"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22716
+
+[services.development]
+run = "pnpm --filter @workspace/analog-finder run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/analog-finder", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/analog-finder/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22716"
+BASE_PATH = "/"

@@ -1,6 +1,6 @@
-# [Project name]
+# Terrestrial Analog Finder
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+NASA Space Apps 2026 entry: pick a Moon or Mars base/landing site and rank Earth sites by how well they analog it. Frontend-only app in `artifacts/analog-finder`; site data in `src/data/sites.ts` (indicative values), scoring in `src/lib/similarity.ts`.
 
 ## Run & Operate
 
