@@ -15,18 +15,5 @@ export const TARGETS: TargetSiteConfig[] = [
   { id: "mars-mawrth", body: "mars", lat: 22.3, lon: -16.5 },
 ];
 
-/**
- * Mars wind has no raster source: the rover wind records (MSL REMS, Mars 2020 MEDA) exist only at
- * Gale and Jezero. These typical annual-mean speeds are therefore kept as labelled reference values.
- */
-export const MARS_WIND_REFERENCE: Record<string, number> = {
-  "mars-jezero": 5,
-  "mars-gale": 4,
-  "mars-oxia": 5,
-  "mars-arcadia": 6,
-  "mars-arsia": 4,
-  "mars-mawrth": 5,
-};
-
 /** Two extra points used only to check the polar map orientation (Shoemaker crater, a known cold trap). */
 export const SHOEMAKER = { id: "check-shoemaker", lat: -88.1, lon: 44.9 };

@@ -87,7 +87,7 @@ export interface Site {
   precipMm: number;
   /** Surface atmospheric pressure, kPa (0 on the Moon, about 0.6 on Mars) */
   pressureKpa: number;
-  /** Annual mean near-surface wind speed, m/s (0 on the Moon) */
+  /** Near-surface wind speed, m/s; MCD model climatology on Mars, zero on the Moon */
   windMs: number;
   geology: GeologyTag[];
   /** Relief / slope difficulty, 0 (flat plain) to 10 (steep, broken terrain) */
@@ -593,7 +593,7 @@ export const TARGET_REFERENCE: Record<"moon" | "mars", { values: string; geology
   },
   mars: {
     values:
-      "Temperature from MRO Mars Climate Sounder profiles and elevation and relief from MGS MOLA, processed by the pipeline. Pressure is derived from elevation. Wind is a reference value: rover wind records exist only at Gale and Jezero.",
+      "Temperature from MRO Mars Climate Sounder profiles and elevation and relief from MGS MOLA, processed by the pipeline. Pressure is derived from elevation. Wind is a 10 m model climatology from the Mars Climate Database (MCD v6.2), averaged across its seasonal and local-time grid; it is not a rover measurement or forecast.",
     geology: "Geology tags and isolation are editorial, curated from landing-site workshop reports (Jezero, Gale, Oxia, Mawrth) and mid-latitude ice studies.",
   },
 };
@@ -606,7 +606,7 @@ export const KIND_LABEL: Record<ValueKind, string> = {
 
 export const KIND_HINT: Record<ValueKind, string> = {
   "raw-derived": "Computed by the pipeline from raw NASA files",
-  derived: "Calculated from another processed value with a stated formula (a model, not a measurement)",
+  derived: "Calculated from a model or another stated data source; not a direct measurement",
   reference: "A fixed value that is not computed from a raster",
 };
 
@@ -629,6 +629,6 @@ export const DATA_SOURCES = [
   { name: "MRO Mars Climate Sounder profiles", body: "Mars", use: "Processed by the pipeline: mean, coldest and warmest surface temperature", kind: "raw-derived" },
   { name: "MGS MOLA topography", body: "Mars", use: "Processed by the pipeline: elevation and relief", kind: "raw-derived" },
   { name: "Mars pressure model (0.61 kPa, 11.1 km scale height)", body: "Mars", use: "Derived from MOLA elevation", kind: "derived" },
-  { name: "Rover wind records (MSL REMS, Mars 2020 MEDA)", body: "Mars", use: "Reference: typical wind, not computed", kind: "reference" },
+  { name: "Mars Climate Database v6.2 GCM climatology", body: "Mars", use: "Modeled: 10 m horizontal wind averaged across seasonal and local-time samples", kind: "derived" },
   { name: "Published analog literature", body: "Earth", use: "Editorial: geology tags, isolation, analog status", kind: "editorial" },
 ] as const;

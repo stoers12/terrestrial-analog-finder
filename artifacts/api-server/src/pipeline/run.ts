@@ -10,12 +10,22 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { collectMcs, marsElevation, marsSiteValues, MCS_DAYS, MCS_RADIUS_KM, MCS_STEP_DAYS } from "./mars";
+import {
+  collectMcs,
+  collectMarsWind,
+  marsElevation,
+  marsSiteValues,
+  MCD_WIND_PRODUCT,
+  MCD_WIND_URL,
+  MCS_DAYS,
+  MCS_RADIUS_KM,
+  MCS_STEP_DAYS,
+} from "./mars";
 import { DIVINER_YEAR, moonTemps, processMoonSite } from "./moon";
 import { SHOEMAKER, TARGETS } from "./targets";
 import type { DatasetInfo, Snapshot, TargetValue, Variable } from "./types";
 
-export const PIPELINE_VERSION = 1;
+export const PIPELINE_VERSION = 2;
 
 const DATASETS: DatasetInfo[] = [
   {
@@ -78,12 +88,17 @@ const DATASETS: DatasetInfo[] = [
     steps: ["P = 0.61 kPa x exp(-h / 11.1 km), h = MOLA elevation", "A model, not a measurement"],
   },
   {
-    name: "Mars wind (rover records)",
+    name: MCD_WIND_PRODUCT,
     body: "Mars",
-    role: "Annual-mean wind speed at every Mars site",
-    url: "https://atmos.nmsu.edu/PDS/data/",
-    kind: "reference",
-    steps: ["Rover records exist only for Gale and Jezero, so a rounded typical value is kept and labelled as a reference"],
+    role: "Modeled near-surface wind at every Mars site",
+    url: MCD_WIND_URL,
+    kind: "derived",
+    steps: [
+      "Query horizontal wind speed at each site, 10 m above the local surface",
+      "Use the average-solar climatology scenario and the full 15° solar-longitude by 1-hour local-time grid",
+      "Exclude duplicate 360° solar-longitude and 24-hour local-time endpoints; average the remaining 576 model values",
+      "MCD is a global climate-model climatology, not a rover measurement or forecast",
+    ],
   },
 ];
 
@@ -152,8 +167,10 @@ async function main() {
     const b = mcs.perSite.get(s.id)!;
     log(`  ${s.id}: ${b.day.length} day and ${b.night.length} night MCS profiles within the search radius`);
   }
+  log("Mars: MCD v6.2 model wind climatology");
+  const wind = await collectMarsWind(marsSites, log);
   for (const s of marsSites) {
-    const v = marsSiteValues(s, elevations.get(s.id)!, mcs, processedAt);
+    const v = marsSiteValues(s, elevations.get(s.id)!, mcs, wind, processedAt);
     values.push(...v);
     log(`  ${s.id}: ${v.map((x) => `${x.variable}=${x.value}`).join(" ")}`);
   }

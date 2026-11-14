@@ -1,13 +1,16 @@
 import { MARS_RADIUS_M, cylPixel, offsetPoint, pixelIndex } from "./geo";
-import { httpGet, openRaster, readPixel, withRetry, type Raster } from "./raster";
+import { fetchText, httpGet, openRaster, readPixel, withRetry, type Raster } from "./raster";
 import { KELVIN, T_MAX_K, T_MIN_K, mean, round, tailMean } from "./stats";
-import { MARS_WIND_REFERENCE } from "./targets";
 import type { TargetSiteConfig, TargetValue } from "./types";
 
 const PDS = "https://pds-geosciences.wustl.edu";
 const MOLA = `${PDS}/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128`;
 const MCS = "https://atmos.nmsu.edu/PDS/data/MCSDDRV1";
+export const MCD_WIND_URL = "https://www-mars.lmd.jussieu.fr/mcd_python/";
+const MCD_CGI = `${MCD_WIND_URL}cgi-bin/mcdcgi.py`;
+const MCD_TXT = `${MCD_WIND_URL}txt/`;
 const FACT_SHEET = "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html";
+export const MCD_WIND_PRODUCT = "Mars Climate Database v6.2 GCM climatology (average solar scenario)";
 
 export const RING_M = 15_000;
 /** Reference surface pressure at the areoid and scale height (NASA Mars fact sheet). */
@@ -202,11 +205,98 @@ export async function collectMcs(sites: TargetSiteConfig[], log: (msg: string) =
   return res;
 }
 
-export function marsSiteValues(site: TargetSiteConfig, el: MarsElevation, mcs: McsResult, processedAt: string): TargetValue[] {
+export interface MarsWindResult {
+  perSite: Map<string, { meanMs: number; samples: number }>;
+}
+
+function parseMcdWindTable(text: string, siteId: string): { meanMs: number; samples: number } {
+  const lines = text.split(/\r?\n/);
+  const header = lines.find((line) => /^\s*-+\s*\|\|/.test(line));
+  if (!header) throw new Error(`${siteId}: MCD wind response has no local-time header`);
+  const hours = header.split("||")[1]?.trim().split(/\s+/).map(Number) ?? [];
+  if (hours.length !== 25 || hours.some((hour, i) => hour !== i)) {
+    throw new Error(`${siteId}: unexpected MCD local-time grid (${hours.length} columns)`);
+  }
+
+  const rows = lines.flatMap((line) => {
+    const match = /^\s*\+(\d+)\s*\|\|\s*(.*?)\s*$/.exec(line);
+    if (!match) return [];
+    const values = match[2].split(/\s+/).map(Number);
+    if (values.length !== 25 || values.some((value) => !Number.isFinite(value) || value < 0)) {
+      throw new Error(`${siteId}: invalid MCD wind row at Ls ${match[1]}`);
+    }
+    return [{ ls: Number(match[1]), values }];
+  });
+  if (rows.length !== 25 || rows.some((row, i) => row.ls !== i * 15)) {
+    throw new Error(`${siteId}: unexpected MCD seasonal grid (${rows.length} rows)`);
+  }
+
+  // The 360-degree seasonal and 24-hour local-time entries duplicate the 0-degree/0-hour edges.
+  const values = rows.slice(0, 24).flatMap((row) => row.values.slice(0, 24));
+  return { meanMs: mean(values), samples: values.length };
+}
+
+async function mcdWindAtSite(site: TargetSiteConfig): Promise<{ meanMs: number; samples: number }> {
+  const query = new URLSearchParams({
+    var1: "wind",
+    var2: "none",
+    var3: "none",
+    var4: "none",
+    datekeyhtml: "1",
+    ls: "all",
+    localtime: "all",
+    latitude: String(site.lat),
+    longitude: String(((site.lon % 360) + 360) % 360),
+    altitude: "10",
+    zkey: "3",
+    spacecraft: "none",
+    isfixedlt: "off",
+    dust: "1",
+    hrkey: "0",
+    averaging: "off",
+    animation: "off",
+    animframes: "12",
+    dpi: "80",
+    islog: "off",
+    colorm: "jet",
+    proj: "cyl",
+  });
+  const page = await fetchText(`${MCD_CGI}?${query.toString()}`);
+  const file = /\.\.\/txt\/([A-Za-z0-9_.-]+\.txt)/.exec(page)?.[1];
+  if (!file) throw new Error(`${site.id}: MCD wind request did not return an ASCII data file`);
+  const text = await fetchText(`${MCD_TXT}${file}`);
+  if (!text.includes("Horizontal wind speed (m/s)") || !text.includes("Altitude 10.0 m ALS")) {
+    throw new Error(`${site.id}: MCD wind response is not the requested 10 m wind table`);
+  }
+  return parseMcdWindTable(text, site.id);
+}
+
+/** Query MCD's global GCM climatology at each site and average its seasonal/local-time grid. */
+export async function collectMarsWind(sites: TargetSiteConfig[], log: (msg: string) => void): Promise<MarsWindResult> {
+  const perSite = new Map<string, { meanMs: number; samples: number }>();
+  // Keep requests serial: the MCD web interface is intended for moderate use.
+  for (const site of sites) {
+    const wind = await withRetry(`MCD wind at ${site.id}`, () => mcdWindAtSite(site));
+    perSite.set(site.id, wind);
+    log(`  ${site.id}: MCD wind ${wind.meanMs.toFixed(2)} m/s from ${wind.samples} seasonal/local-time samples`);
+  }
+  return { perSite };
+}
+
+export function marsSiteValues(
+  site: TargetSiteConfig,
+  el: MarsElevation,
+  mcs: McsResult,
+  wind: MarsWindResult,
+  processedAt: string,
+): TargetValue[] {
   const b = mcs.perSite.get(site.id)!;
   if (b.day.length < MIN_PROFILES || b.night.length < MIN_PROFILES) {
     throw new Error(`${site.id}: too few MCS profiles (day ${b.day.length}, night ${b.night.length}); need at least ${MIN_PROFILES} each`);
   }
+  const windAtSite = wind.perSite.get(site.id);
+  if (!windAtSite) throw new Error(`${site.id}: no MCD wind result`);
+  const lonEast = ((site.lon % 360) + 360) % 360;
   const base = { siteId: site.id, body: "mars" as const, processedAt };
   const tNote =
     `MRO Mars Climate Sounder DDR profile records, ${MCS_DAYS} days sampled every ${MCS_STEP_DAYS} days from ${mcs.firstDate} to ${mcs.lastDate} (one Mars year, Ls ${mcs.lsMin.toFixed(0)}-${mcs.lsMax.toFixed(0)}); ` +
@@ -255,14 +345,15 @@ export function marsSiteValues(site: TargetSiteConfig, el: MarsElevation, mcs: M
     {
       ...base,
       variable: "windMs",
-      value: MARS_WIND_REFERENCE[site.id],
-      kind: "reference",
-      product: "Typical annual-mean wind from rover records (MSL REMS, Mars 2020 MEDA)",
-      sourceUrl: "https://atmos.nmsu.edu/PDS/data/",
-      pixelSize: "n/a",
+      value: round(windAtSite.meanMs, 2),
+      kind: "derived",
+      product: MCD_WIND_PRODUCT,
+      sourceUrl: MCD_WIND_URL,
+      pixelSize: "5.625° longitude x 3.75° latitude model grid, interpolated to site",
       cleaningNote:
-        "Reference value, not computed. The rover wind records exist only for Gale and Jezero, and no wind raster covers the other sites, so this is a rounded typical speed.",
-      samples: null,
+        `Mars Climate Database v6.2 global climate model, climatology average-solar scenario. Queried horizontal wind speed at target coordinates (${site.lat}° latitude, ${lonEast}° east longitude) and 10 m above local surface, with high-resolution topography off. ` +
+        `Mean of ${windAtSite.samples} model values on the 15° solar-longitude by 1-hour local-time grid (duplicate 360°/24-hour endpoints excluded). Model climatology, not a rover measurement or forecast.`,
+      samples: windAtSite.samples,
     },
   ];
 }

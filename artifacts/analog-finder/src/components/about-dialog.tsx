@@ -40,17 +40,17 @@ export function AboutDialog({ pipeline }: { pipeline: TargetsData }) {
           <div data-testid="section-data-pipeline">
             <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Data pipeline (Moon and Mars)</div>
             <p className="mb-2">
-              Moon and Mars numbers are not typed in. A rerunnable pipeline downloads the raw NASA files, checks them, cleans them and extracts the values for each target. It last ran on {formatDate(pipeline.processedAt)}.
+              Moon and Mars numbers are not typed in. A rerunnable pipeline reads public planetary data and queries the Mars Climate Database model, checks the responses and extracts values for each target. It last ran on {formatDate(pipeline.processedAt)}.
               Every value is stored with its source product, URL, processing date, pixel size and cleaning note, and carries one of three labels:
               {" "}<span className="font-mono font-semibold">raw-derived</span> (computed from raw files),
-              {" "}<span className="font-mono font-semibold">derived</span> (a stated formula applied to a processed value) or
+              {" "}<span className="font-mono font-semibold">derived</span> (model output or a stated calculation) or
               {" "}<span className="font-mono font-semibold">reference</span> (a fixed value, not computed).
             </p>
             <ol className="mb-2 list-decimal space-y-1 pl-5 text-xs text-muted-foreground">
-              <li><span className="font-semibold text-foreground">Download</span>: only the needed pixels, by HTTP range request from the NASA PDS and the MCS archive.</li>
-              <li><span className="font-semibold text-foreground">Validate</span>: file size against the label, data format, scale factors and missing-value codes.</li>
+              <li><span className="font-semibold text-foreground">Read</span>: needed map pixels by HTTP range request, MCS profiles, and the MCD model wind response.</li>
+              <li><span className="font-semibold text-foreground">Validate</span>: file sizes, formats, scales, missing codes, quality flags and the MCD seasonal/local-time grid.</li>
               <li><span className="font-semibold text-foreground">Clean</span>: mask missing codes, reject physically impossible temperatures, apply quality flags.</li>
-              <li><span className="font-semibold text-foreground">Process</span>: pool every valid pixel or profile within 15 km (Diviner, LOLA, MOLA) or 250 km (MCS), then compute the statistics.</li>
+              <li><span className="font-semibold text-foreground">Process</span>: pool valid pixels or nearby profiles, and average MCD wind across its seasonal and local-time grid.</li>
               <li><span className="font-semibold text-foreground">Check</span>: compare against published figures, and stop if any check fails.</li>
             </ol>
             <ul className="divide-y divide-foreground/10 rounded-sm border border-foreground/10">
@@ -74,7 +74,7 @@ export function AboutDialog({ pipeline }: { pipeline: TargetsData }) {
               </ul>
             </details>
             <p className="mt-2 text-xs text-muted-foreground">
-              Mars wind is a reference value because rover wind records exist only at Gale and Jezero. The Moon has no atmosphere, so pressure and wind are 0.
+              Mars wind is a 10 m global model climatology from MCD v6.2, not a rover measurement or forecast. The Moon has no atmosphere, so pressure and wind are 0.
               The Mars Climate Sounder only observes near 3 am and 3 pm local time, so its mean is the average of those two times, not a full-day average.
             </p>
           </div>
@@ -95,7 +95,7 @@ export function AboutDialog({ pipeline }: { pipeline: TargetsData }) {
             Honesty note: for Earth, temperature is the 2001-2025 NASA POWER skin (surface) temperature climatology (MERRA-2, about 50 km resolution, so mountain sites are smoothed); precipitation, pressure and wind come from the same
             dataset, and relief is measured from a global terrain model within about 15 km. Earth "coldest" is the mean daily minimum of the coldest month. For the Moon and Mars, "coldest" is the mean of the coldest 10% of night
             samples and "warmest" the mean of the warmest 10% of day samples, so the two definitions are close but not identical. Moon and Mars temperatures come from one year of Diviner maps and one Mars year of sampled MCS
-            profiles, not a full multi-year climatology. Mars wind is a reference value and Mars pressure is a model. Geology tags, isolation scores and analog status are editorial judgments. No Earth site can reproduce
+            profiles, not a full multi-year climatology. Mars wind is a 10 m MCD v6.2 model climatology, not a rover measurement or forecast; Mars pressure is also a model. Geology tags, isolation scores and analog status are editorial judgments. No Earth site can reproduce
             lunar or Martian air pressure, gravity or radiation; the scores measure how good a rehearsal is, not an equivalence.
           </p>
           <p className="text-xs text-muted-foreground">Built for the NASA Space Apps Challenge 2026. Earth data from NASA POWER, a global DEM and NASA GIBS imagery; Moon and Mars data from LRO, MGS and MRO products processed by the pipeline.</p>

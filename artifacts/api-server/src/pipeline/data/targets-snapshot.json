@@ -1,11 +1,11 @@
 {
- "pipelineVersion": 1,
- "processedAt": "2026-11-14T19:05:19.379Z",
+ "pipelineVersion": 2,
+ "processedAt": "2026-11-14T19:31:44.538Z",
  "values": [
   {
    "siteId": "moon-shackleton",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "DGDR_TBOL_AVG polar (POLS) maps 20110111-20111231",
    "sourceUrl": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l3/2011/polar/img/",
@@ -18,7 +18,7 @@
   {
    "siteId": "moon-shackleton",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "DGDR_TBOL_AVG polar (POLS) maps 20110111-20111231",
    "sourceUrl": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l3/2011/polar/img/",
@@ -31,7 +31,7 @@
   {
    "siteId": "moon-shackleton",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "DGDR_TBOL_AVG polar (POLS) maps 20110111-20111231",
    "sourceUrl": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l3/2011/polar/img/",
@@ -44,7 +44,7 @@
   {
    "siteId": "moon-shackleton",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "elevationM",
    "value": 669,
    "kind": "raw-derived",
@@ -57,7 +57,7 @@
   {
    "siteId": "moon-shackleton",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "reliefM",
    "value": 2774,
    "kind": "raw-derived",
@@ -70,7 +70,7 @@
   {
    "siteId": "moon-shackleton",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "pressureKpa",
    "value": 0,
    "kind": "reference",
@@ -83,7 +83,7 @@
   {
    "siteId": "moon-shackleton",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "windMs",
    "value": 0,
    "kind": "reference",
@@ -96,7 +96,7 @@
   {
    "siteId": "moon-malapert",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "DGDR_TBOL_AVG polar (POLS) maps 20110111-20111231",
    "sourceUrl": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l3/2011/polar/img/",
@@ -109,7 +109,7 @@
   {
    "siteId": "moon-malapert",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "DGDR_TBOL_AVG polar (POLS) maps 20110111-20111231",
    "sourceUrl": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l3/2011/polar/img/",
@@ -122,7 +122,7 @@
   {
    "siteId": "moon-malapert",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "DGDR_TBOL_AVG polar (POLS) maps 20110111-20111231",
    "sourceUrl": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l3/2011/polar/img/",
@@ -135,7 +135,7 @@
   {
    "siteId": "moon-malapert",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "elevationM",
    "value": 4693,
    "kind": "raw-derived",
@@ -148,7 +148,7 @@
   {
    "siteId": "moon-malapert",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "reliefM",
    "value": 5803,
    "kind": "raw-derived",
@@ -161,7 +161,7 @@
   {
    "siteId": "moon-malapert",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "pressureKpa",
    "value": 0,
    "kind": "reference",
@@ -174,7 +174,7 @@
   {
    "siteId": "moon-malapert",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "windMs",
    "value": 0,
    "kind": "reference",
@@ -187,7 +187,7 @@
   {
    "siteId": "moon-marius",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "DGDR_TBOL_AVG cylindrical maps 20110111-20111231",
    "sourceUrl": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l3/2011/cylindrical/img/",
@@ -200,7 +200,7 @@
   {
    "siteId": "moon-marius",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "DGDR_TBOL_AVG cylindrical maps 20110111-20111231",
    "sourceUrl": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l3/2011/cylindrical/img/",
@@ -213,7 +213,7 @@
   {
    "siteId": "moon-marius",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "DGDR_TBOL_AVG cylindrical maps 20110111-20111231",
    "sourceUrl": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l3/2011/cylindrical/img/",
@@ -226,7 +226,7 @@
   {
    "siteId": "moon-marius",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "elevationM",
    "value": -1509,
    "kind": "raw-derived",
@@ -239,7 +239,7 @@
   {
    "siteId": "moon-marius",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "reliefM",
    "value": 589,
    "kind": "raw-derived",
@@ -252,7 +252,7 @@
   {
    "siteId": "moon-marius",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "pressureKpa",
    "value": 0,
    "kind": "reference",
@@ -265,7 +265,7 @@
   {
    "siteId": "moon-marius",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "windMs",
    "value": 0,
    "kind": "reference",
@@ -278,7 +278,7 @@
   {
    "siteId": "moon-tranquillitatis",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "DGDR_TBOL_AVG cylindrical maps 20110111-20111231",
    "sourceUrl": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l3/2011/cylindrical/img/",
@@ -291,7 +291,7 @@
   {
    "siteId": "moon-tranquillitatis",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "DGDR_TBOL_AVG cylindrical maps 20110111-20111231",
    "sourceUrl": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l3/2011/cylindrical/img/",
@@ -304,7 +304,7 @@
   {
    "siteId": "moon-tranquillitatis",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "DGDR_TBOL_AVG cylindrical maps 20110111-20111231",
    "sourceUrl": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l3/2011/cylindrical/img/",
@@ -317,7 +317,7 @@
   {
    "siteId": "moon-tranquillitatis",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "elevationM",
    "value": -781,
    "kind": "raw-derived",
@@ -330,7 +330,7 @@
   {
    "siteId": "moon-tranquillitatis",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "reliefM",
    "value": 163,
    "kind": "raw-derived",
@@ -343,7 +343,7 @@
   {
    "siteId": "moon-tranquillitatis",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "pressureKpa",
    "value": 0,
    "kind": "reference",
@@ -356,7 +356,7 @@
   {
    "siteId": "moon-tranquillitatis",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "windMs",
    "value": 0,
    "kind": "reference",
@@ -369,7 +369,7 @@
   {
    "siteId": "moon-schrodinger",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "DGDR_TBOL_AVG polar (POLS) maps 20110111-20111231",
    "sourceUrl": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l3/2011/polar/img/",
@@ -382,7 +382,7 @@
   {
    "siteId": "moon-schrodinger",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "DGDR_TBOL_AVG polar (POLS) maps 20110111-20111231",
    "sourceUrl": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l3/2011/polar/img/",
@@ -395,7 +395,7 @@
   {
    "siteId": "moon-schrodinger",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "DGDR_TBOL_AVG polar (POLS) maps 20110111-20111231",
    "sourceUrl": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l3/2011/polar/img/",
@@ -408,7 +408,7 @@
   {
    "siteId": "moon-schrodinger",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "elevationM",
    "value": -4640,
    "kind": "raw-derived",
@@ -421,7 +421,7 @@
   {
    "siteId": "moon-schrodinger",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "reliefM",
    "value": 220,
    "kind": "raw-derived",
@@ -434,7 +434,7 @@
   {
    "siteId": "moon-schrodinger",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "pressureKpa",
    "value": 0,
    "kind": "reference",
@@ -447,7 +447,7 @@
   {
    "siteId": "moon-schrodinger",
    "body": "moon",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "windMs",
    "value": 0,
    "kind": "reference",
@@ -460,7 +460,7 @@
   {
    "siteId": "mars-jezero",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MRO MCS DDR v1 (MROM_xxxx volumes)",
    "sourceUrl": "https://atmos.nmsu.edu/PDS/data/MCSDDRV1",
@@ -473,7 +473,7 @@
   {
    "siteId": "mars-jezero",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MRO MCS DDR v1 (MROM_xxxx volumes)",
    "sourceUrl": "https://atmos.nmsu.edu/PDS/data/MCSDDRV1",
@@ -486,7 +486,7 @@
   {
    "siteId": "mars-jezero",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MRO MCS DDR v1 (MROM_xxxx volumes)",
    "sourceUrl": "https://atmos.nmsu.edu/PDS/data/MCSDDRV1",
@@ -499,7 +499,7 @@
   {
    "siteId": "mars-jezero",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MGS MOLA MEGDR topography (MEGT, 128 pixel/degree)",
    "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/megt44n000hb.img",
@@ -512,7 +512,7 @@
   {
    "siteId": "mars-jezero",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MGS MOLA MEGDR topography (MEGT, 128 pixel/degree)",
    "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/megt44n000hb.img",
@@ -525,7 +525,7 @@
   {
    "siteId": "mars-jezero",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "pressureKpa",
    "value": 0.77,
    "kind": "derived",
@@ -538,20 +538,20 @@
   {
    "siteId": "mars-jezero",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "windMs",
-   "value": 5,
-   "kind": "reference",
-   "product": "Typical annual-mean wind from rover records (MSL REMS, Mars 2020 MEDA)",
-   "sourceUrl": "https://atmos.nmsu.edu/PDS/data/",
-   "pixelSize": "n/a",
-   "cleaningNote": "Reference value, not computed. The rover wind records exist only for Gale and Jezero, and no wind raster covers the other sites, so this is a rounded typical speed.",
-   "samples": null
+   "value": 4.25,
+   "kind": "derived",
+   "product": "Mars Climate Database v6.2 GCM climatology (average solar scenario)",
+   "sourceUrl": "https://www-mars.lmd.jussieu.fr/mcd_python/",
+   "pixelSize": "5.625° longitude x 3.75° latitude model grid, interpolated to site",
+   "cleaningNote": "Mars Climate Database v6.2 global climate model, climatology average-solar scenario. Queried horizontal wind speed at target coordinates (18.4° latitude, 77.60000000000002° east longitude) and 10 m above local surface, with high-resolution topography off. Mean of 576 model values on the 15° solar-longitude by 1-hour local-time grid (duplicate 360°/24-hour endpoints excluded). Model climatology, not a rover measurement or forecast.",
+   "samples": 576
   },
   {
    "siteId": "mars-gale",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MRO MCS DDR v1 (MROM_xxxx volumes)",
    "sourceUrl": "https://atmos.nmsu.edu/PDS/data/MCSDDRV1",
@@ -564,7 +564,7 @@
   {
    "siteId": "mars-gale",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MRO MCS DDR v1 (MROM_xxxx volumes)",
    "sourceUrl": "https://atmos.nmsu.edu/PDS/data/MCSDDRV1",
@@ -577,7 +577,7 @@
   {
    "siteId": "mars-gale",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MRO MCS DDR v1 (MROM_xxxx volumes)",
    "sourceUrl": "https://atmos.nmsu.edu/PDS/data/MCSDDRV1",
@@ -590,7 +590,7 @@
   {
    "siteId": "mars-gale",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MGS MOLA MEGDR topography (MEGT, 128 pixel/degree)",
    "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/megt00n090hb.img",
@@ -603,7 +603,7 @@
   {
    "siteId": "mars-gale",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MGS MOLA MEGDR topography (MEGT, 128 pixel/degree)",
    "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/megt00n090hb.img",
@@ -616,7 +616,7 @@
   {
    "siteId": "mars-gale",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "pressureKpa",
    "value": 0.67,
    "kind": "derived",
@@ -629,20 +629,20 @@
   {
    "siteId": "mars-gale",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "windMs",
-   "value": 4,
-   "kind": "reference",
-   "product": "Typical annual-mean wind from rover records (MSL REMS, Mars 2020 MEDA)",
-   "sourceUrl": "https://atmos.nmsu.edu/PDS/data/",
-   "pixelSize": "n/a",
-   "cleaningNote": "Reference value, not computed. The rover wind records exist only for Gale and Jezero, and no wind raster covers the other sites, so this is a rounded typical speed.",
-   "samples": null
+   "value": 6.22,
+   "kind": "derived",
+   "product": "Mars Climate Database v6.2 GCM climatology (average solar scenario)",
+   "sourceUrl": "https://www-mars.lmd.jussieu.fr/mcd_python/",
+   "pixelSize": "5.625° longitude x 3.75° latitude model grid, interpolated to site",
+   "cleaningNote": "Mars Climate Database v6.2 global climate model, climatology average-solar scenario. Queried horizontal wind speed at target coordinates (-5.4° latitude, 137.8° east longitude) and 10 m above local surface, with high-resolution topography off. Mean of 576 model values on the 15° solar-longitude by 1-hour local-time grid (duplicate 360°/24-hour endpoints excluded). Model climatology, not a rover measurement or forecast.",
+   "samples": 576
   },
   {
    "siteId": "mars-oxia",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MRO MCS DDR v1 (MROM_xxxx volumes)",
    "sourceUrl": "https://atmos.nmsu.edu/PDS/data/MCSDDRV1",
@@ -655,7 +655,7 @@
   {
    "siteId": "mars-oxia",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MRO MCS DDR v1 (MROM_xxxx volumes)",
    "sourceUrl": "https://atmos.nmsu.edu/PDS/data/MCSDDRV1",
@@ -668,7 +668,7 @@
   {
    "siteId": "mars-oxia",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MRO MCS DDR v1 (MROM_xxxx volumes)",
    "sourceUrl": "https://atmos.nmsu.edu/PDS/data/MCSDDRV1",
@@ -681,7 +681,7 @@
   {
    "siteId": "mars-oxia",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MGS MOLA MEGDR topography (MEGT, 128 pixel/degree)",
    "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/megt44n270hb.img",
@@ -694,7 +694,7 @@
   {
    "siteId": "mars-oxia",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MGS MOLA MEGDR topography (MEGT, 128 pixel/degree)",
    "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/megt44n270hb.img",
@@ -707,7 +707,7 @@
   {
    "siteId": "mars-oxia",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "pressureKpa",
    "value": 0.81,
    "kind": "derived",
@@ -720,20 +720,20 @@
   {
    "siteId": "mars-oxia",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "windMs",
-   "value": 5,
-   "kind": "reference",
-   "product": "Typical annual-mean wind from rover records (MSL REMS, Mars 2020 MEDA)",
-   "sourceUrl": "https://atmos.nmsu.edu/PDS/data/",
-   "pixelSize": "n/a",
-   "cleaningNote": "Reference value, not computed. The rover wind records exist only for Gale and Jezero, and no wind raster covers the other sites, so this is a rounded typical speed.",
-   "samples": null
+   "value": 6.53,
+   "kind": "derived",
+   "product": "Mars Climate Database v6.2 GCM climatology (average solar scenario)",
+   "sourceUrl": "https://www-mars.lmd.jussieu.fr/mcd_python/",
+   "pixelSize": "5.625° longitude x 3.75° latitude model grid, interpolated to site",
+   "cleaningNote": "Mars Climate Database v6.2 global climate model, climatology average-solar scenario. Queried horizontal wind speed at target coordinates (18.2° latitude, 335.4° east longitude) and 10 m above local surface, with high-resolution topography off. Mean of 576 model values on the 15° solar-longitude by 1-hour local-time grid (duplicate 360°/24-hour endpoints excluded). Model climatology, not a rover measurement or forecast.",
+   "samples": 576
   },
   {
    "siteId": "mars-arcadia",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MRO MCS DDR v1 (MROM_xxxx volumes)",
    "sourceUrl": "https://atmos.nmsu.edu/PDS/data/MCSDDRV1",
@@ -746,7 +746,7 @@
   {
    "siteId": "mars-arcadia",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MRO MCS DDR v1 (MROM_xxxx volumes)",
    "sourceUrl": "https://atmos.nmsu.edu/PDS/data/MCSDDRV1",
@@ -759,7 +759,7 @@
   {
    "siteId": "mars-arcadia",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MRO MCS DDR v1 (MROM_xxxx volumes)",
    "sourceUrl": "https://atmos.nmsu.edu/PDS/data/MCSDDRV1",
@@ -772,7 +772,7 @@
   {
    "siteId": "mars-arcadia",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MGS MOLA MEGDR topography (MEGT, 128 pixel/degree)",
    "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/megt88n180hb.img",
@@ -785,7 +785,7 @@
   {
    "siteId": "mars-arcadia",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MGS MOLA MEGDR topography (MEGT, 128 pixel/degree)",
    "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/megt88n180hb.img",
@@ -798,7 +798,7 @@
   {
    "siteId": "mars-arcadia",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "pressureKpa",
    "value": 0.88,
    "kind": "derived",
@@ -811,20 +811,20 @@
   {
    "siteId": "mars-arcadia",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "windMs",
-   "value": 6,
-   "kind": "reference",
-   "product": "Typical annual-mean wind from rover records (MSL REMS, Mars 2020 MEDA)",
-   "sourceUrl": "https://atmos.nmsu.edu/PDS/data/",
-   "pixelSize": "n/a",
-   "cleaningNote": "Reference value, not computed. The rover wind records exist only for Gale and Jezero, and no wind raster covers the other sites, so this is a rounded typical speed.",
-   "samples": null
+   "value": 3.21,
+   "kind": "derived",
+   "product": "Mars Climate Database v6.2 GCM climatology (average solar scenario)",
+   "sourceUrl": "https://www-mars.lmd.jussieu.fr/mcd_python/",
+   "pixelSize": "5.625° longitude x 3.75° latitude model grid, interpolated to site",
+   "cleaningNote": "Mars Climate Database v6.2 global climate model, climatology average-solar scenario. Queried horizontal wind speed at target coordinates (47° latitude, 184° east longitude) and 10 m above local surface, with high-resolution topography off. Mean of 576 model values on the 15° solar-longitude by 1-hour local-time grid (duplicate 360°/24-hour endpoints excluded). Model climatology, not a rover measurement or forecast.",
+   "samples": 576
   },
   {
    "siteId": "mars-arsia",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MRO MCS DDR v1 (MROM_xxxx volumes)",
    "sourceUrl": "https://atmos.nmsu.edu/PDS/data/MCSDDRV1",
@@ -837,7 +837,7 @@
   {
    "siteId": "mars-arsia",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MRO MCS DDR v1 (MROM_xxxx volumes)",
    "sourceUrl": "https://atmos.nmsu.edu/PDS/data/MCSDDRV1",
@@ -850,7 +850,7 @@
   {
    "siteId": "mars-arsia",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MRO MCS DDR v1 (MROM_xxxx volumes)",
    "sourceUrl": "https://atmos.nmsu.edu/PDS/data/MCSDDRV1",
@@ -863,7 +863,7 @@
   {
    "siteId": "mars-arsia",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MGS MOLA MEGDR topography (MEGT, 128 pixel/degree)",
    "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/megt00n180hb.img",
@@ -876,7 +876,7 @@
   {
    "siteId": "mars-arsia",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MGS MOLA MEGDR topography (MEGT, 128 pixel/degree)",
    "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/megt00n180hb.img",
@@ -889,7 +889,7 @@
   {
    "siteId": "mars-arsia",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "pressureKpa",
    "value": 0.14,
    "kind": "derived",
@@ -902,20 +902,20 @@
   {
    "siteId": "mars-arsia",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "windMs",
-   "value": 4,
-   "kind": "reference",
-   "product": "Typical annual-mean wind from rover records (MSL REMS, Mars 2020 MEDA)",
-   "sourceUrl": "https://atmos.nmsu.edu/PDS/data/",
-   "pixelSize": "n/a",
-   "cleaningNote": "Reference value, not computed. The rover wind records exist only for Gale and Jezero, and no wind raster covers the other sites, so this is a rounded typical speed.",
-   "samples": null
+   "value": 6.07,
+   "kind": "derived",
+   "product": "Mars Climate Database v6.2 GCM climatology (average solar scenario)",
+   "sourceUrl": "https://www-mars.lmd.jussieu.fr/mcd_python/",
+   "pixelSize": "5.625° longitude x 3.75° latitude model grid, interpolated to site",
+   "cleaningNote": "Mars Climate Database v6.2 global climate model, climatology average-solar scenario. Queried horizontal wind speed at target coordinates (-8.3° latitude, 239.9° east longitude) and 10 m above local surface, with high-resolution topography off. Mean of 576 model values on the 15° solar-longitude by 1-hour local-time grid (duplicate 360°/24-hour endpoints excluded). Model climatology, not a rover measurement or forecast.",
+   "samples": 576
   },
   {
    "siteId": "mars-mawrth",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MRO MCS DDR v1 (MROM_xxxx volumes)",
    "sourceUrl": "https://atmos.nmsu.edu/PDS/data/MCSDDRV1",
@@ -928,7 +928,7 @@
   {
    "siteId": "mars-mawrth",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MRO MCS DDR v1 (MROM_xxxx volumes)",
    "sourceUrl": "https://atmos.nmsu.edu/PDS/data/MCSDDRV1",
@@ -941,7 +941,7 @@
   {
    "siteId": "mars-mawrth",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MRO MCS DDR v1 (MROM_xxxx volumes)",
    "sourceUrl": "https://atmos.nmsu.edu/PDS/data/MCSDDRV1",
@@ -954,7 +954,7 @@
   {
    "siteId": "mars-mawrth",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MGS MOLA MEGDR topography (MEGT, 128 pixel/degree)",
    "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/megt44n270hb.img",
@@ -967,7 +967,7 @@
   {
    "siteId": "mars-mawrth",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "kind": "raw-derived",
    "product": "MGS MOLA MEGDR topography (MEGT, 128 pixel/degree)",
    "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/megt44n270hb.img",
@@ -980,7 +980,7 @@
   {
    "siteId": "mars-mawrth",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "pressureKpa",
    "value": 0.78,
    "kind": "derived",
@@ -993,15 +993,15 @@
   {
    "siteId": "mars-mawrth",
    "body": "mars",
-   "processedAt": "2026-11-14T19:05:19.379Z",
+   "processedAt": "2026-11-14T19:31:44.538Z",
    "variable": "windMs",
-   "value": 5,
-   "kind": "reference",
-   "product": "Typical annual-mean wind from rover records (MSL REMS, Mars 2020 MEDA)",
-   "sourceUrl": "https://atmos.nmsu.edu/PDS/data/",
-   "pixelSize": "n/a",
-   "cleaningNote": "Reference value, not computed. The rover wind records exist only for Gale and Jezero, and no wind raster covers the other sites, so this is a rounded typical speed.",
-   "samples": null
+   "value": 6.24,
+   "kind": "derived",
+   "product": "Mars Climate Database v6.2 GCM climatology (average solar scenario)",
+   "sourceUrl": "https://www-mars.lmd.jussieu.fr/mcd_python/",
+   "pixelSize": "5.625° longitude x 3.75° latitude model grid, interpolated to site",
+   "cleaningNote": "Mars Climate Database v6.2 global climate model, climatology average-solar scenario. Queried horizontal wind speed at target coordinates (22.3° latitude, 343.5° east longitude) and 10 m above local surface, with high-resolution topography off. Mean of 576 model values on the 15° solar-longitude by 1-hour local-time grid (duplicate 360°/24-hour endpoints excluded). Model climatology, not a rover measurement or forecast.",
+   "samples": 576
   }
  ],
  "datasets": [
@@ -1068,13 +1068,16 @@
    ]
   },
   {
-   "name": "Mars wind (rover records)",
+   "name": "Mars Climate Database v6.2 GCM climatology (average solar scenario)",
    "body": "Mars",
-   "role": "Annual-mean wind speed at every Mars site",
-   "url": "https://atmos.nmsu.edu/PDS/data/",
-   "kind": "reference",
+   "role": "Modeled near-surface wind at every Mars site",
+   "url": "https://www-mars.lmd.jussieu.fr/mcd_python/",
+   "kind": "derived",
    "steps": [
-    "Rover records exist only for Gale and Jezero, so a rounded typical value is kept and labelled as a reference"
+    "Query horizontal wind speed at each site, 10 m above the local surface",
+    "Use the average-solar climatology scenario and the full 15° solar-longitude by 1-hour local-time grid",
+    "Exclude duplicate 360° solar-longitude and 24-hour local-time endpoints; average the remaining 576 model values",
+    "MCD is a global climate-model climatology, not a rover measurement or forecast"
    ]
   }
  ],
@@ -1129,41 +1132,41 @@
   "finite mars-jezero elevationM: -2629",
   "finite mars-jezero reliefM: 741",
   "finite mars-jezero pressureKpa: 0.77",
-  "finite mars-jezero windMs: 5",
+  "finite mars-jezero windMs: 4.25",
   "finite mars-gale meanTempC: -52.9",
   "finite mars-gale minTempC: -101.7",
   "finite mars-gale maxTempC: 8.5",
   "finite mars-gale elevationM: -1015",
   "finite mars-gale reliefM: 3422",
   "finite mars-gale pressureKpa: 0.67",
-  "finite mars-gale windMs: 4",
+  "finite mars-gale windMs: 6.22",
   "finite mars-oxia meanTempC: -50.1",
   "finite mars-oxia minTempC: -94.2",
   "finite mars-oxia maxTempC: 0",
   "finite mars-oxia elevationM: -3109",
   "finite mars-oxia reliefM: 213",
   "finite mars-oxia pressureKpa: 0.81",
-  "finite mars-oxia windMs: 5",
+  "finite mars-oxia windMs: 6.53",
   "finite mars-arcadia meanTempC: -72.1",
   "finite mars-arcadia minTempC: -124.4",
   "finite mars-arcadia maxTempC: -13.9",
   "finite mars-arcadia elevationM: -4104",
   "finite mars-arcadia reliefM: 29",
   "finite mars-arcadia pressureKpa: 0.88",
-  "finite mars-arcadia windMs: 6",
+  "finite mars-arcadia windMs: 3.21",
   "finite mars-arsia meanTempC: -73.7",
   "finite mars-arsia minTempC: -135.1",
   "finite mars-arsia maxTempC: 5.4",
   "finite mars-arsia elevationM: 16294",
   "finite mars-arsia reliefM: 667",
   "finite mars-arsia pressureKpa: 0.14",
-  "finite mars-arsia windMs: 4",
+  "finite mars-arsia windMs: 6.07",
   "finite mars-mawrth meanTempC: -54.6",
   "finite mars-mawrth minTempC: -103.8",
   "finite mars-mawrth maxTempC: -0.2",
   "finite mars-mawrth elevationM: -2754",
   "finite mars-mawrth reliefM: 941",
   "finite mars-mawrth pressureKpa: 0.78",
-  "finite mars-mawrth windMs: 5"
+  "finite mars-mawrth windMs: 6.24"
  ]
 }

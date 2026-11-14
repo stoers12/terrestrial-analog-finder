@@ -232,7 +232,7 @@ function HomeLoaded({ earthSites, targets }: { earthSites: Site[]; targets: Targ
       <footer className="border-t border-foreground/10">
         <div className="mx-auto flex max-w-[1500px] flex-wrap justify-between gap-2 px-4 py-5 text-xs text-muted-foreground md:px-6">
           <span>
-            Built for the NASA Space Apps Challenge 2026. Earth climate from NASA POWER, terrain from a global DEM, imagery from NASA GIBS. Moon and Mars values are processed from raw LRO, MGS and MRO files by a rerunnable pipeline; Mars wind is a reference value.
+            Built for the NASA Space Apps Challenge 2026. Earth climate from NASA POWER, terrain from a global DEM, imagery from NASA GIBS. Moon and Mars values come from planetary datasets and model output processed by a rerunnable pipeline; Mars wind uses the MCD v6.2 climatology.
           </span>
           <span className="font-mono">Measured Earth data · pipeline-processed Moon/Mars data</span>
         </div>
