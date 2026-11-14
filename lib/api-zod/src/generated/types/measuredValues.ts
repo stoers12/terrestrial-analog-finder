@@ -11,10 +11,12 @@ export interface MeasuredValues {
   elevationM: number;
   /** Highest minus lowest elevation in a small ring around the point, metres */
   reliefM: number;
-  /** Annual mean 2 m air temperature, degrees C */
+  /** Annual mean skin (surface) temperature, degrees C */
   tMeanC: number;
-  /** Mean daily minimum temperature of the coldest month, degrees C */
+  /** Mean daily minimum skin temperature of the coldest month, degrees C */
   tMinC: number;
+  /** Mean daily maximum skin temperature of the warmest month, degrees C */
+  tMaxC: number;
   /** Annual precipitation, mm */
   precipMm: number;
   /** Annual mean surface pressure, kPa */

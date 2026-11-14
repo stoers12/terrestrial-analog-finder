@@ -5,6 +5,7 @@ import type { Discovery } from "@/lib/discoveries";
 import { DIMENSIONS, MEASURABLE_DIMENSIONS } from "@/lib/similarity";
 import { fmt, limits, rehearsal, scoreColor, verdict } from "@/lib/analog-ui";
 import { Radar } from "@/components/site-detail";
+import { TargetProvenance, TemperatureDefinitions } from "@/components/target-provenance";
 
 interface Props {
   target: Site;
@@ -21,13 +22,13 @@ export function DiscoveryDetail({ target, discovery, rank, climateSource, elevat
   const v = verdict(discovery.score);
   const reh = rehearsal(target, s, discovery.dimensions);
   const rows: [string, string, string][] = [
-    ["Mean temperature", fmt.temp(target.meanTempC), fmt.temp(s.meanTempC)],
-    ["Coldest-month night", fmt.temp(target.minTempC), fmt.temp(s.minTempC)],
+    ["Mean surface temperature", fmt.temp(target.meanTempC), fmt.temp(s.meanTempC)],
+    ["Coldest surface temperature", fmt.temp(target.minTempC), fmt.temp(s.minTempC)],
     ["Surface pressure", fmt.kpa(target.pressureKpa), fmt.kpa(s.pressureKpa)],
     ["Precipitation", fmt.mm(target.precipMm), fmt.mm(s.precipMm)],
     ["Wind (mean)", fmt.wind(target.windMs), fmt.wind(s.windMs)],
     ["Relief", fmt.ten(target.ruggedness), `${fmt.ten(s.ruggedness)} (${fmt.metres(s.measured?.reliefM ?? 0)})`],
-    ["Elevation", "n/a", fmt.metres(s.measured?.elevationM ?? 0)],
+    ["Elevation", target.targetData ? fmt.metres(target.targetData.elevationM) : "n/a", fmt.metres(s.measured?.elevationM ?? 0)],
     ["Latitude", fmt.lat(target.lat), fmt.lat(s.lat)],
   ];
   return (
@@ -112,6 +113,8 @@ export function DiscoveryDetail({ target, discovery, rank, climateSource, elevat
               </ul>
             </div>
           </div>
+          <TemperatureDefinitions body={target.body as "moon" | "mars"} />
+          <TargetProvenance target={target} />
           <p className="text-[11px] text-muted-foreground">Measured values: {climateSource}; {elevationSource}.</p>
         </div>
       </div>

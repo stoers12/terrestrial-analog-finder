@@ -31,6 +31,7 @@ router.post("/measurements", async (req, res) => {
         reliefM: r.reliefM,
         tMeanC: r.tMeanC,
         tMinC: r.tMinC,
+        tMaxC: r.tMaxC,
         precipMm: r.precipMm,
         pressureKpa: r.pressureKpa,
         windMs: r.windMs,

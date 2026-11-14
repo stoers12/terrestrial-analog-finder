@@ -24,7 +24,8 @@ import type {
   GridResponse,
   HealthStatus,
   MeasureRequest,
-  MeasureResponse
+  MeasureResponse,
+  TargetsResponse
 } from './api.schemas';
 
 import { customFetch } from '../custom-fetch';
@@ -287,6 +288,84 @@ export function useGetGrid<TData = Awaited<ReturnType<typeof getGrid>>, TError =
  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
 
   const queryOptions = getGetGridQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getGetTargetsUrl = () => {
+
+
+
+
+  return `/api/targets`
+}
+
+/**
+ * Surface temperature, elevation, relief, pressure and wind for every Moon and Mars target, produced by the offline pipeline from raw NASA products. Every value carries its kind (raw-derived, derived or reference), source product, URL, processing date, pixel size and cleaning note. Fails with 500 if the table is incomplete.
+ * @summary Moon and Mars target values with provenance
+ */
+export const getTargets = async ( options?: Parameters<typeof customFetch>[1]): Promise<TargetsResponse> => {
+
+  return customFetch<TargetsResponse>(getGetTargetsUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetTargetsQueryKey = () => {
+    return [
+    `/api/targets`
+    ] as const;
+    }
+
+
+export const getGetTargetsQueryOptions = <TData = Awaited<ReturnType<typeof getTargets>>, TError = ErrorType<ErrorResponse>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getTargets>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetTargetsQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getTargets>>> = ({ signal }) => getTargets({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getTargets>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetTargetsQueryResult = NonNullable<Awaited<ReturnType<typeof getTargets>>>
+export type GetTargetsQueryError = ErrorType<ErrorResponse>
+
+
+/**
+ * @summary Moon and Mars target values with provenance
+ */
+
+export function useGetTargets<TData = Awaited<ReturnType<typeof getTargets>>, TError = ErrorType<ErrorResponse>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getTargets>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetTargetsQueryOptions(options)
 
   const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 

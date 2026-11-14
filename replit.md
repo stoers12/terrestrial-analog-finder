@@ -22,14 +22,15 @@ NASA Space Apps 2026 entry: pick a Moon or Mars base/landing site and rank Earth
 
 ## Where things live
 
-- `artifacts/analog-finder/src/data/sites.ts` — Moon/Mars reference table and Earth editorial seeds (geology, isolation, status)
+- `artifacts/analog-finder/src/data/sites.ts` — editorial seeds for Moon, Mars and Earth sites (geology, isolation, summary, status); no hand-typed numbers
+- `artifacts/api-server/src/pipeline/` — Moon/Mars data pipeline (`pnpm --filter @workspace/api-server run ingest:targets`) writing `src/pipeline/data/targets-snapshot.json`; `lib/targets.ts` loads it into the `target_values` table at start-up; `GET /api/targets` serves it
 - `artifacts/analog-finder/src/lib/similarity.ts` — scoring; `lib/discoveries.ts` — grid scoring and discovery selection
 - `artifacts/api-server/src/lib/upstream.ts` — NASA POWER and elevation fetching; `measure.ts` — DB-cached measurements; `grid-job.ts` — background global grid fill
 - `lib/db/src/schema/measurements.ts` — cache tables; `lib/api-spec/openapi.yaml` — API contract
 
 ## Architecture decisions
 
-- Earth temperature, pressure, rain, wind and relief are measured (NASA POWER + global DEM) and cached in Postgres; none are hand-typed. Moon/Mars values are a curated reference table and the app says so.
+- Earth temperature, pressure, rain, wind and relief are measured (NASA POWER + global DEM) and cached in Postgres; none are hand-typed. Moon/Mars values are computed by the pipeline from raw LRO/MGS/MRO files and labelled raw-derived, derived (Mars pressure) or reference (Mars wind, Moon pressure/wind). All temperatures are surface (skin) temperatures: Earth uses NASA POWER TS, and the Moon/Mars use Diviner and MCS.
 - The global grid scores only the 5 measurable dimensions (no geology, no isolation); scoring runs client-side with the same functions as the site ranking.
 - The grid job starts when the API server boots and fills the DB in the background (about 1,350 land cells at 4 degrees). A fresh database (including production) fills on first start.
 - Upstream failures surface as errors (502 / grid status); there is no fallback to made-up numbers.

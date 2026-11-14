@@ -12,6 +12,8 @@ tags:
     description: Health operations
   - name: measurements
     description: Measured Earth climate and terrain data
+  - name: targets
+    description: Moon and Mars values extracted by the NASA data pipeline
 paths:
   /healthz:
     get:
@@ -69,8 +71,126 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GridResponse"
+  /targets:
+    get:
+      operationId: getTargets
+      tags: [targets]
+      summary: Moon and Mars target values with provenance
+      description: >
+        Surface temperature, elevation, relief, pressure and wind for every Moon and Mars
+        target, produced by the offline pipeline from raw NASA products. Every value carries
+        its kind (raw-derived, derived or reference), source product, URL, processing date,
+        pixel size and cleaning note. Fails with 500 if the table is incomplete.
+      responses:
+        "200":
+          description: Target values, datasets and validation results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TargetsResponse"
+        "500":
+          description: The target table is incomplete
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
+    TargetValue:
+      type: object
+      properties:
+        value:
+          type: number
+        kind:
+          type: string
+          enum: [raw-derived, derived, reference]
+        product:
+          type: string
+        sourceUrl:
+          type: string
+        processedAt:
+          type: string
+        pixelSize:
+          type: string
+        cleaningNote:
+          type: string
+        samples:
+          type: integer
+          nullable: true
+      required: [value, kind, product, sourceUrl, processedAt, pixelSize, cleaningNote, samples]
+    TargetValues:
+      type: object
+      properties:
+        meanTempC:
+          $ref: "#/components/schemas/TargetValue"
+        minTempC:
+          $ref: "#/components/schemas/TargetValue"
+        maxTempC:
+          $ref: "#/components/schemas/TargetValue"
+        elevationM:
+          $ref: "#/components/schemas/TargetValue"
+        reliefM:
+          $ref: "#/components/schemas/TargetValue"
+        pressureKpa:
+          $ref: "#/components/schemas/TargetValue"
+        windMs:
+          $ref: "#/components/schemas/TargetValue"
+      required: [meanTempC, minTempC, maxTempC, elevationM, reliefM, pressureKpa, windMs]
+    TargetSite:
+      type: object
+      properties:
+        id:
+          type: string
+        body:
+          type: string
+          enum: [moon, mars]
+        lat:
+          type: number
+        lon:
+          type: number
+        values:
+          $ref: "#/components/schemas/TargetValues"
+      required: [id, body, lat, lon, values]
+    DatasetInfo:
+      type: object
+      properties:
+        name:
+          type: string
+        body:
+          type: string
+          enum: [Moon, Mars, Earth]
+        role:
+          type: string
+        url:
+          type: string
+        kind:
+          type: string
+          enum: [raw-derived, derived, reference]
+        steps:
+          type: array
+          items:
+            type: string
+      required: [name, body, role, url, kind, steps]
+    TargetsResponse:
+      type: object
+      properties:
+        pipelineVersion:
+          type: integer
+        processedAt:
+          type: string
+        sites:
+          type: array
+          items:
+            $ref: "#/components/schemas/TargetSite"
+        datasets:
+          type: array
+          items:
+            $ref: "#/components/schemas/DatasetInfo"
+        validation:
+          type: array
+          items:
+            type: string
+      required: [pipelineVersion, processedAt, sites, datasets, validation]
     MeasurePoint:
       type: object
       properties:
@@ -101,10 +221,13 @@ components:
           description: Highest minus lowest elevation in a small ring around the point, metres
         tMeanC:
           type: number
-          description: Annual mean 2 m air temperature, degrees C
+          description: Annual mean skin (surface) temperature, degrees C
         tMinC:
           type: number
-          description: Mean daily minimum temperature of the coldest month, degrees C
+          description: Mean daily minimum skin temperature of the coldest month, degrees C
+        tMaxC:
+          type: number
+          description: Mean daily maximum skin temperature of the warmest month, degrees C
         precipMm:
           type: number
           description: Annual precipitation, mm
@@ -114,7 +237,7 @@ components:
         windMs:
           type: number
           description: Annual mean 10 m wind speed, m/s
-      required: [elevationM, reliefM, tMeanC, tMinC, precipMm, pressureKpa, windMs]
+      required: [elevationM, reliefM, tMeanC, tMinC, tMaxC, precipMm, pressureKpa, windMs]
     MeasuredPoint:
       allOf:
         - $ref: "#/components/schemas/MeasuredValues"

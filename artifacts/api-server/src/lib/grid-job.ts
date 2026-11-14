@@ -54,6 +54,7 @@ export async function gridCells() {
       reliefM: measurementsTable.reliefM,
       tMeanC: measurementsTable.tMeanC,
       tMinC: measurementsTable.tMinC,
+      tMaxC: measurementsTable.tMaxC,
       precipMm: measurementsTable.precipMm,
       pressureKpa: measurementsTable.pressureKpa,
       windMs: measurementsTable.windMs,

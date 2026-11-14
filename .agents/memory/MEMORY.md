@@ -1,1 +1,2 @@
 - [Data honesty rule](data-sources-gotchas.md) — measured vs reference vs editorial labelling; UI definitions must match the calculation
+- [Pipeline source quirks](pipeline-data-sources.md) — TLS, MCS sampling times, polar map orientation, unit-label oddities for the Moon/Mars raw data

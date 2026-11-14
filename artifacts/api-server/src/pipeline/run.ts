@@ -1,0 +1,176 @@
+/**
+ * Moon and Mars target pipeline.
+ *
+ *   pnpm --filter @workspace/api-server run ingest:targets
+ *
+ * Downloads (by byte range) the raw NASA products, validates and cleans them, extracts the
+ * values for every target site and writes src/pipeline/data/targets-snapshot.json. The API server loads that
+ * snapshot into the `target_values` table at start-up.
+ */
+import { mkdir, writeFile } from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { collectMcs, marsElevation, marsSiteValues, MCS_DAYS, MCS_RADIUS_KM, MCS_STEP_DAYS } from "./mars";
+import { DIVINER_YEAR, moonTemps, processMoonSite } from "./moon";
+import { SHOEMAKER, TARGETS } from "./targets";
+import type { DatasetInfo, Snapshot, TargetValue, Variable } from "./types";
+
+export const PIPELINE_VERSION = 1;
+
+const DATASETS: DatasetInfo[] = [
+  {
+    name: "LRO LOLA global and polar DEMs",
+    body: "Moon",
+    role: "Elevation and local relief at every Moon site",
+    url: "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/",
+    kind: "raw-derived",
+    steps: [
+      "Read the .lbl label: size, 32-bit float format, unit km, reference radius 1737.4 km",
+      "Check the file size equals lines x samples x 4 bytes",
+      "Locate the site and its 8 neighbours at 15 km on the map (polar stereographic below 60 S, cylindrical elsewhere)",
+      "Read those pixels by HTTP byte range; subtract the reference radius; relief = highest minus lowest",
+    ],
+  },
+  {
+    name: "LRO Diviner Level 3 bolometric temperature maps",
+    body: "Moon",
+    role: "Mean, coldest and warmest surface temperature at every Moon site",
+    url: "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_gdr_l3/",
+    kind: "raw-derived",
+    steps: [
+      `Read all ${DIVINER_YEAR} day and night maps (29 per product) and check each label and file size`,
+      "Mask the missing-data code (-32768); reject values outside 20-450 K; DN x 0.02 = kelvin",
+      "Pool every pixel within 15 km of the site, separately for daytime and nighttime maps",
+      "Mean = average of day mean and night mean; coldest = coldest 10% of night pixels; warmest = warmest 10% of day pixels",
+    ],
+  },
+  {
+    name: "MGS MOLA MEGDR topography (128 pixel/degree)",
+    body: "Mars",
+    role: "Elevation and local relief at every Mars site; input for derived pressure",
+    url: "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/",
+    kind: "raw-derived",
+    steps: [
+      "Pick the tile covering each point; read the label and check the file size",
+      "Read the centre and 8 neighbours at 15 km by HTTP byte range (16-bit big-endian metres above the areoid)",
+      "Relief = highest minus lowest, the same definition as Earth",
+    ],
+  },
+  {
+    name: "MRO Mars Climate Sounder DDR profiles",
+    body: "Mars",
+    role: "Mean, coldest and warmest surface temperature at every Mars site",
+    url: "https://atmos.nmsu.edu/PDS/data/MCSDDRV1/",
+    kind: "raw-derived",
+    steps: [
+      `Download ${MCS_DAYS} days spread over one Mars year (every ${MCS_STEP_DAYS} days), 6 files per day`,
+      "Keep records with good geometry and radiance quality flags, standard viewing and a surface-temperature error below 5 K; drop -9999 codes",
+      `Pool every profile within ${MCS_RADIUS_KM} km of the site, split into 3 pm and 3 am (MCS sees only those two local times)`,
+      "Mean = average of 3 pm and 3 am means; coldest = coldest 10% of 3 am profiles; warmest = warmest 10% of 3 pm profiles",
+    ],
+  },
+  {
+    name: "Mars surface pressure model",
+    body: "Mars",
+    role: "Surface pressure at every Mars site",
+    url: "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html",
+    kind: "derived",
+    steps: ["P = 0.61 kPa x exp(-h / 11.1 km), h = MOLA elevation", "A model, not a measurement"],
+  },
+  {
+    name: "Mars wind (rover records)",
+    body: "Mars",
+    role: "Annual-mean wind speed at every Mars site",
+    url: "https://atmos.nmsu.edu/PDS/data/",
+    kind: "reference",
+    steps: ["Rover records exist only for Gale and Jezero, so a rounded typical value is kept and labelled as a reference"],
+  },
+];
+
+function get(values: TargetValue[], id: string, v: Variable): number {
+  const x = values.find((r) => r.siteId === id && r.variable === v);
+  if (!x) throw new Error(`validation: no ${v} for ${id}`);
+  return x.value;
+}
+
+/** Sanity checks against published figures. Any failure stops the pipeline: it means a unit, scale or orientation error. */
+function validate(values: TargetValue[], shoemakerColdestC: number, malapertColdestC: number): string[] {
+  const out: string[] = [];
+  const check = (label: string, ok: boolean, detail: string) => {
+    if (!ok) throw new Error(`Validation failed: ${label} (${detail})`);
+    out.push(`${label}: ${detail}`);
+  };
+  const mal = get(values, "moon-malapert", "elevationM");
+  check("Malapert Massif height (published about 5 km above the reference sphere)", mal > 4000 && mal < 6000, `${mal} m`);
+  const shMean = get(values, "moon-shackleton", "meanTempC") + 273.15;
+  check("Shackleton surroundings mean temperature (published: crater floor stays below about 90 K)", shMean < 110, `${shMean.toFixed(1)} K`);
+  check("Polar map orientation (Shoemaker crater must be colder than Malapert)", shoemakerColdestC < malapertColdestC, `${shoemakerColdestC.toFixed(1)} C vs ${malapertColdestC.toFixed(1)} C`);
+  const eqMin = get(values, "moon-marius", "minTempC") + 273.15;
+  const eqMax = get(values, "moon-marius", "maxTempC") + 273.15;
+  check("Lunar equator night/day temperatures (published about 95 K night, about 390 K noon)", eqMin > 80 && eqMin < 130 && eqMax > 330 && eqMax < 400, `${eqMin.toFixed(0)} K / ${eqMax.toFixed(0)} K`);
+  const jez = get(values, "mars-jezero", "elevationM");
+  check("Jezero delta elevation (published about -2.5 km MOLA)", jez > -3300 && jez < -2000, `${jez} m`);
+  const jezP = get(values, "mars-jezero", "pressureKpa");
+  check("Jezero derived pressure (Mars 2020 MEDA measures about 0.7-0.8 kPa)", jezP > 0.6 && jezP < 0.95, `${jezP} kPa`);
+  const gale = get(values, "mars-gale", "elevationM");
+  const galeRelief = get(values, "mars-gale", "reliefM");
+  check(
+    "Gale crater centre sits on Mount Sharp (published: floor about -4.4 km, mound about 5 km high)",
+    gale > -4600 && gale < 0 && galeRelief > 2000,
+    `${gale} m, relief ${galeRelief} m`,
+  );
+  const arsia = get(values, "mars-arsia", "elevationM");
+  check("Arsia Mons flank is high (published above +10 km at the summit)", arsia > 3000, `${arsia} m`);
+  const jezT = get(values, "mars-jezero", "meanTempC");
+  check("Jezero mean surface temperature (rover ground temperature ranges about 190-290 K)", jezT > -85 && jezT < -20, `${jezT} C`);
+  for (const v of values) check(`finite ${v.siteId} ${v.variable}`, Number.isFinite(v.value), String(v.value));
+  return out;
+}
+
+async function main() {
+  const processedAt = new Date().toISOString();
+  const log = (m: string) => console.log(`[${new Date().toISOString().slice(11, 19)}] ${m}`);
+  const values: TargetValue[] = [];
+
+  log("Moon: LOLA elevation and Diviner temperatures");
+  const shoemaker = await moonTemps(SHOEMAKER);
+  for (const site of TARGETS.filter((t) => t.body === "moon")) {
+    const v = await processMoonSite(site, processedAt);
+    values.push(...v);
+    log(`  ${site.id}: ${v.filter((x) => x.kind === "raw-derived").map((x) => `${x.variable}=${x.value}`).join(" ")}`);
+  }
+
+  log("Mars: MOLA elevation");
+  const marsSites = TARGETS.filter((t) => t.body === "mars");
+  const elevations = new Map<string, Awaited<ReturnType<typeof marsElevation>>>();
+  for (const s of marsSites) elevations.set(s.id, await marsElevation(s));
+
+  log("Mars: MCS surface temperature (downloads about 700 files)");
+  const mcs = await collectMcs(marsSites, log);
+  log(`  ${mcs.filesRead} files read, ${mcs.filesMissing} missing, ${mcs.profilesUsable} of ${mcs.profilesRead} profiles usable`);
+  for (const s of marsSites) {
+    const b = mcs.perSite.get(s.id)!;
+    log(`  ${s.id}: ${b.day.length} day and ${b.night.length} night MCS profiles within the search radius`);
+  }
+  for (const s of marsSites) {
+    const v = marsSiteValues(s, elevations.get(s.id)!, mcs, processedAt);
+    values.push(...v);
+    log(`  ${s.id}: ${v.map((x) => `${x.variable}=${x.value}`).join(" ")}`);
+  }
+
+  const malapertColdest = get(values, "moon-malapert", "minTempC");
+  const validation = validate(values, shoemaker.coldestC, malapertColdest);
+  validation.forEach((v) => log(`  ok: ${v}`));
+
+  const snapshot: Snapshot = { pipelineVersion: PIPELINE_VERSION, processedAt, values, datasets: DATASETS, validation };
+  const here = path.dirname(fileURLToPath(import.meta.url));
+  const outDir = path.resolve(here, "../src/pipeline/data");
+  await mkdir(outDir, { recursive: true });
+  await writeFile(path.join(outDir, "targets-snapshot.json"), JSON.stringify(snapshot, null, 1) + "\n");
+  log(`Wrote ${values.length} values to src/pipeline/data/targets-snapshot.json`);
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

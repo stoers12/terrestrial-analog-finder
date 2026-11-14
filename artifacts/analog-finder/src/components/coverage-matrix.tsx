@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { TARGET_SITES, type Site } from "@/data/sites";
+import type { Site } from "@/data/sites";
 import { rankAnalogs, type Weights } from "@/lib/similarity";
 import { scoreColor } from "@/lib/analog-ui";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -7,28 +7,29 @@ import { cn } from "@/lib/utils";
 
 interface Props {
   earthSites: Site[];
+  targetSites: Site[];
   weights: Weights;
   targetId: string;
   selectedId: string | null;
   onPick: (targetId: string, siteId: string) => void;
 }
 
-export function CoverageMatrix({ earthSites, weights, targetId, selectedId, onPick }: Props) {
+export function CoverageMatrix({ earthSites, targetSites, weights, targetId, selectedId, onPick }: Props) {
   const { cols, grid, top3 } = useMemo(() => {
     const grid: Record<string, Record<string, number>> = {};
     const top3: Record<string, Set<string>> = {};
-    for (const t of TARGET_SITES) {
+    for (const t of targetSites) {
       const r = rankAnalogs(t, weights, earthSites);
       grid[t.id] = Object.fromEntries(r.map((m) => [m.site.id, m.score]));
       top3[t.id] = new Set(r.slice(0, 3).map((m) => m.site.id));
     }
     const cols = earthSites.map((e) => {
-      const count = TARGET_SITES.filter((t) => top3[t.id].has(e.id)).length;
-      const mean = TARGET_SITES.reduce((a, t) => a + grid[t.id][e.id], 0) / TARGET_SITES.length;
+      const count = targetSites.filter((t) => top3[t.id].has(e.id)).length;
+      const mean = targetSites.reduce((a, t) => a + grid[t.id][e.id], 0) / targetSites.length;
       return { site: e, count, mean };
     }).sort((a, b) => b.count - a.count || b.mean - a.mean);
     return { cols, grid, top3 };
-  }, [weights, earthSites]);
+  }, [weights, earthSites, targetSites]);
 
   return (
     <section className="rounded-md border border-foreground/15 bg-card/80 p-4 md:p-5" data-testid="panel-matrix">
@@ -55,7 +56,7 @@ export function CoverageMatrix({ earthSites, weights, targetId, selectedId, onPi
             </tr>
           </thead>
           <tbody>
-            {TARGET_SITES.map((t) => (
+            {targetSites.map((t) => (
               <tr key={t.id}>
                 <th className={cn("whitespace-nowrap pr-3 text-left font-medium", t.id === targetId && "font-bold")}>
                   <span className="mr-1.5 inline-block h-2 w-2 rounded-full" style={{ background: `hsl(var(--${t.body}))` }} />

@@ -1,13 +1,17 @@
 import { logger } from "./logger";
 
-export const CLIMATE_SOURCE = "NASA POWER climatology (MERRA-2, 2001-2025)";
+export const CLIMATE_SOURCE = "NASA POWER climatology (MERRA-2, 2001-2025); skin temperature (TS)";
 export const ELEVATION_SOURCE = "Global DEM (SRTM-based Mapzen terrain tiles via OpenTopoData)";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 export interface Climate {
+  /** Annual mean skin temperature */
   tMeanC: number;
+  /** Coldest month's mean daily minimum skin temperature */
   tMinC: number;
+  /** Warmest month's mean daily maximum skin temperature */
+  tMaxC: number;
   precipMm: number;
   pressureKpa: number;
   windMs: number;
@@ -42,7 +46,7 @@ function throttledPowerCall<T>(fn: () => Promise<T>): Promise<T> {
 export async function fetchPower(lat: number, lon: number): Promise<Climate> {
   const url =
     "https://power.larc.nasa.gov/api/temporal/climatology/point" +
-    `?parameters=T2M,T2M_MIN,PRECTOTCORR,PS,WS10M&community=RE&longitude=${lon}&latitude=${lat}&format=JSON`;
+    `?parameters=TS,TS_MIN,TS_MAX,PRECTOTCORR,PS,WS10M&community=RE&longitude=${lon}&latitude=${lat}&format=JSON`;
   return withRetry(`NASA POWER (${lat}, ${lon})`, () => throttledPowerCall(async () => {
     const res = await fetch(url, { signal: AbortSignal.timeout(30_000) });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -54,16 +58,20 @@ export async function fetchPower(lat: number, lon: number): Promise<Climate> {
       if (typeof v !== "number" || v <= -900) throw new Error(`no value for ${name}`);
       return v;
     };
-    // Coldest month's mean daily minimum, from the 12 monthly climatology values (not the annual mean).
+    // Coldest month's mean daily minimum and warmest month's mean daily maximum, from the 12 monthly
+    // climatology values (not the annual mean). All three are skin (surface) temperature, the same
+    // quantity the Moon and Mars surface-temperature products measure.
     const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-    const monthlyMin = months.map((m) => {
-      const v = p["T2M_MIN"]?.[m];
-      if (typeof v !== "number" || v <= -900) throw new Error(`no monthly value for T2M_MIN ${m}`);
-      return v;
-    });
+    const monthly = (name: string) =>
+      months.map((m) => {
+        const v = p[name]?.[m];
+        if (typeof v !== "number" || v <= -900) throw new Error(`no monthly value for ${name} ${m}`);
+        return v;
+      });
     return {
-      tMeanC: ann("T2M"),
-      tMinC: Math.min(...monthlyMin),
+      tMeanC: ann("TS"),
+      tMinC: Math.min(...monthly("TS_MIN")),
+      tMaxC: Math.max(...monthly("TS_MAX")),
       precipMm: ann("PRECTOTCORR") * 365.25,
       pressureKpa: ann("PS"),
       windMs: ann("WS10M"),

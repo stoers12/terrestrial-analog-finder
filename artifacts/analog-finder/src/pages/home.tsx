@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Loader2, TriangleAlert } from "lucide-react";
-import { TARGET_SITES, type AnalogStatus, type Site } from "@/data/sites";
+import type { AnalogStatus, Site } from "@/data/sites";
+import { useTargetSites, type TargetsData } from "@/hooks/use-target-sites";
 import { useEarthSites, useGrid } from "@/hooks/use-earth-sites";
 import { cellKey, findDiscoveries, scoreGrid } from "@/lib/discoveries";
 import { Discoveries } from "@/components/discoveries";
@@ -28,8 +29,16 @@ const FILTERS: { id: Filter; label: string }[] = [
 ];
 
 export default function Home() {
-  const { sites, isLoading, error, refetch } = useEarthSites();
-  if (!sites) {
+  const earth = useEarthSites();
+  const targets = useTargetSites();
+  const sites = earth.sites;
+  const isLoading = earth.isLoading || targets.isLoading;
+  const error = earth.error ?? targets.error;
+  const refetch = () => {
+    if (earth.error) earth.refetch();
+    if (targets.error) targets.refetch();
+  };
+  if (!sites || !targets.data) {
     return (
       <div className="grid min-h-[100dvh] place-items-center bg-secondary p-6 text-secondary-foreground" data-testid="status-loading-sites">
         <div className="max-w-sm text-center">
@@ -38,32 +47,33 @@ export default function Home() {
               <TriangleAlert className="mx-auto h-7 w-7 text-primary" />
               <div className="font-display mt-3 text-xl font-bold">Could not load measured data</div>
               <p className="mt-1 text-sm opacity-80">{error.message}</p>
-              <Button className="mt-4" onClick={() => refetch()} data-testid="button-retry">Try again</Button>
+              <Button className="mt-4" onClick={refetch} data-testid="button-retry">Try again</Button>
             </>
           ) : (
             <>
               <Loader2 className="mx-auto h-7 w-7 animate-spin text-primary" />
               <div className="font-mono mt-3 text-[11px] uppercase tracking-[0.3em] opacity-70">
-                {isLoading ? "Measuring Earth sites" : "Loading"}
+                {isLoading ? "Measuring Earth sites and loading Moon and Mars data" : "Loading"}
               </div>
-              <p className="mt-2 text-sm opacity-80">Pulling climate from NASA POWER and elevation from a global terrain model. The first visit can take a few seconds.</p>
+              <p className="mt-2 text-sm opacity-80">Pulling climate from NASA POWER, elevation from a global terrain model, and the processed Moon and Mars values from the data pipeline. The first visit can take a few seconds.</p>
             </>
           )}
         </div>
       </div>
     );
   }
-  return <HomeLoaded earthSites={sites} />;
+  return <HomeLoaded earthSites={sites} targets={targets.data} />;
 }
 
-function HomeLoaded({ earthSites }: { earthSites: Site[] }) {
-  const [targetId, setTargetId] = useState(TARGET_SITES[0].id);
+function HomeLoaded({ earthSites, targets }: { earthSites: Site[]; targets: TargetsData }) {
+  const targetSites = targets.sites;
+  const [targetId, setTargetId] = useState(targetSites[0].id);
   const [weights, setWeights] = useState<Weights>(DEFAULT_WEIGHTS);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [filter, setFilter] = useState<Filter>("all");
   const [minScore, setMinScore] = useState(0);
 
-  const target = TARGET_SITES.find((t) => t.id === targetId) ?? TARGET_SITES[0];
+  const target = targetSites.find((t) => t.id === targetId) ?? targetSites[0];
   const ranked = useMemo(() => rankAnalogs(target, weights, earthSites), [target, weights, earthSites]);
   const withRank = useMemo(() => ranked.map((match, i) => ({ match, rank: i + 1 })), [ranked]);
   const visible = useMemo(
@@ -106,7 +116,7 @@ function HomeLoaded({ earthSites }: { earthSites: Site[] }) {
               <div className="hidden font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground sm:block">Moon and Mars rehearsal planner</div>
             </div>
           </div>
-          <AboutDialog />
+          <AboutDialog pipeline={targets} />
         </div>
       </header>
 
@@ -116,11 +126,11 @@ function HomeLoaded({ earthSites }: { earthSites: Site[] }) {
             We cannot go yet. <span className="text-body-accent">Where on Earth</span> should we rehearse?
           </h1>
           <p className="mt-2 max-w-2xl text-sm text-muted-foreground md:text-base">
-            Pick a Moon or Mars base site. {ranked.length} Earth field sites are ranked live on {DIMENSIONS.length} dimensions using measured NASA POWER climate and terrain data, and a global grid search looks for places nobody has catalogued.
+            Pick a Moon or Mars base site. {ranked.length} Earth field sites are ranked live on {DIMENSIONS.length} dimensions using measured NASA POWER climate and terrain data, against Moon and Mars values processed from raw NASA files, and a global grid search looks for places nobody has catalogued.
           </p>
         </motion.div>
 
-        <TargetSelector target={target} onChange={changeTarget} />
+        <TargetSelector target={target} targetSites={targetSites} onChange={changeTarget} />
 
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
           <div className="min-w-0 space-y-6">
@@ -206,6 +216,7 @@ function HomeLoaded({ earthSites }: { earthSites: Site[] }) {
 
         <CoverageMatrix
           earthSites={earthSites}
+          targetSites={targetSites}
           weights={weights}
           targetId={target.id}
           selectedId={effectiveId}
@@ -221,9 +232,9 @@ function HomeLoaded({ earthSites }: { earthSites: Site[] }) {
       <footer className="border-t border-foreground/10">
         <div className="mx-auto flex max-w-[1500px] flex-wrap justify-between gap-2 px-4 py-5 text-xs text-muted-foreground md:px-6">
           <span>
-            Built for the NASA Space Apps Challenge 2026. Earth climate from NASA POWER, terrain from a global DEM, imagery from NASA GIBS. Moon and Mars values are a curated reference table.
+            Built for the NASA Space Apps Challenge 2026. Earth climate from NASA POWER, terrain from a global DEM, imagery from NASA GIBS. Moon and Mars values are processed from raw LRO, MGS and MRO files by a rerunnable pipeline; Mars wind is a reference value.
           </span>
-          <span className="font-mono">Measured Earth data · reference Moon/Mars data</span>
+          <span className="font-mono">Measured Earth data · pipeline-processed Moon/Mars data</span>
         </div>
       </footer>
     </div>

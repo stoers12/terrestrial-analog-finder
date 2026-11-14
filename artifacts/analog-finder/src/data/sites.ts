@@ -1,13 +1,14 @@
 /**
  * Site catalogue for the Terrestrial Analog Finder.
  *
- * Moon and Mars targets are a curated REFERENCE table: values are rounded from
- * published mission results (see TARGET_REFERENCE) and are indicative only.
+ * Only editorial fields live here: names, geology tags, isolation, summaries, missions, status.
  *
- * Earth sites are editorial seeds (name, geology tags, isolation, status). Their
- * temperature, pressure, precipitation, wind and relief are NOT stored here: they
- * are measured at load time from NASA POWER and a global DEM by the API server and
- * merged in by hydrateEarthSite().
+ * Moon and Mars numbers (temperature, elevation, relief, pressure, wind) are produced by the
+ * NASA data pipeline (artifacts/api-server/src/pipeline), served by GET /api/targets and merged
+ * in by hydrateTargetSite().
+ *
+ * Earth numbers are measured at load time from NASA POWER and a global DEM by the API server
+ * and merged in by hydrateEarthSite().
  */
 
 export type Body = "moon" | "mars" | "earth";
@@ -48,6 +49,29 @@ export interface Measured {
   fetchedAt: string;
 }
 
+export type ValueKind = "raw-derived" | "derived" | "reference";
+
+export type TargetVariable = "meanTempC" | "minTempC" | "maxTempC" | "elevationM" | "reliefM" | "pressureKpa" | "windMs";
+
+/** Provenance of one Moon or Mars value, as stored by the pipeline. */
+export interface TargetValueInfo {
+  value: number;
+  kind: ValueKind;
+  product: string;
+  sourceUrl: string;
+  processedAt: string;
+  pixelSize: string;
+  cleaningNote: string;
+  samples: number | null;
+}
+
+/** Moon/Mars sites: the pipeline values and where each one came from. */
+export interface TargetData {
+  elevationM: number;
+  reliefM: number;
+  values: Record<TargetVariable, TargetValueInfo>;
+}
+
 export interface Site {
   id: string;
   name: string;
@@ -55,9 +79,9 @@ export interface Site {
   region: string;
   lat: number;
   lon: number;
-  /** Annual mean near-surface temperature, degrees C */
+  /** Annual mean surface (skin) temperature, degrees C */
   meanTempC: number;
-  /** Typical coldest-night temperature, degrees C */
+  /** Coldest surface temperature, degrees C. Earth: coldest month's mean daily minimum. Moon/Mars: mean of the coldest 10% of night samples. */
   minTempC: number;
   /** Annual precipitation, mm (0 off-Earth) */
   precipMm: number;
@@ -74,28 +98,35 @@ export interface Site {
   status?: AnalogStatus;
   /** Earth sites only: where the measured values came from */
   measured?: Measured;
+  /** Moon/Mars sites only: pipeline values with provenance */
+  targetData?: TargetData;
   /** One or two sentences on why the site matters */
   summary: string;
   /** Moon/Mars sites: what a base or landing there is for */
   mission?: string;
 }
 
-export const TARGET_SITES: Site[] = [
+/** Editorial fields of a Moon or Mars target. Every number comes from the pipeline. */
+export interface TargetSeed {
+  id: string;
+  name: string;
+  body: "moon" | "mars";
+  region: string;
+  geology: GeologyTag[];
+  /** Editorial estimate, 0 (roadside) to 10 (nowhere). Not measured. */
+  isolation: number;
+  summary: string;
+  mission: string;
+}
+
+export const TARGET_SEEDS: TargetSeed[] = [
   // ---- Moon ----
   {
     id: "moon-shackleton",
     name: "Shackleton Crater rim",
     body: "moon",
     region: "South pole",
-    lat: -89.9,
-    lon: 0,
-    meanTempC: -100,
-    minTempC: -170,
-    precipMm: 0,
-    pressureKpa: 0,
-    windMs: 0,
     geology: ["impact-crater", "fine-regolith-dust", "permafrost-ice"],
-    ruggedness: 7,
     isolation: 10,
     summary:
       "A 21 km crater at the pole whose rim sees near-continuous sunlight while the floor is in permanent shadow and holds water ice.",
@@ -106,15 +137,7 @@ export const TARGET_SITES: Site[] = [
     name: "Malapert Massif",
     body: "moon",
     region: "South pole region",
-    lat: -85.9,
-    lon: 2.9,
-    meanTempC: -75,
-    minTempC: -165,
-    precipMm: 0,
-    pressureKpa: 0,
-    windMs: 0,
     geology: ["ancient-crystalline", "fine-regolith-dust", "impact-crater"],
-    ruggedness: 6,
     isolation: 10,
     summary:
       "A 5 km high massif near the south pole with long illumination and a permanent line of sight to Earth.",
@@ -125,15 +148,7 @@ export const TARGET_SITES: Site[] = [
     name: "Marius Hills pit",
     body: "moon",
     region: "Oceanus Procellarum",
-    lat: 14.1,
-    lon: -56.7,
-    meanTempC: -20,
-    minTempC: -170,
-    precipMm: 0,
-    pressureKpa: 0,
-    windMs: 0,
     geology: ["basalt-volcanic", "lava-tubes", "fine-regolith-dust"],
-    ruggedness: 4,
     isolation: 10,
     summary:
       "A collapse pit in a volcanic dome field that opens into a lava tube, with gravity data pointing to a larger cave below.",
@@ -144,15 +159,7 @@ export const TARGET_SITES: Site[] = [
     name: "Mare Tranquillitatis pit",
     body: "moon",
     region: "Sea of Tranquility",
-    lat: 8.3,
-    lon: 33.2,
-    meanTempC: -20,
-    minTempC: -170,
-    precipMm: 0,
-    pressureKpa: 0,
-    windMs: 0,
     geology: ["basalt-volcanic", "lava-tubes", "fine-regolith-dust"],
-    ruggedness: 2,
     isolation: 10,
     summary:
       "The deepest known lunar pit, about 100 m, on a flat basalt plain with radar evidence of a sublunar cave.",
@@ -163,15 +170,7 @@ export const TARGET_SITES: Site[] = [
     name: "Schrodinger Basin",
     body: "moon",
     region: "Far side, south polar",
-    lat: -75,
-    lon: 132.4,
-    meanTempC: -85,
-    minTempC: -170,
-    precipMm: 0,
-    pressureKpa: 0,
-    windMs: 0,
     geology: ["impact-crater", "basalt-volcanic", "fine-regolith-dust"],
-    ruggedness: 8,
     isolation: 10,
     summary:
       "A young 320 km peak-ring basin on the far side with exposed deep crust and volcanic vents.",
@@ -184,15 +183,7 @@ export const TARGET_SITES: Site[] = [
     name: "Jezero Crater delta",
     body: "mars",
     region: "Isidis Planitia rim",
-    lat: 18.4,
-    lon: 77.6,
-    meanTempC: -60,
-    minTempC: -90,
-    precipMm: 0,
-    pressureKpa: 0.7,
-    windMs: 5,
     geology: ["clay-sulfate", "impact-crater", "basalt-volcanic", "sand-dunes"],
-    ruggedness: 5,
     isolation: 10,
     summary:
       "An ancient lake basin with a well-preserved river delta, carbonates and clays. Perseverance has been sampling it since 2021.",
@@ -203,15 +194,7 @@ export const TARGET_SITES: Site[] = [
     name: "Gale Crater, Mount Sharp",
     body: "mars",
     region: "Aeolis Mons",
-    lat: -5.4,
-    lon: 137.8,
-    meanTempC: -50,
-    minTempC: -90,
-    precipMm: 0,
-    pressureKpa: 0.85,
-    windMs: 4,
     geology: ["impact-crater", "clay-sulfate", "sand-dunes"],
-    ruggedness: 8,
     isolation: 10,
     summary:
       "A 154 km crater with a 5 km layered mound recording the drying of Mars. Curiosity has climbed it since 2012.",
@@ -222,15 +205,7 @@ export const TARGET_SITES: Site[] = [
     name: "Oxia Planum",
     body: "mars",
     region: "Chryse region",
-    lat: 18.2,
-    lon: -24.6,
-    meanTempC: -55,
-    minTempC: -90,
-    precipMm: 0,
-    pressureKpa: 0.8,
-    windMs: 5,
     geology: ["clay-sulfate", "basalt-volcanic"],
-    ruggedness: 2,
     isolation: 10,
     summary:
       "A flat plain covered in iron-magnesium clays, selected as the landing site for ESA's Rosalind Franklin rover.",
@@ -241,15 +216,7 @@ export const TARGET_SITES: Site[] = [
     name: "Arcadia Planitia",
     body: "mars",
     region: "Northern lowlands",
-    lat: 47,
-    lon: -176,
-    meanTempC: -70,
-    minTempC: -120,
-    precipMm: 0,
-    pressureKpa: 0.9,
-    windMs: 6,
     geology: ["permafrost-ice", "fine-regolith-dust"],
-    ruggedness: 1,
     isolation: 10,
     summary:
       "A smooth mid-latitude plain with shallow ice buried under a few tens of centimetres of dust.",
@@ -260,15 +227,7 @@ export const TARGET_SITES: Site[] = [
     name: "Arsia Mons lava tubes",
     body: "mars",
     region: "Tharsis volcanic province",
-    lat: -8.3,
-    lon: -120.1,
-    meanTempC: -60,
-    minTempC: -100,
-    precipMm: 0,
-    pressureKpa: 0.2,
-    windMs: 4,
     geology: ["basalt-volcanic", "lava-tubes"],
-    ruggedness: 6,
     isolation: 10,
     summary:
       "A giant shield volcano whose flanks hold skylights that open into lava tubes, a likely shelter from radiation.",
@@ -279,15 +238,7 @@ export const TARGET_SITES: Site[] = [
     name: "Mawrth Vallis",
     body: "mars",
     region: "Arabia Terra",
-    lat: 22.3,
-    lon: -16.5,
-    meanTempC: -55,
-    minTempC: -90,
-    precipMm: 0,
-    pressureKpa: 0.8,
-    windMs: 5,
     geology: ["clay-sulfate", "basalt-volcanic", "ancient-crystalline"],
-    ruggedness: 4,
     isolation: 10,
     summary:
       "An outflow channel cutting through a thick stack of layered clays, among the most diverse in the solar system.",
@@ -602,31 +553,82 @@ export function hydrateEarthSite(seed: EarthSeed, m: MeasuredInput): Site {
   };
 }
 
+/** Shape of one site in the GET /api/targets response. */
+export interface TargetApiSite {
+  id: string;
+  body: "moon" | "mars";
+  lat: number;
+  lon: number;
+  values: Record<TargetVariable, TargetValueInfo>;
+}
+
+/** Merge editorial seed data with pipeline values into a full Site. */
+export function hydrateTargetSite(seed: TargetSeed, api: TargetApiSite): Site {
+  const v = api.values;
+  return {
+    ...seed,
+    lat: api.lat,
+    lon: api.lon,
+    meanTempC: v.meanTempC.value,
+    minTempC: v.minTempC.value,
+    precipMm: 0,
+    pressureKpa: v.pressureKpa.value,
+    windMs: v.windMs.value,
+    ruggedness: round(reliefToRuggedness(v.reliefM.value), 1),
+    targetData: { elevationM: v.elevationM.value, reliefM: v.reliefM.value, values: v },
+  };
+}
+
 function round(n: number, d: number) {
   const f = 10 ** d;
   return Math.round(n * f) / f;
 }
 
-/** Where each reference value for a Moon or Mars target comes from. */
+/** How the Moon and Mars numbers were produced, and what stays editorial. */
 export const TARGET_REFERENCE: Record<"moon" | "mars", { values: string; geology: string }> = {
   moon: {
     values:
-      "Surface temperatures rounded from LRO Diviner results (Paige et al. 2010, Williams et al. 2017); relief and illumination from LRO LOLA; no atmosphere, so no pressure or wind.",
-    geology: "Geology tags and isolation are curated from published site-characterisation work (Artemis candidate regions, lunar pit and lava-tube studies).",
+      "Temperature from LRO Diviner bolometric maps and elevation and relief from LRO LOLA, downloaded and processed by the pipeline. No atmosphere, so pressure and wind are 0 (reference).",
+    geology: "Geology tags and isolation are editorial, curated from published site-characterisation work (Artemis candidate regions, lunar pit and lava-tube studies).",
   },
   mars: {
     values:
-      "Temperature, pressure and wind rounded from MSL REMS, InSight APSS and Mars 2020 MEDA reports; relief from MOLA and HiRISE landing-site studies.",
-    geology: "Geology tags and isolation are curated from landing-site workshop reports (Jezero, Gale, Oxia, Mawrth) and mid-latitude ice studies.",
+      "Temperature from MRO Mars Climate Sounder profiles and elevation and relief from MGS MOLA, processed by the pipeline. Pressure is derived from elevation. Wind is a reference value: rover wind records exist only at Gale and Jezero.",
+    geology: "Geology tags and isolation are editorial, curated from landing-site workshop reports (Jezero, Gale, Oxia, Mawrth) and mid-latitude ice studies.",
   },
 };
 
+export const KIND_LABEL: Record<ValueKind, string> = {
+  "raw-derived": "raw-derived",
+  derived: "derived",
+  reference: "reference",
+};
+
+export const KIND_HINT: Record<ValueKind, string> = {
+  "raw-derived": "Computed by the pipeline from raw NASA files",
+  derived: "Calculated from another processed value with a stated formula (a model, not a measurement)",
+  reference: "A fixed value that is not computed from a raster",
+};
+
+export const VARIABLE_LABEL: Record<TargetVariable, string> = {
+  meanTempC: "Mean surface temperature",
+  minTempC: "Coldest surface temperature",
+  maxTempC: "Warmest surface temperature",
+  elevationM: "Elevation",
+  reliefM: "Relief within 15 km",
+  pressureKpa: "Surface pressure",
+  windMs: "Wind",
+};
+
 export const DATA_SOURCES = [
-  { name: "NASA POWER climatology (MERRA-2)", body: "Earth", use: "Measured: temperature, precipitation, pressure and wind per site and grid cell", measured: true },
-  { name: "Global DEM, SRTM-based (via OpenTopoData)", body: "Earth", use: "Measured: elevation and local relief per site and grid cell", measured: true },
-  { name: "NASA GIBS Blue Marble", body: "Earth", use: "Measured: base map imagery", measured: true },
-  { name: "LRO Diviner and LOLA", body: "Moon", use: "Reference table: surface temperature, relief and illumination", measured: false },
-  { name: "MSL REMS, InSight APSS, Mars 2020 MEDA", body: "Mars", use: "Reference table: temperature, pressure and wind", measured: false },
-  { name: "MOLA and HiRISE landing-site studies", body: "Mars", use: "Reference table: relief and geology", measured: false },
-  { name: "Published analog literature", body: "Earth", use: "Curated: geology tags, isolation, analog status", measured: false },
-];
+  { name: "NASA POWER climatology (MERRA-2), skin temperature", body: "Earth", use: "Measured: surface temperature, precipitation, pressure and wind per site and grid cell", kind: "measured" },
+  { name: "Global DEM, SRTM-based (via OpenTopoData)", body: "Earth", use: "Measured: elevation and local relief per site and grid cell", kind: "measured" },
+  { name: "NASA GIBS Blue Marble", body: "Earth", use: "Measured: base map imagery", kind: "measured" },
+  { name: "LRO Diviner bolometric temperature maps", body: "Moon", use: "Processed by the pipeline: mean, coldest and warmest surface temperature", kind: "raw-derived" },
+  { name: "LRO LOLA topography", body: "Moon", use: "Processed by the pipeline: elevation and relief", kind: "raw-derived" },
+  { name: "MRO Mars Climate Sounder profiles", body: "Mars", use: "Processed by the pipeline: mean, coldest and warmest surface temperature", kind: "raw-derived" },
+  { name: "MGS MOLA topography", body: "Mars", use: "Processed by the pipeline: elevation and relief", kind: "raw-derived" },
+  { name: "Mars pressure model (0.61 kPa, 11.1 km scale height)", body: "Mars", use: "Derived from MOLA elevation", kind: "derived" },
+  { name: "Rover wind records (MSL REMS, Mars 2020 MEDA)", body: "Mars", use: "Reference: typical wind, not computed", kind: "reference" },
+  { name: "Published analog literature", body: "Earth", use: "Editorial: geology tags, isolation, analog status", kind: "editorial" },
+] as const;

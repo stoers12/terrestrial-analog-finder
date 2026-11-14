@@ -4,6 +4,7 @@ import { Check, ShieldAlert, X } from "lucide-react";
 import { GEOLOGY_LABELS, type Site } from "@/data/sites";
 import { DIMENSIONS, type Dimension, type DimensionScores, type Match } from "@/lib/similarity";
 import { explain, fmt, limits, rehearsal, scoreColor, STATUS_HINT, STATUS_LABEL, verdict } from "@/lib/analog-ui";
+import { TargetProvenance, TemperatureDefinitions } from "@/components/target-provenance";
 import { cn } from "@/lib/utils";
 
 function CountUp({ value }: { value: number }) {
@@ -87,8 +88,8 @@ export function SiteDetail({ target, match, rank }: Props) {
   const v = verdict(match.score);
   const reh = rehearsal(target, e, match.dimensions, match.sharedGeology, match.missingGeology);
   const rows: [string, string, string, number?][] = [
-    ["Mean temperature", fmt.temp(target.meanTempC), fmt.temp(e.meanTempC)],
-    ["Coldest-month night", fmt.temp(target.minTempC), fmt.temp(e.minTempC)],
+    ["Mean surface temperature", fmt.temp(target.meanTempC), fmt.temp(e.meanTempC)],
+    ["Coldest surface temperature", fmt.temp(target.minTempC), fmt.temp(e.minTempC)],
     ["Surface pressure", fmt.kpa(target.pressureKpa), fmt.kpa(e.pressureKpa)],
     ["Precipitation", fmt.mm(target.precipMm), fmt.mm(e.precipMm)],
     ["Wind (mean)", fmt.wind(target.windMs), fmt.wind(e.windMs)],
@@ -202,6 +203,9 @@ export function SiteDetail({ target, match, rank }: Props) {
                 </ul>
               </div>
             </div>
+
+            <TemperatureDefinitions body={target.body as "moon" | "mars"} />
+            <TargetProvenance target={target} />
 
             {e.measured && (
               <p className="text-[11px] text-muted-foreground" data-testid="text-provenance">

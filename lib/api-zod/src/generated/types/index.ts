@@ -6,6 +6,9 @@
  * OpenAPI spec version: 0.1.0
  */
 
+export * from './datasetInfo';
+export * from './datasetInfoBody';
+export * from './datasetInfoKind';
 export * from './errorResponse';
 export * from './gridCell';
 export * from './gridResponse';
@@ -17,3 +20,9 @@ export * from './measuredValues';
 export * from './measurePoint';
 export * from './measureRequest';
 export * from './measureResponse';
+export * from './targetSite';
+export * from './targetSiteBody';
+export * from './targetsResponse';
+export * from './targetValue';
+export * from './targetValueKind';
+export * from './targetValues';

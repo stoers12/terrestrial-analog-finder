@@ -37,8 +37,9 @@ export const MeasureSitesResponse = zod.object({
   "results": zod.array(zod.object({
   "elevationM": zod.number().describe('Terrain elevation at the point, metres'),
   "reliefM": zod.number().describe('Highest minus lowest elevation in a small ring around the point, metres'),
-  "tMeanC": zod.number().describe('Annual mean 2 m air temperature, degrees C'),
-  "tMinC": zod.number().describe('Mean daily minimum temperature of the coldest month, degrees C'),
+  "tMeanC": zod.number().describe('Annual mean skin (surface) temperature, degrees C'),
+  "tMinC": zod.number().describe('Mean daily minimum skin temperature of the coldest month, degrees C'),
+  "tMaxC": zod.number().describe('Mean daily maximum skin temperature of the warmest month, degrees C'),
   "precipMm": zod.number().describe('Annual precipitation, mm'),
   "pressureKpa": zod.number().describe('Annual mean surface pressure, kPa'),
   "windMs": zod.number().describe('Annual mean 10 m wind speed, m/s')
@@ -72,8 +73,9 @@ export const GetGridResponse = zod.object({
   "cells": zod.array(zod.object({
   "elevationM": zod.number().describe('Terrain elevation at the point, metres'),
   "reliefM": zod.number().describe('Highest minus lowest elevation in a small ring around the point, metres'),
-  "tMeanC": zod.number().describe('Annual mean 2 m air temperature, degrees C'),
-  "tMinC": zod.number().describe('Mean daily minimum temperature of the coldest month, degrees C'),
+  "tMeanC": zod.number().describe('Annual mean skin (surface) temperature, degrees C'),
+  "tMinC": zod.number().describe('Mean daily minimum skin temperature of the coldest month, degrees C'),
+  "tMaxC": zod.number().describe('Mean daily maximum skin temperature of the warmest month, degrees C'),
   "precipMm": zod.number().describe('Annual precipitation, mm'),
   "pressureKpa": zod.number().describe('Annual mean surface pressure, kPa'),
   "windMs": zod.number().describe('Annual mean 10 m wind speed, m/s')
@@ -81,6 +83,103 @@ export const GetGridResponse = zod.object({
   "lat": zod.number(),
   "lon": zod.number()
 })))
+})
+
+
+/**
+ * Surface temperature, elevation, relief, pressure and wind for every Moon and Mars target, produced by the offline pipeline from raw NASA products. Every value carries its kind (raw-derived, derived or reference), source product, URL, processing date, pixel size and cleaning note. Fails with 500 if the table is incomplete.
+ * @summary Moon and Mars target values with provenance
+ */
+export const GetTargetsResponse = zod.object({
+  "pipelineVersion": zod.number().int(),
+  "processedAt": zod.string(),
+  "sites": zod.array(zod.object({
+  "id": zod.string(),
+  "body": zod.enum(['moon', 'mars']),
+  "lat": zod.number(),
+  "lon": zod.number(),
+  "values": zod.object({
+  "meanTempC": zod.object({
+  "value": zod.number(),
+  "kind": zod.enum(['raw-derived', 'derived', 'reference']),
+  "product": zod.string(),
+  "sourceUrl": zod.string(),
+  "processedAt": zod.string(),
+  "pixelSize": zod.string(),
+  "cleaningNote": zod.string(),
+  "samples": zod.number().int().nullable()
+}),
+  "minTempC": zod.object({
+  "value": zod.number(),
+  "kind": zod.enum(['raw-derived', 'derived', 'reference']),
+  "product": zod.string(),
+  "sourceUrl": zod.string(),
+  "processedAt": zod.string(),
+  "pixelSize": zod.string(),
+  "cleaningNote": zod.string(),
+  "samples": zod.number().int().nullable()
+}),
+  "maxTempC": zod.object({
+  "value": zod.number(),
+  "kind": zod.enum(['raw-derived', 'derived', 'reference']),
+  "product": zod.string(),
+  "sourceUrl": zod.string(),
+  "processedAt": zod.string(),
+  "pixelSize": zod.string(),
+  "cleaningNote": zod.string(),
+  "samples": zod.number().int().nullable()
+}),
+  "elevationM": zod.object({
+  "value": zod.number(),
+  "kind": zod.enum(['raw-derived', 'derived', 'reference']),
+  "product": zod.string(),
+  "sourceUrl": zod.string(),
+  "processedAt": zod.string(),
+  "pixelSize": zod.string(),
+  "cleaningNote": zod.string(),
+  "samples": zod.number().int().nullable()
+}),
+  "reliefM": zod.object({
+  "value": zod.number(),
+  "kind": zod.enum(['raw-derived', 'derived', 'reference']),
+  "product": zod.string(),
+  "sourceUrl": zod.string(),
+  "processedAt": zod.string(),
+  "pixelSize": zod.string(),
+  "cleaningNote": zod.string(),
+  "samples": zod.number().int().nullable()
+}),
+  "pressureKpa": zod.object({
+  "value": zod.number(),
+  "kind": zod.enum(['raw-derived', 'derived', 'reference']),
+  "product": zod.string(),
+  "sourceUrl": zod.string(),
+  "processedAt": zod.string(),
+  "pixelSize": zod.string(),
+  "cleaningNote": zod.string(),
+  "samples": zod.number().int().nullable()
+}),
+  "windMs": zod.object({
+  "value": zod.number(),
+  "kind": zod.enum(['raw-derived', 'derived', 'reference']),
+  "product": zod.string(),
+  "sourceUrl": zod.string(),
+  "processedAt": zod.string(),
+  "pixelSize": zod.string(),
+  "cleaningNote": zod.string(),
+  "samples": zod.number().int().nullable()
+})
+})
+})),
+  "datasets": zod.array(zod.object({
+  "name": zod.string(),
+  "body": zod.enum(['Moon', 'Mars', 'Earth']),
+  "role": zod.string(),
+  "url": zod.string(),
+  "kind": zod.enum(['raw-derived', 'derived', 'reference']),
+  "steps": zod.array(zod.string())
+})),
+  "validation": zod.array(zod.string())
 })
 
 

@@ -61,9 +61,9 @@ export function rehearsal(target: Site, site: Site, dims: Partial<DimensionScore
 
   if (has("thermal")) {
     if ((dims.thermal ?? 0) >= 0.65)
-      tests.push(`Cold-soak batteries, seals and suits: coldest-month nights average ${fmt.temp(site.minTempC)} here against ${fmt.temp(target.minTempC)} on ${where} (temperature match ${pct("thermal")}).`);
+      tests.push(`Cold-soak batteries, seals and suits: coldest surface temperatures average ${fmt.temp(site.minTempC)} here against ${fmt.temp(target.minTempC)} on ${where} (temperature match ${pct("thermal")}).`);
     else
-      gaps.push(`Temperature: nights here average ${fmt.temp(site.minTempC)} but ${fmt.temp(target.minTempC)} on ${where} (match ${pct("thermal")}), so thermal hardware cannot be stress-tested to mission limits.`);
+      gaps.push(`Temperature: coldest surface temperatures here average ${fmt.temp(site.minTempC)} but ${fmt.temp(target.minTempC)} on ${where} (match ${pct("thermal")}), so thermal hardware cannot be stress-tested to mission limits.`);
   }
   if (has("atmosphere")) {
     if ((dims.atmosphere ?? 0) >= 0.55)
@@ -109,11 +109,11 @@ export function explain(target: Site, m: Match): string[] {
   } else {
     out.push(`It shares none of the target's geological settings, so it is useful mainly for logistics, climate or terrain drills.`);
   }
-  const dT = m.site.minTempC - target.minTempC;
+  const dT = Math.round(m.site.minTempC - target.minTempC);
   out.push(
     dT > 40
-      ? `Its coldest nights are ${dT} °C warmer than the target, so thermal hardware cannot be stress-tested here.`
-      : `Cold nights come within ${Math.abs(dT)} °C of the target, a useful test for batteries, seals and suits.`,
+      ? `Its coldest surface temperatures are ${dT} °C warmer than the target, so thermal hardware cannot be stress-tested here.`
+      : `Coldest temperatures come within ${Math.abs(dT)} °C of the target, a useful test for batteries, seals and suits.`,
   );
   return out;
 }

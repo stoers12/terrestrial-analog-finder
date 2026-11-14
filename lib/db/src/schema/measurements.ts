@@ -1,6 +1,6 @@
 import { pgTable, text, doublePrecision, boolean, timestamp } from "drizzle-orm/pg-core";
 
-/** Cached NASA POWER climatology and DEM elevation for one point. Key is "lat,lon" rounded to 2 decimals. */
+/** Cached NASA POWER skin-temperature climatology and DEM elevation for one point. Key is "lat,lon" rounded to 2 decimals. */
 export const measurementsTable = pgTable("measurements", {
   key: text("key").primaryKey(),
   lat: doublePrecision("lat").notNull(),
@@ -9,6 +9,7 @@ export const measurementsTable = pgTable("measurements", {
   reliefM: doublePrecision("relief_m").notNull(),
   tMeanC: doublePrecision("t_mean_c").notNull(),
   tMinC: doublePrecision("t_min_c").notNull(),
+  tMaxC: doublePrecision("t_max_c").notNull(),
   precipMm: doublePrecision("precip_mm").notNull(),
   pressureKpa: doublePrecision("pressure_kpa").notNull(),
   windMs: doublePrecision("wind_ms").notNull(),

@@ -2,6 +2,7 @@ import app from "./app";
 import { logger } from "./lib/logger";
 import { startGridJob } from "./lib/grid-job";
 import { ensureSchema } from "./lib/ensure-schema";
+import { loadTargets } from "./lib/targets";
 
 const rawPort = process.env["PORT"];
 
@@ -18,6 +19,7 @@ if (Number.isNaN(port) || port <= 0) {
 }
 
 await ensureSchema();
+await loadTargets();
 
 app.listen(port, (err) => {
   if (err) {

@@ -5,6 +5,88 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+export type TargetValueKind = typeof TargetValueKind[keyof typeof TargetValueKind];
+
+
+export const TargetValueKind = {
+  'raw-derived': 'raw-derived',
+  derived: 'derived',
+  reference: 'reference',
+} as const;
+
+export interface TargetValue {
+  value: number;
+  kind: TargetValueKind;
+  product: string;
+  sourceUrl: string;
+  processedAt: string;
+  pixelSize: string;
+  cleaningNote: string;
+  /** @nullable */
+  samples: number | null;
+}
+
+export interface TargetValues {
+  meanTempC: TargetValue;
+  minTempC: TargetValue;
+  maxTempC: TargetValue;
+  elevationM: TargetValue;
+  reliefM: TargetValue;
+  pressureKpa: TargetValue;
+  windMs: TargetValue;
+}
+
+export type TargetSiteBody = typeof TargetSiteBody[keyof typeof TargetSiteBody];
+
+
+export const TargetSiteBody = {
+  moon: 'moon',
+  mars: 'mars',
+} as const;
+
+export interface TargetSite {
+  id: string;
+  body: TargetSiteBody;
+  lat: number;
+  lon: number;
+  values: TargetValues;
+}
+
+export type DatasetInfoBody = typeof DatasetInfoBody[keyof typeof DatasetInfoBody];
+
+
+export const DatasetInfoBody = {
+  Moon: 'Moon',
+  Mars: 'Mars',
+  Earth: 'Earth',
+} as const;
+
+export type DatasetInfoKind = typeof DatasetInfoKind[keyof typeof DatasetInfoKind];
+
+
+export const DatasetInfoKind = {
+  'raw-derived': 'raw-derived',
+  derived: 'derived',
+  reference: 'reference',
+} as const;
+
+export interface DatasetInfo {
+  name: string;
+  body: DatasetInfoBody;
+  role: string;
+  url: string;
+  kind: DatasetInfoKind;
+  steps: string[];
+}
+
+export interface TargetsResponse {
+  pipelineVersion: number;
+  processedAt: string;
+  sites: TargetSite[];
+  datasets: DatasetInfo[];
+  validation: string[];
+}
+
 export interface MeasurePoint {
   id: string;
   lat: number;
@@ -21,10 +103,12 @@ export interface MeasuredValues {
   elevationM: number;
   /** Highest minus lowest elevation in a small ring around the point, metres */
   reliefM: number;
-  /** Annual mean 2 m air temperature, degrees C */
+  /** Annual mean skin (surface) temperature, degrees C */
   tMeanC: number;
-  /** Mean daily minimum temperature of the coldest month, degrees C */
+  /** Mean daily minimum skin temperature of the coldest month, degrees C */
   tMinC: number;
+  /** Mean daily maximum skin temperature of the warmest month, degrees C */
+  tMaxC: number;
   /** Annual precipitation, mm */
   precipMm: number;
   /** Annual mean surface pressure, kPa */

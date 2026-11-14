@@ -1,10 +1,12 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { GEOLOGY_LABELS, TARGET_REFERENCE, TARGET_SITES, type Site } from "@/data/sites";
+import { GEOLOGY_LABELS, TARGET_REFERENCE, type Site } from "@/data/sites";
+import { KindBadge, formatDate } from "@/components/target-provenance";
 import { fmt } from "@/lib/analog-ui";
 import { cn } from "@/lib/utils";
 
 interface Props {
   target: Site;
+  targetSites: Site[];
   onChange: (id: string) => void;
 }
 
@@ -13,7 +15,7 @@ const GROUPS: { body: "moon" | "mars"; label: string; facts: string }[] = [
   { body: "mars", label: "Mars", facts: "0.38 g · 0.6 kPa CO2" },
 ];
 
-export function TargetSelector({ target, onChange }: Props) {
+export function TargetSelector({ target, targetSites, onChange }: Props) {
   return (
     <section className="grid gap-4 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
       <div className="space-y-3">
@@ -24,7 +26,7 @@ export function TargetSelector({ target, onChange }: Props) {
               <div className="font-mono text-[10px] text-muted-foreground mt-1">{g.facts}</div>
             </div>
             <div className="flex flex-wrap gap-1.5">
-              {TARGET_SITES.filter((t) => t.body === g.body).map((t) => {
+              {targetSites.filter((t) => t.body === g.body).map((t) => {
                 const active = t.id === target.id;
                 return (
                   <button
@@ -73,20 +75,23 @@ export function TargetSelector({ target, onChange }: Props) {
           <h2 className="font-display mt-1 text-2xl font-extrabold">{target.name}</h2>
           <p className="mt-1 text-sm opacity-90">{target.mission}</p>
           <div className="mt-3 grid grid-cols-4 gap-2 font-mono text-[11px]">
-            {[
-              ["Mean", fmt.temp(target.meanTempC)],
-              ["Coldest", fmt.temp(target.minTempC)],
-              ["Air", fmt.kpa(target.pressureKpa)],
-              ["Relief", fmt.ten(target.ruggedness)],
-            ].map(([k, v]) => (
+            {(
+              [
+                ["Mean", fmt.temp(target.meanTempC), target.targetData!.values.meanTempC.kind],
+                ["Coldest", fmt.temp(target.minTempC), target.targetData!.values.minTempC.kind],
+                ["Air", fmt.kpa(target.pressureKpa), target.targetData!.values.pressureKpa.kind],
+                ["Relief", fmt.ten(target.ruggedness), target.targetData!.values.reliefM.kind],
+              ] as const
+            ).map(([k, v, kind]) => (
               <div key={k} className="rounded-sm bg-secondary-foreground/10 px-2 py-1.5">
                 <div className="opacity-60 text-[9px] uppercase tracking-widest">{k}</div>
                 <div className="font-bold">{v}</div>
+                <KindBadge kind={kind} className="mt-1 inline-block text-[8px]" />
               </div>
             ))}
           </div>
           <p className="mt-2 text-[10px] leading-snug opacity-65" data-testid="text-target-reference">
-            Reference data (curated, indicative). {TARGET_REFERENCE[target.body as "moon" | "mars"].values}
+            {TARGET_REFERENCE[target.body as "moon" | "mars"].values} Processed {formatDate(target.targetData!.values.meanTempC.processedAt)}. Coldest is the mean of the coldest 10% of night samples; relief is the height range within about 15 km.
           </p>
           <div className="mt-2 flex flex-wrap gap-1">
             {target.geology.map((g) => (
