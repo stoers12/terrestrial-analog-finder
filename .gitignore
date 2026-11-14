@@ -53,3 +53,13 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+
+# Credentials and local environment files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Generated exports and local reports
+/generated-artifacts/
