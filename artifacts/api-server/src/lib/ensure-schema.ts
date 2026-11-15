@@ -1,5 +1,6 @@
 import { pool } from "@workspace/db";
 import { logger } from "./logger";
+import { CLIMATE_SOURCE } from "./upstream";
 
 /**
  * Creates the tables if they do not exist, so a fresh database (including production)
@@ -58,5 +59,9 @@ export async function ensureSchema(): Promise<void> {
       ALTER TABLE measurements ADD COLUMN t_max_c double precision NOT NULL;
     `);
   }
+  // Rows measured under an older climate definition (e.g. extreme monthly minima instead of mean daily minima)
+  // are dropped so they are measured again; serving them next to new rows would mix two definitions.
+  const stale = await pool.query(`DELETE FROM measurements WHERE climate_source <> $1`, [CLIMATE_SOURCE]);
+  if (stale.rowCount) logger.warn({ rows: stale.rowCount }, "dropped cached measurements made with an older climate definition");
   logger.info("Tables ready");
 }

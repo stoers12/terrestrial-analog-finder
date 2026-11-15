@@ -5,9 +5,15 @@
     "tsBuildInfoFile": ".tsbuildinfo",
     "outDir": "dist",
     "rootDir": "src",
-    "types": ["node"]
+    "allowImportingTsExtensions": true,
+    "types": [
+      "node"
+    ],
+    "resolveJsonModule": true
   },
-  "include": ["src"],
+  "include": [
+    "src"
+  ],
   "references": [
     {
       "path": "../../lib/db"

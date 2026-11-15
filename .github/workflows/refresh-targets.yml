@@ -1,0 +1,45 @@
+name: Refresh Moon and Mars data
+
+on:
+  schedule:
+    - cron: "0 9 1 */3 *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-targets
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.26.1
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Rebuild and validate the target snapshot
+        run: pnpm --filter @workspace/api-server run ingest:targets
+      - name: Save refreshed snapshot
+        run: |
+          if git diff --quiet -- artifacts/api-server/src/pipeline/data/targets-snapshot.json; then
+            echo "The snapshot did not change."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/pipeline/data/targets-snapshot.json
+          git commit -m "Refresh Moon and Mars target data"
+          git push

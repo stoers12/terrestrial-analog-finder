@@ -1,6 +1,11 @@
 import { logger } from "./logger";
 
-export const CLIMATE_SOURCE = "NASA POWER climatology (MERRA-2, 2001-2025); skin temperature (TS)";
+/**
+ * Also acts as the climate-definition version: cached rows with a different string are dropped on start-up
+ * (see ensure-schema.ts), so the grid never mixes two temperature definitions.
+ */
+export const CLIMATE_SOURCE =
+  "NASA POWER climatology (MERRA-2, 2001-2025); skin temperature: annual mean TS, coldest month's mean daily minimum TS_MIN_AVG, warmest month's mean daily maximum TS_MAX_AVG";
 export const ELEVATION_SOURCE = "Global DEM (SRTM-based Mapzen terrain tiles via OpenTopoData)";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -46,7 +51,7 @@ function throttledPowerCall<T>(fn: () => Promise<T>): Promise<T> {
 export async function fetchPower(lat: number, lon: number): Promise<Climate> {
   const url =
     "https://power.larc.nasa.gov/api/temporal/climatology/point" +
-    `?parameters=TS,TS_MIN,TS_MAX,PRECTOTCORR,PS,WS10M&community=RE&longitude=${lon}&latitude=${lat}&format=JSON`;
+    `?parameters=TS,TS_MIN_AVG,TS_MAX_AVG,PRECTOTCORR,PS,WS10M&community=RE&longitude=${lon}&latitude=${lat}&format=JSON`;
   return withRetry(`NASA POWER (${lat}, ${lon})`, () => throttledPowerCall(async () => {
     const res = await fetch(url, { signal: AbortSignal.timeout(30_000) });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -59,8 +64,9 @@ export async function fetchPower(lat: number, lon: number): Promise<Climate> {
       return v;
     };
     // Coldest month's mean daily minimum and warmest month's mean daily maximum, from the 12 monthly
-    // climatology values (not the annual mean). All three are skin (surface) temperature, the same
-    // quantity the Moon and Mars surface-temperature products measure.
+    // climatology values. TS_MIN_AVG / TS_MAX_AVG are the monthly means of the daily extremes; TS_MIN / TS_MAX
+    // are the single most extreme values of each month and would overstate both ends. All three are skin
+    // (surface) temperature, the same quantity the Moon and Mars surface-temperature products measure.
     const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
     const monthly = (name: string) =>
       months.map((m) => {
@@ -70,8 +76,8 @@ export async function fetchPower(lat: number, lon: number): Promise<Climate> {
       });
     return {
       tMeanC: ann("TS"),
-      tMinC: Math.min(...monthly("TS_MIN")),
-      tMaxC: Math.max(...monthly("TS_MAX")),
+      tMinC: Math.min(...monthly("TS_MIN_AVG")),
+      tMaxC: Math.max(...monthly("TS_MAX_AVG")),
       precipMm: ann("PRECTOTCORR") * 365.25,
       pressureKpa: ann("PS"),
       windMs: ann("WS10M"),
