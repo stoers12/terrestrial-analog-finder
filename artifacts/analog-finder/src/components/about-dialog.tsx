@@ -6,7 +6,13 @@ import type { TargetsData } from "@/hooks/use-target-sites";
 import { formatDate } from "@/components/target-provenance";
 import { DEFAULT_WEIGHTS, DIMENSIONS } from "@/lib/similarity";
 
+const TARGET_DATA_STALE_AFTER_DAYS = 180;
+
 export function AboutDialog({ pipeline }: { pipeline: TargetsData }) {
+  const processedAt = new Date(pipeline.processedAt);
+  const ageInDays = Math.floor((Date.now() - processedAt.getTime()) / (24 * 60 * 60 * 1000));
+  const isStale = !Number.isFinite(processedAt.getTime()) || ageInDays >= TARGET_DATA_STALE_AFTER_DAYS;
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -45,6 +51,14 @@ export function AboutDialog({ pipeline }: { pipeline: TargetsData }) {
               {" "}<span className="font-mono font-semibold">raw-derived</span> (computed from raw files),
               {" "}<span className="font-mono font-semibold">derived</span> (model output or a stated calculation) or
               {" "}<span className="font-mono font-semibold">reference</span> (a fixed value, not computed).
+            </p>
+            <p
+              className={`rounded-sm border-l-2 px-3 py-2 text-xs ${isStale ? "border-destructive bg-destructive/10 text-foreground" : "border-primary bg-primary/10"}`}
+              data-testid="pipeline-freshness"
+            >
+              {isStale
+                ? `Stale: this snapshot is at least ${TARGET_DATA_STALE_AFTER_DAYS} days old. Refresh it with “pnpm --filter @workspace/api-server run ingest:targets”.`
+                : `Current: this snapshot is less than ${TARGET_DATA_STALE_AFTER_DAYS} days old. It is configured to refresh automatically every three months through GitHub Actions, once the repository is hosted on GitHub. You can also run “pnpm --filter @workspace/api-server run ingest:targets”.`}
             </p>
             <ol className="mb-2 list-decimal space-y-1 pl-5 text-xs text-muted-foreground">
               <li><span className="font-semibold text-foreground">Read</span>: needed map pixels by HTTP range request, MCS profiles, and the MCD model wind response.</li>
