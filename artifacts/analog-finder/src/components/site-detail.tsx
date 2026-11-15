@@ -1,14 +1,12 @@
 import { useEffect, useRef } from "react";
 import { motion, AnimatePresence, animate } from "framer-motion";
-import { Check, MousePointerClick, X } from "lucide-react";
+import { Check, ShieldAlert, X } from "lucide-react";
 import { GEOLOGY_LABELS, type Site } from "@/data/sites";
 import { DIMENSIONS, type Dimension, type DimensionScores, type Match } from "@/lib/similarity";
-import { DimensionLedger, LimitsStrip, Panel, ProvTag, RehearsalColumns } from "@/components/instrument";
-import { buildLedgerRows } from "@/components/ledger-rows";
 import { explain, fmt, limits, rehearsal, scoreColor, STATUS_HINT, STATUS_LABEL, verdict } from "@/lib/analog-ui";
-import { StatusGlyph } from "@/components/ranked-list";
 import { TargetProvenance, TemperatureDefinitions } from "@/components/target-provenance";
-import { EarthImageContext } from "@/components/evidence-panel";
+import { EarthEvidence, EarthImageContext } from "@/components/evidence-panel";
+import { cn } from "@/lib/utils";
 
 function CountUp({ value }: { value: number }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -40,7 +38,7 @@ export function Radar({ dimensions = DIMENSIONS, values }: { dimensions?: Dimens
     vals.map((v, i) => pt(i, Math.max(0.02, v) * R)).map(([x, y], i) => `${i ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`).join(" ") + " Z";
   const vals = dimensions.map((d) => values[d.key] ?? 0);
   return (
-    <svg viewBox="0 0 260 240" className="mx-auto w-full max-w-[280px]" data-testid="chart-radar">
+    <svg viewBox="0 0 260 240" className="w-full max-w-[300px]" data-testid="chart-radar">
       {[0.25, 0.5, 0.75, 1].map((r) => (
         <path key={r} d={path(Array(n).fill(r))} fill="none" stroke="hsl(var(--foreground) / .14)" strokeDasharray={r === 1 ? "" : "2 3"} />
       ))}
@@ -60,8 +58,8 @@ export function Radar({ dimensions = DIMENSIONS, values }: { dimensions?: Dimens
         initial={false}
         animate={{ d: path(vals) }}
         transition={{ type: "spring", stiffness: 140, damping: 18 }}
-        fill="hsl(var(--body-accent) / .16)"
-        stroke="hsl(var(--body-accent))"
+        fill="hsl(var(--primary) / .22)"
+        stroke="hsl(var(--primary))"
         strokeWidth={2}
         strokeLinejoin="round"
       />
@@ -79,131 +77,164 @@ interface Props {
   rank: number;
 }
 
-/** Big score readout with a 0-100 arc and the verdict underneath. */
-export function ScoreGauge({ score, caption, sub }: { score: number; caption: string; sub: string }) {
-  const r = 46;
-  const c = Math.PI * r;
-  return (
-    <div className="flex items-center gap-4">
-      <div className="relative h-[70px] w-[120px]">
-        <svg viewBox="0 0 120 70" className="h-full w-full">
-          <path d="M14 62 A46 46 0 0 1 106 62" fill="none" stroke="hsl(var(--foreground) / .1)" strokeWidth="8" strokeLinecap="round" />
-          <motion.path
-            d="M14 62 A46 46 0 0 1 106 62"
-            fill="none"
-            stroke={scoreColor(score)}
-            strokeWidth="8"
-            strokeLinecap="round"
-            strokeDasharray={c}
-            initial={{ strokeDashoffset: c }}
-            animate={{ strokeDashoffset: c * (1 - score / 100) }}
-            transition={{ duration: 0.9, ease: [0.2, 0.8, 0.2, 1] }}
-          />
-          {[0, 25, 50, 75, 100].map((t) => {
-            const a = Math.PI * (1 - t / 100);
-            return <line key={t} x1={60 + Math.cos(a) * 36} y1={62 - Math.sin(a) * 36} x2={60 + Math.cos(a) * 32} y2={62 - Math.sin(a) * 32} stroke="hsl(var(--foreground) / .35)" />;
-          })}
-        </svg>
-        <div className="absolute inset-x-0 bottom-0 text-center font-mono text-[26px] font-bold leading-none tabular-nums" data-testid="text-detail-score">
-          <CountUp value={score} />
-        </div>
-      </div>
-      <div className="text-left">
-        <div className="text-xs font-bold uppercase tracking-wider">{caption}</div>
-        <div className="max-w-[180px] text-[11px] leading-snug text-muted-foreground">{sub}</div>
-      </div>
-    </div>
-  );
-}
-
 export function SiteDetail({ target, match, rank }: Props) {
   if (!match) {
     return (
-      <Panel className="grid h-56 place-items-center border-dashed text-center">
-        <div>
-          <MousePointerClick className="mx-auto h-5 w-5 text-muted-foreground" />
-          <div className="font-display mt-2 text-lg font-bold">No site under comparison</div>
-          <div className="text-sm text-muted-foreground">Select an Earth site on the map or in the ranking.</div>
-        </div>
-      </Panel>
+      <div className="grid h-48 place-items-center rounded-md border border-dashed border-foreground/25 text-sm text-muted-foreground">
+        Select an Earth site on the map or in the ranking to compare it.
+      </div>
     );
   }
   const e = match.site;
   const v = verdict(match.score);
   const reh = rehearsal(target, e, match.dimensions, match.sharedGeology, match.missingGeology);
-  const rows = buildLedgerRows(target, e, match.dimensions, { sharedGeology: match.sharedGeology.length });
-  const bodyLabel = target.body === "moon" ? "Moon" : "Mars";
-  const status = e.status ?? "established";
+  const rows: [string, string, string, number?][] = [
+    ["Mean surface temperature", fmt.temp(target.meanTempC), fmt.temp(e.meanTempC)],
+    ["Coldest surface temperature", fmt.temp(target.minTempC), fmt.temp(e.minTempC)],
+    ["Surface pressure", fmt.kpa(target.pressureKpa), fmt.kpa(e.pressureKpa)],
+    ["Precipitation", fmt.mm(target.precipMm), fmt.mm(e.precipMm)],
+    ["Wind (mean)", fmt.wind(target.windMs), fmt.wind(e.windMs)],
+    ["Relief (9-sample range)", target.targetData ? `${fmt.ten(target.ruggedness)} (${fmt.metres(target.targetData.reliefM)})` : fmt.ten(target.ruggedness), `${fmt.ten(e.ruggedness)}${e.measured ? ` (${fmt.metres(e.measured.reliefM)})` : ""}`],
+    ["Isolation", fmt.ten(target.isolation), `${fmt.ten(e.isolation)} (est.)`],
+    ["Latitude", fmt.lat(target.lat), fmt.lat(e.lat)],
+  ];
   return (
     <AnimatePresence mode="wait">
-      <motion.div
+      <motion.section
         key={`${target.id}-${e.id}`}
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -6 }}
         transition={{ duration: 0.3 }}
+        className="rounded-md border border-foreground/15 bg-card/90"
+        data-testid="panel-detail"
       >
-        <Panel className="overflow-hidden" data-testid="panel-detail">
-          <div className="absolute inset-x-0 top-0 h-[3px] bg-body-accent" />
-          <div className="flex flex-wrap items-center justify-between gap-5 border-b border-foreground/10 p-5">
-            <div className="min-w-0">
-              <div className="flex flex-wrap items-center gap-2 font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
-                <span className="rounded-[2px] bg-secondary px-1.5 py-px text-secondary-foreground">Rank {String(rank).padStart(2, "0")}</span>
-                <span>Earth</span><span className="opacity-40">/</span><span className="truncate">{e.region}</span>
-                <span className="opacity-40">/</span><span>{fmt.lat(e.lat)} {Math.abs(e.lon).toFixed(1)}° {e.lon >= 0 ? "E" : "W"}</span>
-              </div>
-              <h3 className="font-display mt-1 text-3xl font-extrabold leading-tight md:text-4xl" data-testid="text-detail-name">{e.name}</h3>
-              <div className="mt-1.5 flex flex-wrap items-center gap-2 text-xs">
-                <span className="inline-flex items-center gap-1.5 rounded-[3px] border border-foreground/20 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider">
-                  <StatusGlyph status={status} /> {STATUS_LABEL[status]}
-                </span>
-                <span className="text-muted-foreground">{STATUS_HINT[status]}</span>
-              </div>
-              <p className="mt-2 max-w-xl text-sm text-muted-foreground">{e.summary}</p>
+        {/* Header */}
+        <div className="flex flex-wrap items-end justify-between gap-4 border-b border-foreground/10 p-5">
+          <div className="min-w-0">
+            <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+              Rank {rank} · {e.region}
             </div>
-            <ScoreGauge score={match.score} caption={v.label} sub={`against ${target.name}, all seven dimensions`} />
+            <h3 className="font-display text-3xl font-extrabold leading-tight" data-testid="text-detail-name">{e.name}</h3>
+            <div className="mt-1 flex flex-wrap items-center gap-2 text-xs">
+              <span className={cn("rounded-sm px-1.5 py-0.5 font-mono uppercase tracking-wider text-[10px]", e.status === "proposed" ? "bg-primary text-primary-foreground" : "border border-foreground/40")}>
+                {STATUS_LABEL[e.status ?? "established"]}
+              </span>
+              <span className="text-muted-foreground">{STATUS_HINT[e.status ?? "established"]}</span>
+            </div>
+            <p className="mt-2 max-w-xl text-sm text-muted-foreground">{e.summary}</p>
           </div>
+          <div className="text-right">
+            <div className="font-mono text-5xl font-bold tabular-nums leading-none" style={{ color: scoreColor(match.score) }} data-testid="text-detail-score">
+              <CountUp value={match.score} />
+            </div>
+            <div className="mt-1 text-xs font-semibold uppercase tracking-wider">{v.label}</div>
+            <div className="text-[11px] text-muted-foreground">Fit index under current weights · vs {target.name}</div>
+            <div className="ml-auto max-w-[220px] text-[10px] text-muted-foreground">Uses all {DIMENSIONS.length} dimensions; geology and isolation are editorial</div>
+          </div>
+        </div>
 
-          <div className="grid gap-6 p-5 lg:grid-cols-[260px_minmax(0,1fr)]">
-            <div className="space-y-5">
-              <Radar values={match.dimensions} />
-              <div>
-                <div className="mb-2 flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                  <span>Target geology</span><ProvTag kind="editorial" compact />
+        <div className="grid gap-6 p-5 md:grid-cols-[300px_minmax(0,1fr)]">
+          <div>
+            <Radar values={match.dimensions} />
+            <div className="mt-2 space-y-1.5">
+              {DIMENSIONS.map((d, i) => (
+                <div key={d.key} className="flex items-center gap-2 text-xs">
+                  <span className="w-24 shrink-0 text-muted-foreground">{d.label}</span>
+                  <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted">
+                    <motion.div
+                      className="h-full w-full origin-left rounded-full bg-secondary"
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: match.dimensions[d.key] }}
+                      transition={{ duration: 0.6, delay: i * 0.05 }}
+                    />
+                  </div>
+                  <span className="w-8 text-right font-mono tabular-nums">{Math.round(match.dimensions[d.key] * 100)}</span>
                 </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {match.sharedGeology.map((g) => (
-                    <span key={g} className="flex items-center gap-1 rounded-[3px] bg-secondary px-2 py-1 text-xs text-secondary-foreground"><Check className="h-3 w-3" /> {GEOLOGY_LABELS[g]}</span>
-                  ))}
-                  {match.missingGeology.map((g) => (
-                    <span key={g} className="flex items-center gap-1 rounded-[3px] border border-dashed border-primary/50 px-2 py-1 text-xs text-muted-foreground line-through decoration-primary/40"><X className="h-3 w-3 text-primary" /> {GEOLOGY_LABELS[g]}</span>
-                  ))}
-                </div>
-              </div>
-              <div className="space-y-2 border-l-2 border-body-accent pl-3 text-[13px] leading-relaxed">
-                {explain(target, match).map((p, i) => <p key={i}>{p}</p>)}
-              </div>
+              ))}
+            </div>
+            <div className="mt-5">
               <EarthImageContext site={e} />
             </div>
+          </div>
 
-            <div className="min-w-0 space-y-5">
-              <DimensionLedger rows={rows} targetLabel={bodyLabel} earthLabel="Earth" />
-              <RehearsalColumns tests={reh.tests} gaps={reh.gaps} emptyTests="Nothing matches strongly enough to recommend as a rehearsal." emptyGaps="No dimension is clearly weak for this pairing." />
-              <div className="space-y-2 rounded-md border border-foreground/10 bg-background/40 p-3">
-                <TemperatureDefinitions body={target.body as "moon" | "mars"} />
-                <TargetProvenance target={target} />
-                {e.measured && (
-                  <p className="text-[11px] text-muted-foreground" data-testid="text-provenance">
-                    <ProvTag kind="measured" className="mr-1.5" />{e.measured.climateSource}; {e.measured.elevationSource}. Fetched {new Date(e.measured.fetchedAt).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}.
-                    Isolation and geology tags are editorial estimates.
-                  </p>
-                )}
+          <div className="min-w-0 space-y-5">
+            <table className="w-full text-sm" data-testid="table-raw-values">
+              <thead>
+                <tr className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                  <th className="pb-2 text-left font-normal">Value</th>
+                  <th className="pb-2 text-right font-normal text-body-accent">{target.body === "moon" ? "Moon" : "Mars"}</th>
+                  <th className="pb-2 text-right font-normal">Earth</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map(([k, a, b]) => (
+                  <tr key={k} className="border-t border-foreground/8">
+                    <td className="py-1.5 text-muted-foreground">{k}</td>
+                    <td className="py-1.5 text-right font-mono">{a}</td>
+                    <td className="py-1.5 text-right font-mono font-semibold">{b}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <div>
+              <div className="mb-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Target geology · editorial tags</div>
+              <p className="mb-2 text-xs text-muted-foreground">The geology score compares curated tags, not the USGS or GLiM map layers. Those maps provide context only; unlisted tags do not establish that a feature is absent.</p>
+              <div className="flex flex-wrap gap-1.5">
+                {match.sharedGeology.map((g) => (
+                  <span key={g} className="flex items-center gap-1 rounded-sm bg-secondary px-2 py-1 text-xs text-secondary-foreground"><Check className="h-3 w-3" /> {GEOLOGY_LABELS[g]}</span>
+                ))}
+                {match.missingGeology.map((g) => (
+                  <span key={g} className="flex items-center gap-1 rounded-sm border border-dashed border-foreground/35 px-2 py-1 text-xs text-muted-foreground line-through decoration-foreground/30"><X className="h-3 w-3" /> {GEOLOGY_LABELS[g]}</span>
+                ))}
               </div>
             </div>
+
+            <div className="space-y-2 text-sm leading-relaxed">
+              {explain(target, match).map((p, i) => <p key={i}>{p}</p>)}
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-2" data-testid="panel-rehearsal">
+              <div className="rounded-sm border-l-2 border-secondary bg-muted/50 px-3 py-2">
+                <div className="mb-1 text-xs font-semibold uppercase tracking-wider">What a team could test here</div>
+                <ul className="list-disc space-y-1 pl-4 text-xs text-muted-foreground">
+                  {reh.tests.length ? reh.tests.map((t, i) => <li key={i}>{t}</li>) : <li>Nothing matches strongly enough to recommend as a rehearsal.</li>}
+                </ul>
+              </div>
+              <div className="rounded-sm border-l-2 border-primary bg-muted/50 px-3 py-2">
+                <div className="mb-1 text-xs font-semibold uppercase tracking-wider">Where the analogy breaks</div>
+                <ul className="list-disc space-y-1 pl-4 text-xs text-muted-foreground">
+                  {reh.gaps.length ? reh.gaps.map((t, i) => <li key={i}>{t}</li>) : <li>No dimension is clearly weak for this pairing.</li>}
+                </ul>
+              </div>
+            </div>
+
+            <EarthEvidence site={e} />
+            <TemperatureDefinitions body={target.body as "moon" | "mars"} />
+            <TargetProvenance target={target} />
+
+            {e.measured && (
+              <p className="text-[11px] text-muted-foreground" data-testid="text-provenance">
+                Measured values: {e.measured.climateSource}; {e.measured.elevationSource}. Fetched {new Date(e.measured.fetchedAt).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}.
+                Isolation and geology tags are editorial estimates.
+              </p>
+            )}
           </div>
-          <LimitsStrip items={limits(target, e)} />
-        </Panel>
-      </motion.div>
+        </div>
+
+        <div className="border-t border-foreground/10 bg-muted/50 p-5">
+          <div className="mb-3 flex items-center gap-2 text-sm font-semibold"><ShieldAlert className="h-4 w-4 text-primary" /> What no Earth site can rehearse</div>
+          <div className="grid gap-3 sm:grid-cols-3">
+            {limits(target, e).map((l) => (
+              <div key={l.title} className="rounded-sm border-l-2 border-primary bg-card/70 px-3 py-2">
+                <div className="text-xs font-semibold uppercase tracking-wider">{l.title}</div>
+                <div className="mt-1 text-xs text-muted-foreground">{l.body}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </motion.section>
     </AnimatePresence>
   );
 }

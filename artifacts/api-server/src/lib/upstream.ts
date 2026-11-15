@@ -6,7 +6,7 @@ import { logger } from "./logger";
  */
 export const CLIMATE_SOURCE =
   "NASA POWER climatology (MERRA-2, 2001-2025); skin temperature: annual mean TS, coldest month's mean daily minimum TS_MIN_AVG, warmest month's mean daily maximum TS_MAX_AVG";
-export const ELEVATION_SOURCE = "Global DEM (SRTM-based Mapzen terrain tiles via OpenTopoData)";
+export const ELEVATION_SOURCE = "Global DEM (SRTM-based Mapzen terrain tiles via OpenTopoData; geodesic 15 km grid spacing v2)";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 

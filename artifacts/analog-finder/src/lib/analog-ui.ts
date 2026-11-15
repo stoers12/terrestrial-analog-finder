@@ -73,7 +73,7 @@ export function rehearsal(target: Site, site: Site, dims: Partial<DimensionScore
   }
   if (has("terrain")) {
     if ((dims.terrain ?? 0) >= 0.7)
-      tests.push(`Mobility and navigation drills: ${site.measured ? `${fmt.metres(site.measured.reliefM)} of relief (9-sample height range, ring about 17 km)` : "similar relief"} gives terrain close to the target's (match ${pct("terrain")}).`);
+      tests.push(`Coarse relief context: ${site.measured ? `${fmt.metres(site.measured.reliefM)} of relief (9-sample height range, nominal 15 km grid spacing)` : "similar relief"} resembles the target under this proxy (match ${pct("terrain")}). This does not measure slope, obstacles or rover driveability; assess those locally before mobility trials.`);
     else
       gaps.push(`Terrain: relief of ${fmt.ten(site.ruggedness)} against ${fmt.ten(target.ruggedness)} on ${where}, so rover mobility results would not transfer directly (match ${pct("terrain")}).`);
   }
@@ -88,8 +88,8 @@ export function rehearsal(target: Site, site: Site, dims: Partial<DimensionScore
   else if (has("light") && Math.abs(target.lat) > 65 && Math.abs(site.lat) > 65)
     tests.push(`Low-sun operations: both sit at high latitude, so long shadows and solar-panel pointing can be rehearsed (match ${pct("light")}).`);
 
-  if (sharedGeology.length) tests.push(`Sample and drill on shared settings: ${sharedGeology.map((g) => GEOLOGY_LABELS[g as keyof typeof GEOLOGY_LABELS] ?? g).join(", ")}.`);
-  if (missingGeology.length) gaps.push(`Geology: no ${missingGeology.map((g) => (GEOLOGY_LABELS[g as keyof typeof GEOLOGY_LABELS] ?? g).toLowerCase()).join(", ")} here.`);
+  if (sharedGeology.length) tests.push(`Editorial tags suggest settings to investigate for sampling or drilling: ${sharedGeology.map((g) => GEOLOGY_LABELS[g as keyof typeof GEOLOGY_LABELS] ?? g).join(", ")}. Verify local materials and access first.`);
+  if (missingGeology.length) gaps.push(`Geology tags not shared in this catalogue: ${missingGeology.map((g) => (GEOLOGY_LABELS[g as keyof typeof GEOLOGY_LABELS] ?? g).toLowerCase()).join(", ")}. This is not evidence of absence.`);
   return { tests, gaps };
 }
 
@@ -104,10 +104,10 @@ export function explain(target: Site, m: Match): string[] {
   );
   if (m.sharedGeology.length) {
     out.push(
-      `Crews could rehearse on ${m.sharedGeology.length} of the target's ${target.geology.length} geological settings here${m.missingGeology.length ? `, but would need a second site for the rest` : `, which covers every setting the target offers`}.`,
+      `This catalogue lists ${m.sharedGeology.length} shared editorial geology tags out of ${target.geology.length} target tags. This is not a map-derived geological match or a complete inventory, and does not establish whether one or several field sites are needed.`,
     );
   } else {
-    out.push(`It shares none of the target's geological settings, so it is useful mainly for logistics, climate or terrain drills.`);
+    out.push(`It shares none of the target's editorial geology tags in this catalogue. Local geological compatibility has not been established.`);
   }
   const dT = Math.round(m.site.minTempC - target.minTempC);
   out.push(
