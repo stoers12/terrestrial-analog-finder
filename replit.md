@@ -41,10 +41,12 @@ Pick a Moon or Mars target; see ranked Earth analogs on a map, per-site comparis
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- The interface should look beautiful and technical — a polished, instrument-like UI is a standing goal, not a one-off restyle (asked while reworking the planner page).
 
 ## Gotchas
 
+- A cold measurements cache makes the planner page take about 70 seconds to load: `POST /api/measurements` with all `EARTH_SEEDS` points takes ~66 s cold (one NASA POWER + DEM fetch per site) and milliseconds once cached in Postgres. After a fresh database, warm it once rather than assuming the page is broken.
+- The global grid job starts on the first `GET /api/grid` and fills about 1,350 land cells in the background, so the Discoveries panel and heat layer fill in over several minutes on a fresh database.
 - CARTO map tiles need an API key; the map uses NASA GIBS Blue Marble tiles instead.
 - OpenTopoData public API allows 1 request/second and the `srtm90m` dataset returns null at high latitudes; the code uses the global `mapzen` dataset.
 - NASA POWER wind and pressure are MERRA-2 grid values (about 50 km), so mountain sites are smoothed.

@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useHealthCheck, getHealthCheckQueryKey } from "@workspace/api-client-react";
 import { motion } from "framer-motion";
 import { Loader2, TriangleAlert } from "lucide-react";
 import type { AnalogStatus, Site } from "@/data/sites";
@@ -104,7 +105,7 @@ function HomeLoaded({ earthSites, targets }: { earthSites: Site[]; targets: Targ
 
   return (
     <div data-body={target.body} className="min-h-[100dvh]">
-      <header className="sticky top-0 z-40 border-b border-foreground/10 bg-background/85 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-foreground/10 bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-[1500px] items-center justify-between gap-4 px-4 py-3 md:px-6">
           <div className="flex items-center gap-3">
             <div className="relative grid h-9 w-9 place-items-center rounded-full bg-secondary">
@@ -116,19 +117,39 @@ function HomeLoaded({ earthSites, targets }: { earthSites: Site[]; targets: Targ
               <div className="hidden font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground sm:block">Moon and Mars rehearsal planner</div>
             </div>
           </div>
-          <AboutDialog pipeline={targets} />
+          <div className="hidden items-center gap-px overflow-hidden rounded-md border border-foreground/12 bg-foreground/10 font-mono text-[10px] uppercase tracking-widest lg:flex">
+            {[
+              ["Body", target.body],
+              ["Target", target.name],
+              ["Earth sites", String(ranked.length)],
+              ["Grid", grid.data ? `${grid.data.status.measured}/${grid.data.status.landCells}` : "--"],
+            ].map(([k, v]) => (
+              <div key={k} className="bg-card/80 px-3 py-1.5">
+                <div className="text-[8px] text-muted-foreground">{k}</div>
+                <div className="max-w-[180px] truncate font-semibold text-foreground">{v}</div>
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center gap-3">
+            <HealthPill />
+            <AboutDialog pipeline={targets} />
+          </div>
         </div>
+        <div className="tick-rule opacity-60" />
       </header>
 
       <main className="mx-auto max-w-[1500px] space-y-6 px-4 py-6 md:px-6">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-          <h1 className="font-display max-w-4xl text-3xl font-extrabold leading-[1.05] md:text-5xl">
+          <div className="mb-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground"><span className="h-px w-8 bg-primary" />NASA Space Apps 2026 / target {target.name}</div>
+          <h1 className="font-display max-w-4xl text-4xl font-extrabold leading-[1.0] md:text-6xl">
             We cannot go yet. <span className="text-body-accent">Where on Earth</span> should we rehearse?
           </h1>
           <p className="mt-2 max-w-2xl text-sm text-muted-foreground md:text-base">
             Pick a Moon or Mars base site. {ranked.length} Earth field sites are ranked live on {DIMENSIONS.length} dimensions using measured NASA POWER climate and terrain data, against Moon and Mars values processed from raw NASA files, and a global grid search looks for places nobody has catalogued.
           </p>
         </motion.div>
+
+        <ProvenanceLegend />
 
         <TargetSelector target={target} targetSites={targetSites} onChange={changeTarget} />
 
@@ -169,12 +190,15 @@ function HomeLoaded({ earthSites, targets }: { earthSites: Site[]; targets: Targ
               selectedKey={selectedCell}
               onSelect={setSelectedCell}
             />
-            <section className="rounded-md border border-foreground/15 bg-card/60 p-3">
-              <div className="mb-3 flex items-baseline justify-between px-1">
-                <h3 className="font-display text-lg font-bold">Ranking</h3>
-                <span className="font-mono text-[11px] text-muted-foreground" data-testid="text-visible-count">{visible.length} / {ranked.length} sites</span>
+            <section className="panel rounded-lg border border-foreground/12 bg-card/85 p-3 backdrop-blur-sm">
+              <div className="mb-3 flex items-end justify-between px-1">
+                <div>
+                  <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground"><span className="rounded-[2px] bg-secondary px-1 py-px text-[9px] text-secondary-foreground">03</span>Catalogue</div>
+                  <h3 className="font-display text-lg font-extrabold leading-tight">Ranking</h3>
+                </div>
+                <span className="font-mono text-[11px] text-muted-foreground" data-testid="text-visible-count"><b className="text-foreground">{visible.length}</b> / {ranked.length} sites</span>
               </div>
-              <div className="mb-3 grid grid-cols-4 gap-1 rounded-[5px] bg-muted p-1">
+              <div className="mb-3 grid grid-cols-4 gap-1 rounded-md border border-foreground/10 bg-background/60 p-1">
                 {FILTERS.map((f) => (
                   <button
                     key={f.id}
@@ -187,9 +211,9 @@ function HomeLoaded({ earthSites, targets }: { earthSites: Site[]; targets: Targ
                   </button>
                 ))}
               </div>
-              <div className="mb-3 px-1">
-                <div className="mb-1.5 flex justify-between text-[11px] text-muted-foreground">
-                  <span>Minimum score</span><span className="font-mono">{minScore}</span>
+              <div className="mb-3 rounded-md border border-foreground/10 bg-background/40 px-3 py-2.5">
+                <div className="mb-2 flex justify-between font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                  <span>Minimum score</span><span className="text-sm font-bold text-foreground">{minScore}</span>
                 </div>
                 <Slider value={[minScore]} min={0} max={90} step={1} onValueChange={(v) => setMinScore(v[0])} data-testid="slider-min-score" />
               </div>
@@ -229,14 +253,45 @@ function HomeLoaded({ earthSites, targets }: { earthSites: Site[]; targets: Targ
         />
       </main>
 
-      <footer className="border-t border-foreground/10">
-        <div className="mx-auto flex max-w-[1500px] flex-wrap justify-between gap-2 px-4 py-5 text-xs text-muted-foreground md:px-6">
+      <footer className="mt-10 border-t border-foreground/10 bg-secondary text-secondary-foreground">
+        <div className="mx-auto flex max-w-[1500px] flex-wrap justify-between gap-2 px-4 py-8 text-xs text-secondary-foreground/70 md:px-6">
+          <span className="w-full font-display text-2xl font-extrabold text-secondary-foreground">Rehearse here, before there.</span>
           <span>
             Built for the NASA Space Apps Challenge 2026. Earth climate from NASA POWER, terrain from a global DEM, imagery from NASA GIBS. Moon and Mars values come from planetary datasets and model output processed by a rerunnable pipeline; Mars wind uses the MCD v6.2 climatology.
           </span>
           <span className="font-mono">Measured Earth data · pipeline-processed Moon/Mars data</span>
         </div>
       </footer>
+    </div>
+  );
+}
+
+function HealthPill() {
+  const h = useHealthCheck({ query: { queryKey: getHealthCheckQueryKey(), refetchInterval: 30000 } });
+  const ok = h.data?.status === "ok";
+  const label = h.isLoading ? "Checking" : h.error ? "API offline" : ok ? "API online" : (h.data?.status ?? "Unknown");
+  return (
+    <span data-testid="status-api-health" className="hidden items-center gap-2 rounded-full border border-foreground/12 bg-card/70 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-muted-foreground sm:inline-flex">
+      <span className={cn("live-dot h-1.5 w-1.5 rounded-full", h.error ? "bg-destructive" : ok ? "bg-[hsl(var(--measured))]" : "bg-muted-foreground")} />
+      {label}
+    </span>
+  );
+}
+
+function ProvenanceLegend() {
+  const items = [
+    { cls: "prov-measured", label: "measured", text: "Earth: NASA POWER climatology + global elevation model" },
+    { cls: "prov-derived", label: "raw-derived / derived", text: "Moon and Mars: computed by the pipeline from raw LRO, MGS and MRO files" },
+    { cls: "prov-reference", label: "reference", text: "Fixed values not computed from a raster" },
+  ];
+  return (
+    <div className="grid gap-2 rounded-lg border border-foreground/12 bg-card/70 p-3 sm:grid-cols-3" data-testid="legend-provenance">
+      {items.map((i) => (
+        <div key={i.label} className="flex items-start gap-2.5">
+          <span className={cn("prov mt-0.5 inline-flex shrink-0 items-center gap-1 rounded-[3px] border px-1.5 py-px font-mono text-[9px] font-medium uppercase tracking-wider", i.cls)}>{i.label}</span>
+          <span className="text-[11px] leading-snug text-muted-foreground">{i.text}</span>
+        </div>
+      ))}
     </div>
   );
 }

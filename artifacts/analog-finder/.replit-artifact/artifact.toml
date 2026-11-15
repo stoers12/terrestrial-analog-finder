@@ -1,7 +1,7 @@
 kind = "web"
 previewPath = "/"
 title = "Terrestrial Analog Finder"
-description = "An interactive map and comparison tool that matches candidate Moon and Mars base or landing sites to the Earth locations that best resemble them (terrain, temperature, aridity, geology, isolation), built for the NASA Space Apps Challenge 2026 analog-sites challenge."
+description = "A NASA Space Apps 2026 web app that compares candidate Moon and Mars locations with terrestrial analog sites on Earth. Users pick a Moon or Mars base, see ranked Earth analogs on a map with a global heat layer and a Discoveries list, compare sites per-target and in an all-targets matrix, and adjust comparison weights."
 version = "1.0.0"
 id = "artifacts/analog-finder"
 router = "path"
