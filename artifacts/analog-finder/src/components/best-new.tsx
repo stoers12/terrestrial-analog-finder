@@ -23,7 +23,7 @@ export function BestNew({ ranked, onSelect }: Props) {
       className="group relative w-full overflow-hidden rounded-md bg-primary p-4 text-left text-primary-foreground transition-transform hover:-translate-y-0.5"
     >
       <div className="absolute -right-8 -top-8 h-28 w-28 rotate-45 border-[10px] border-primary-foreground/15" />
-      <div className="font-mono text-[10px] uppercase tracking-[0.25em] opacity-80">Best new analog · discovery</div>
+      <div className="font-mono text-[10px] uppercase tracking-[0.25em] opacity-80">Top site proposed here · fit index</div>
       <div className="mt-1 flex items-baseline justify-between gap-3">
         <div className="font-display text-xl font-extrabold leading-tight">{best.site.name}</div>
         <div className="font-mono text-2xl font-bold tabular-nums">{best.score.toFixed(1)}</div>

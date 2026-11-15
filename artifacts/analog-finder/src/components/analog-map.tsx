@@ -49,7 +49,7 @@ export function AnalogMap({ matches, selectedId, onSelect, heat, cellSizeDeg, sh
           className: "mk-wrap",
           iconSize: [size, size],
           iconAnchor: [size / 2, size / 2],
-          html: `<div style="width:${size}px;height:${size}px;display:grid;place-items:center;border-radius:4px;background:hsl(var(--primary));color:hsl(var(--primary-foreground));font:700 11px var(--app-font-mono, monospace);border:2px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,.45);transform:rotate(45deg)"><span style="transform:rotate(-45deg)">D${i + 1}</span></div>`,
+          html: `<div style="width:${size}px;height:${size}px;display:grid;place-items:center;border-radius:4px;background:hsl(var(--primary));color:hsl(var(--primary-foreground));font:700 11px var(--app-font-mono, monospace);border:2px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,.45);transform:rotate(45deg)"><span style="transform:rotate(-45deg)">L${i + 1}</span></div>`,
         });
         return { d, i, icon };
       }),
@@ -112,8 +112,8 @@ export function AnalogMap({ matches, selectedId, onSelect, heat, cellSizeDeg, sh
             eventHandlers={{ click: () => onSelectCell(cellKey(d.cell)) }}
           >
             <Tooltip direction="top" offset={[0, -12]} className="mk-tip">
-              <div className="font-semibold">D{i + 1} · {d.site.name}</div>
-              <div className="font-mono text-[11px] opacity-80">{d.score.toFixed(1)} · discovery</div>
+              <div className="font-semibold">L{i + 1} · {d.site.name}</div>
+              <div className="font-mono text-[11px] opacity-80">{d.score.toFixed(1)} · grid lead</div>
             </Tooltip>
           </Marker>
         ))}
@@ -147,10 +147,10 @@ export function AnalogMap({ matches, selectedId, onSelect, heat, cellSizeDeg, sh
         <div className="flex flex-col gap-1.5">
           <span className="flex items-center gap-2"><i className="inline-block h-3 w-3 rounded-full border-2 border-foreground bg-muted" /> Established</span>
           <span className="flex items-center gap-2"><i className="inline-block h-3 w-3 rounded-full border-2 border-dashed border-foreground bg-muted" /> Emerging</span>
-          <span className="flex items-center gap-2"><i className="inline-block h-2.5 w-2.5 rotate-45 border-2 border-primary bg-muted" /> Proposed new</span>
-          <span className="flex items-center gap-2"><i className="inline-block h-3 w-3 rotate-45 bg-primary" /> Grid discovery (D1, D2...)</span>
+          <span className="flex items-center gap-2"><i className="inline-block h-2.5 w-2.5 rotate-45 border-2 border-primary bg-muted" /> Proposed here</span>
+          <span className="flex items-center gap-2"><i className="inline-block h-3 w-3 rotate-45 bg-primary" /> Grid lead (L1, L2...)</span>
         </div>
-        <div className="mt-3 mb-1 font-mono uppercase tracking-widest text-muted-foreground text-[10px]">Score</div>
+        <div className="mt-3 mb-1 font-mono uppercase tracking-widest text-muted-foreground text-[10px]">Fit index</div>
         <div className="h-2 w-32 rounded-full" style={{ background: `linear-gradient(90deg, ${scoreColor(35)}, ${scoreColor(57)}, ${scoreColor(80)})` }} />
         <div className="mt-1 flex w-32 justify-between font-mono text-[10px] text-muted-foreground"><span>35</span><span>80+</span></div>
       </div>

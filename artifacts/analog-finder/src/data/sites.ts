@@ -451,7 +451,7 @@ export const EARTH_SEEDS: EarthSeed[] = [
     geology: ["sand-dunes", "ancient-crystalline", "clay-sulfate"],
     isolation: 5,
     status: "proposed",
-    summary: "Granite and sandstone massifs, red dunes and dry channels in a hyperarid valley. Already used as a Mars film location, and has no formal analog programme yet.",
+    summary: "Granite and sandstone massifs, red dunes and dry channels in a hyperarid valley. Already used as a Mars film location; prior analog use has not been fully checked.",
   },
   {
     id: "earth-lut",
@@ -472,10 +472,10 @@ export const EARTH_SEEDS: EarthSeed[] = [
     region: "Chad",
     lat: 21,
     lon: 17.5,
-    geology: ["basalt-volcanic", "sand-dunes", "impact-crater"],
+    geology: ["basalt-volcanic", "sand-dunes"],
     isolation: 10,
     status: "proposed",
-    summary: "Extinct volcanoes, calderas and lava fields ringed by Sahara dunes, one of the most remote places on Earth.",
+    summary: "Volcanoes, calderas and lava fields ringed by Sahara dunes, one of the most remote places on Earth. At least one volcano, Tarso Tousside, is described by ESA as potentially active.",
   },
   {
     id: "earth-ladakh",
@@ -486,8 +486,8 @@ export const EARTH_SEEDS: EarthSeed[] = [
     lon: 78,
     geology: ["evaporite-salts", "permafrost-ice", "glacial-periglacial", "ancient-crystalline"],
     isolation: 8,
-    status: "proposed",
-    summary: "A cold, thin-air salt basin at about 4,500 m with permafrost and ancient crystalline ranges. A cold-desert setting with no formal analog programme yet.",
+    status: "emerging",
+    summary: "A cold, thin-air salt basin at about 4,500 m with permafrost and ancient crystalline ranges. ISRO set up its HOPE analog mission in Tso Kar Valley in July 2025.",
   },
   {
     id: "earth-oman",
@@ -499,7 +499,7 @@ export const EARTH_SEEDS: EarthSeed[] = [
     geology: ["ancient-crystalline", "clay-sulfate", "basalt-volcanic"],
     isolation: 5,
     status: "proposed",
-    summary: "Exposed mantle rock that reacts with water to make carbonates and clays, like the olivine and carbonate rocks mapped around Nili Fossae on Mars.",
+    summary: "Exposed mantle rock that reacts with water to make carbonates and clays, like the olivine and carbonate rocks mapped around Nili Fossae on Mars. Already studied in NASA-supported analog research.",
   },
   {
     id: "earth-lanzarote",
@@ -515,7 +515,7 @@ export const EARTH_SEEDS: EarthSeed[] = [
   },
 ];
 
-/** Relief (metres within ~15 km) to the 0-10 ruggedness scale used for comparison. */
+/** Relief (height range of 9 samples: the point and 8 neighbours about 15-17 km away) to the 0-10 ruggedness scale. */
 export function reliefToRuggedness(reliefM: number): number {
   return Math.min(10, 10 * Math.sqrt(Math.max(0, reliefM) / 2500));
 }
@@ -615,7 +615,7 @@ export const VARIABLE_LABEL: Record<TargetVariable, string> = {
   minTempC: "Coldest surface temperature",
   maxTempC: "Warmest surface temperature",
   elevationM: "Elevation",
-  reliefM: "Relief within 15 km",
+  reliefM: "Relief (9-sample height range, ~15 km ring)",
   pressureKpa: "Surface pressure",
   windMs: "Wind",
 };
@@ -630,5 +630,7 @@ export const DATA_SOURCES = [
   { name: "MGS MOLA topography", body: "Mars", use: "Processed by the pipeline: elevation and relief", kind: "raw-derived" },
   { name: "Mars pressure model (0.61 kPa, 11.1 km scale height)", body: "Mars", use: "Derived from MOLA elevation", kind: "derived" },
   { name: "Mars Climate Database v6.2 GCM climatology", body: "Mars", use: "Modeled: 10 m horizontal wind averaged across seasonal and local-time samples", kind: "derived" },
+  { name: "GLiM global lithological map, 0.5° (Hartmann & Moosdorf 2012)", body: "Earth", use: "Reference: broad rock type at sites and grid cells; context only, not scored", kind: "reference" },
+  { name: "Evidence registry (ISRO, NASA, ESA, LROC pit atlas)", body: "Earth / Moon", use: "Editorial: documented missions, status corrections, pit sizes, scale caveats", kind: "editorial" },
   { name: "Published analog literature", body: "Earth", use: "Editorial: geology tags, isolation, analog status", kind: "editorial" },
 ] as const;

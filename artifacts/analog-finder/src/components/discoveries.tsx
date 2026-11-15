@@ -1,6 +1,7 @@
 import { Compass, Loader2, TriangleAlert } from "lucide-react";
 import type { Discovery } from "@/lib/discoveries";
-import { cellKey } from "@/lib/discoveries";
+import { cellKey, EXCLUSION_KM } from "@/lib/discoveries";
+import { cellLithology } from "@/data/evidence";
 import { DIMENSIONS, MEASURABLE_DIMENSIONS } from "@/lib/similarity";
 import { scoreColor } from "@/lib/analog-ui";
 import { cn } from "@/lib/utils";
@@ -30,13 +31,13 @@ export function Discoveries({ discoveries, progress, loadError, selectedKey, onS
       <div className="mb-2 flex items-center gap-2 px-1">
         <Compass className="h-4 w-4 text-primary" />
         <div>
-          <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Global search</div>
-          <h3 className="font-display text-lg font-bold leading-tight">Discoveries</h3>
+          <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Global grid · preliminary</div>
+          <h3 className="font-display text-lg font-bold leading-tight">Leads outside catalogued areas</h3>
         </div>
       </div>
       <p className="px-1 text-[11px] text-muted-foreground">
-        Every measured land cell ({progress?.cellSizeDeg ?? 4}° grid) is scored on {MEASURABLE_DIMENSIONS.length} measurable dimensions. Cells within 600 km of a catalogued site are hidden.
-        Geology and isolation cannot be scored globally, so treat these as places to investigate.
+        Every measured land cell ({progress?.cellSizeDeg ?? 4}° grid) is scored on {MEASURABLE_DIMENSIONS.length} measurable dimensions ({MEASURABLE_DIMENSIONS.map((k) => DIMENSIONS.find((x) => x.key === k)?.label.toLowerCase()).join(", ")}).
+        Cells within {EXCLUSION_KM} km of a site in this catalogue version are hidden. These are preliminary candidates to check: geology and isolation are not scored, and other analog lists and literature have not been searched.
       </p>
 
       {loadError && (
@@ -66,7 +67,7 @@ export function Discoveries({ discoveries, progress, loadError, selectedKey, onS
 
       <ol className="mt-3 max-h-[420px] space-y-1.5 overflow-y-auto pr-1">
         {discoveries.length === 0 && !filling && !loadError && (
-          <li className="rounded-sm border border-dashed border-foreground/25 p-3 text-xs text-muted-foreground">No uncatalogued cells measured yet.</li>
+          <li className="rounded-sm border border-dashed border-foreground/25 p-3 text-xs text-muted-foreground">No measured cell lies more than {EXCLUSION_KM} km from the catalogued sites yet.</li>
         )}
         {discoveries.map((d, i) => {
           const key = cellKey(d.cell);
@@ -84,13 +85,14 @@ export function Discoveries({ discoveries, progress, loadError, selectedKey, onS
               >
                 <div className="flex items-baseline justify-between gap-2">
                   <span className="font-medium">
-                    <span className="mr-1.5 font-mono text-xs text-primary">D{i + 1}</span>
+                    <span className="mr-1.5 font-mono text-xs text-primary">L{i + 1}</span>
                     {d.site.name}
                   </span>
                   <span className="font-mono text-lg font-bold tabular-nums" style={{ color: scoreColor(d.score) }}>{d.score.toFixed(1)}</span>
                 </div>
                 <div className="text-[11px] text-muted-foreground">
                   Matches on {label(top[0])} and {label(top[1])} · {Math.round(d.nearestKm).toLocaleString("en-US")} km from {d.nearestSite.name}
+                  {cellLithology(d.cell) && <> · GLiM: {cellLithology(d.cell)!.toLowerCase()}</>}
                 </div>
               </button>
             </li>

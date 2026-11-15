@@ -11,16 +11,23 @@ interface Props {
   onSelect: (id: string) => void;
   onClearFilters: () => void;
   targetKey: string;
+  /** Active filters, used to explain an empty result */
+  statusLabel: string | null;
+  minScore: number;
+  /** Best fit index among sites of the selected status, ignoring the minimum */
+  bestForStatus: number | null;
 }
 
-export function RankedList({ items, selectedId, onSelect, onClearFilters, targetKey }: Props) {
+export function RankedList({ items, selectedId, onSelect, onClearFilters, targetKey, statusLabel, minScore, bestForStatus }: Props) {
   if (items.length === 0) {
     return (
       <div className="flex flex-col items-center rounded-md border border-dashed border-foreground/25 px-6 py-10 text-center" data-testid="status-empty">
         <div className="grid h-12 w-12 place-items-center rounded-full bg-muted"><SearchX className="h-5 w-5 text-muted-foreground" /></div>
         <div className="font-display mt-3 text-lg font-semibold">Nothing clears the bar</div>
         <p className="mt-1 max-w-[260px] text-sm text-muted-foreground">
-          No Earth site with this status reaches the minimum score. That is itself a finding: this target may need a combination of sites.
+          {bestForStatus === null
+            ? <>No site in this catalogue has the status “{statusLabel}”.</>
+            : <>The minimum fit index is {minScore}{statusLabel ? <>, and among “{statusLabel}” sites</> : <>, and</>} the best reaches {bestForStatus.toFixed(1)}. Lower the minimum{statusLabel ? " or choose another status" : ""} to see them. A low ceiling is itself a finding: this target may need a combination of sites.</>}
         </p>
         <Button size="sm" variant="outline" className="mt-4" onClick={onClearFilters} data-testid="button-clear-filters">Clear filters</Button>
       </div>

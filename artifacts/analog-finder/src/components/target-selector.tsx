@@ -2,6 +2,7 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { GEOLOGY_LABELS, TARGET_REFERENCE, type Site } from "@/data/sites";
 import { KindBadge, formatDate } from "@/components/target-provenance";
 import { fmt } from "@/lib/analog-ui";
+import { TargetEvidence } from "@/components/evidence-panel";
 import { cn } from "@/lib/utils";
 
 interface Props {
@@ -143,13 +144,14 @@ export function TargetSelector({ target, targetSites, onChange }: Props) {
             ))}
           </div>
           <p className="mt-2 text-[10px] leading-snug opacity-65" data-testid="text-target-reference">
-            {TARGET_REFERENCE[target.body as "moon" | "mars"].values} Processed {formatDate(target.targetData!.values.meanTempC.processedAt)}. Coldest is the mean of the coldest 10% of night samples; relief is the height range within about 15 km.
+            {TARGET_REFERENCE[target.body as "moon" | "mars"].values} Processed {formatDate(target.targetData!.values.meanTempC.processedAt)}. Coldest is the mean of the coldest 10% of night samples; relief is the height range of 9 samples (the point and 8 neighbours 15 km away).
           </p>
           <div className="mt-2 flex flex-wrap gap-1">
             {target.geology.map((g) => (
               <span key={g} className="rounded-sm border border-secondary-foreground/25 px-1.5 py-0.5 text-[11px]">{GEOLOGY_LABELS[g]}</span>
             ))}
           </div>
+          <TargetEvidence target={target} />
         </motion.div>
       </AnimatePresence>
     </section>

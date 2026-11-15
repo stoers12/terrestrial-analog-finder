@@ -6,6 +6,7 @@ import { DIMENSIONS, MEASURABLE_DIMENSIONS } from "@/lib/similarity";
 import { fmt, limits, rehearsal, scoreColor, verdict } from "@/lib/analog-ui";
 import { Radar } from "@/components/site-detail";
 import { TargetProvenance, TemperatureDefinitions } from "@/components/target-provenance";
+import { cellLithology, LITHOLOGY } from "@/data/evidence";
 
 interface Props {
   target: Site;
@@ -27,8 +28,8 @@ export function DiscoveryDetail({ target, discovery, rank, climateSource, elevat
     ["Surface pressure", fmt.kpa(target.pressureKpa), fmt.kpa(s.pressureKpa)],
     ["Precipitation", fmt.mm(target.precipMm), fmt.mm(s.precipMm)],
     ["Wind (mean)", fmt.wind(target.windMs), fmt.wind(s.windMs)],
-    ["Relief", fmt.ten(target.ruggedness), `${fmt.ten(s.ruggedness)} (${fmt.metres(s.measured?.reliefM ?? 0)})`],
-    ["Elevation", target.targetData ? fmt.metres(target.targetData.elevationM) : "n/a", fmt.metres(s.measured?.elevationM ?? 0)],
+    ["Relief (9-sample range)", target.targetData ? `${fmt.ten(target.ruggedness)} (${fmt.metres(target.targetData.reliefM)})` : fmt.ten(target.ruggedness), `${fmt.ten(s.ruggedness)} (${fmt.metres(s.measured!.reliefM)})`],
+    ["Elevation", target.targetData ? fmt.metres(target.targetData.elevationM) : "n/a", fmt.metres(s.measured!.elevationM)],
     ["Latitude", fmt.lat(target.lat), fmt.lat(s.lat)],
   ];
   return (
@@ -42,16 +43,17 @@ export function DiscoveryDetail({ target, discovery, rank, climateSource, elevat
     >
       <div className="flex flex-wrap items-end justify-between gap-4 border-b border-foreground/10 p-5">
         <div className="min-w-0">
-          <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Discovery D{rank} · global grid search</div>
+          <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Lead L{rank} · global grid · preliminary</div>
           <h3 className="font-display text-3xl font-extrabold leading-tight" data-testid="text-discovery-name">{s.name}</h3>
           <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-            Centre of a {cellSizeDeg}° grid cell, {Math.round(discovery.nearestKm).toLocaleString("en-US")} km from the nearest catalogued site ({discovery.nearestSite.name}). Nobody in this catalogue uses it as an analog yet.
+            Centre of a {cellSizeDeg}° grid cell, {Math.round(discovery.nearestKm).toLocaleString("en-US")} km from the nearest catalogued site ({discovery.nearestSite.name}). It is outside the neighbourhood of every site in this catalogue version; whether others already use it as an analog has not been checked.
           </p>
         </div>
         <div className="text-right">
           <div className="font-mono text-5xl font-bold tabular-nums leading-none" style={{ color: scoreColor(discovery.score) }}>{discovery.score.toFixed(1)}</div>
           <div className="mt-1 text-xs font-semibold uppercase tracking-wider">{v.label}</div>
-          <div className="text-[11px] text-muted-foreground">vs {target.name}, measurable dimensions only</div>
+          <div className="text-[11px] text-muted-foreground">Fit index under current weights · vs {target.name}</div>
+          <div className="max-w-[220px] text-[10px] text-muted-foreground">Uses: {dims.map((d) => d.label.toLowerCase()).join(", ")}</div>
         </div>
       </div>
 
@@ -94,7 +96,8 @@ export function DiscoveryDetail({ target, discovery, rank, climateSource, elevat
           <div className="flex gap-2 rounded-sm border border-dashed border-foreground/30 p-3 text-xs text-muted-foreground">
             <TriangleAlert className="h-4 w-4 shrink-0 text-primary" />
             <span>
-              Geology and isolation are not part of this score because no global dataset for them is loaded. Before treating this as an analog, check the local geology (surface materials, volcanic or
+              Geology and isolation are not part of this score.{" "}
+              {cellLithology(s) ? <>Regional lithology at the cell centre (GLiM, {LITHOLOGY.resolutionDeg}° pixel): <b className="text-foreground">{cellLithology(s)}</b>. This is broad context, not a site geology map.</> : <>GLiM has no lithology class at the cell centre.</>} Before treating this as an analog, check the local geology (surface materials, volcanic or
               impact features, caves) and logistics. Values describe the cell centre; a smaller area inside the cell may match much better or worse.
             </span>
           </div>

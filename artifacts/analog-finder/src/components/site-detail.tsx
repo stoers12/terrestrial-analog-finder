@@ -5,6 +5,7 @@ import { GEOLOGY_LABELS, type Site } from "@/data/sites";
 import { DIMENSIONS, type Dimension, type DimensionScores, type Match } from "@/lib/similarity";
 import { explain, fmt, limits, rehearsal, scoreColor, STATUS_HINT, STATUS_LABEL, verdict } from "@/lib/analog-ui";
 import { TargetProvenance, TemperatureDefinitions } from "@/components/target-provenance";
+import { EarthEvidence } from "@/components/evidence-panel";
 import { cn } from "@/lib/utils";
 
 function CountUp({ value }: { value: number }) {
@@ -93,7 +94,7 @@ export function SiteDetail({ target, match, rank }: Props) {
     ["Surface pressure", fmt.kpa(target.pressureKpa), fmt.kpa(e.pressureKpa)],
     ["Precipitation", fmt.mm(target.precipMm), fmt.mm(e.precipMm)],
     ["Wind (mean)", fmt.wind(target.windMs), fmt.wind(e.windMs)],
-    ["Relief", fmt.ten(target.ruggedness), `${fmt.ten(e.ruggedness)}${e.measured ? ` (${fmt.metres(e.measured.reliefM)})` : ""}`],
+    ["Relief (9-sample range)", target.targetData ? `${fmt.ten(target.ruggedness)} (${fmt.metres(target.targetData.reliefM)})` : fmt.ten(target.ruggedness), `${fmt.ten(e.ruggedness)}${e.measured ? ` (${fmt.metres(e.measured.reliefM)})` : ""}`],
     ["Isolation", fmt.ten(target.isolation), `${fmt.ten(e.isolation)} (est.)`],
     ["Latitude", fmt.lat(target.lat), fmt.lat(e.lat)],
   ];
@@ -128,7 +129,8 @@ export function SiteDetail({ target, match, rank }: Props) {
               <CountUp value={match.score} />
             </div>
             <div className="mt-1 text-xs font-semibold uppercase tracking-wider">{v.label}</div>
-            <div className="text-[11px] text-muted-foreground">vs {target.name}</div>
+            <div className="text-[11px] text-muted-foreground">Fit index under current weights · vs {target.name}</div>
+            <div className="ml-auto max-w-[220px] text-[10px] text-muted-foreground">Uses all {DIMENSIONS.length} dimensions; geology and isolation are editorial</div>
           </div>
         </div>
 
@@ -204,6 +206,7 @@ export function SiteDetail({ target, match, rank }: Props) {
               </div>
             </div>
 
+            <EarthEvidence site={e} />
             <TemperatureDefinitions body={target.body as "moon" | "mars"} />
             <TargetProvenance target={target} />
 

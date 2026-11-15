@@ -1,10 +1,11 @@
-import { type ReactNode } from 'react';
+import { type ReactNode, useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
-import Home from '@/pages/home';
+import Welcome from '@/pages/welcome';
+import Explorer from '@/pages/explorer';
 import {
   Route,
   Switch,
@@ -14,13 +15,21 @@ import {
 
 const queryClient = new QueryClient();
 
+function ScrollToTop() {
+  const [pathname] = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
 function Router() {
   return (
-    // Keep a shared shell (sidebar, navbar) outside the boundary so it
-    // survives a page crash.
     <RoutedErrorBoundary>
+      <ScrollToTop />
       <Switch>
-        <Route path="/" component={Home} />
+        <Route path="/" component={Welcome} />
+        <Route path="/explorer" component={Explorer} />
         <Route component={NotFound} />
       </Switch>
     </RoutedErrorBoundary>

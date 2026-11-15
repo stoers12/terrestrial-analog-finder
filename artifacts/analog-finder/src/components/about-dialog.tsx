@@ -27,13 +27,13 @@ export function AboutDialog({ pipeline }: { pipeline: TargetsData }) {
         </DialogHeader>
         <div className="space-y-5 text-sm leading-relaxed">
           <p>
-            Each Earth site is compared to the chosen Moon or Mars site on seven dimensions. Each dimension produces a similarity between 0 and 1. The overall score is the weighted
-            average of the seven, scaled to 0-100. Pressure and precipitation are compared on a log scale, so 85 versus 90 kPa is close but 0.7 versus 90 kPa is far. Geology rewards
+            Each Earth site is compared to the chosen Moon or Mars site on seven dimensions. Each dimension produces a similarity between 0 and 1. The overall fit index is the weighted
+            average of the seven, scaled to 0-100. It changes with the weights you set, so it is a fit under your current priorities, not a probability or a validated suitability rating. Pressure and precipitation are compared on a log scale, so 85 versus 90 kPa is close but 0.7 versus 90 kPa is far. Geology rewards
             covering the target's settings more than it penalises extra Earth features. Wind and dust combines mean wind speed (60%) with aridity from annual rainfall (40%).
           </p>
           <p>
             The global search scores every land cell of a 4° grid with the same functions but only on the five dimensions that can be measured everywhere: temperature, air and water, terrain,
-            sun geometry, and wind and dust. Geology and isolation are skipped because no global layer for them is loaded, so a high-scoring cell is a lead to investigate, not a confirmed analog.
+            sun geometry, and wind and dust. Geology and isolation are not scored there. A coarse 0.5° rock-type map (GLiM) is shown for context only. Cells within 600 km of a site in this catalogue are hidden, but nobody has checked whether the remaining leads are already used elsewhere, so each one is a preliminary candidate to investigate, not a confirmed or new analog.
           </p>
           <div className="grid gap-2 sm:grid-cols-2">
             {DIMENSIONS.map((d) => (
@@ -107,9 +107,9 @@ export function AboutDialog({ pipeline }: { pipeline: TargetsData }) {
           </div>
           <p className="rounded-sm border-l-2 border-primary bg-primary/10 px-3 py-2">
             Honesty note: for Earth, temperature is the 2001-2025 NASA POWER skin (surface) temperature climatology (MERRA-2, about 50 km resolution, so mountain sites are smoothed); precipitation, pressure and wind come from the same
-            dataset, and relief is measured from a global terrain model within about 15 km. Earth "coldest" is the mean daily minimum of the coldest month. For the Moon and Mars, "coldest" is the mean of the coldest 10% of night
+            dataset, and relief is the height range of 9 samples from a global terrain model: the point and 8 neighbours ±0.15° (about 17 km) away; on the Moon and Mars the ring is ±15 km. Earth "coldest" is the coldest month's mean daily minimum (POWER TS_MIN_AVG), not the single most extreme night. For the Moon and Mars, "coldest" is the mean of the coldest 10% of night
             samples and "warmest" the mean of the warmest 10% of day samples, so the two definitions are close but not identical. Moon and Mars temperatures come from one year of Diviner maps and one Mars year of sampled MCS
-            profiles, not a full multi-year climatology. Mars wind is a 10 m MCD v6.2 model climatology, not a rover measurement or forecast; Mars pressure is also a model. Geology tags, isolation scores and analog status are editorial judgments. No Earth site can reproduce
+            profiles, not a full multi-year climatology. Mars wind is a 10 m MCD v6.2 model climatology, not a rover measurement or forecast; Mars pressure is also a model. Geology tags, isolation scores and analog status are editorial judgments; where a source is known it is linked on the site, and a documented past mission is not taken as proof that a facility operates today. No Earth site can reproduce
             lunar or Martian air pressure, gravity or radiation; the scores measure how good a rehearsal is, not an equivalence.
           </p>
           <p className="text-xs text-muted-foreground">Built for the NASA Space Apps Challenge 2026. Earth data from NASA POWER, a global DEM and NASA GIBS imagery; Moon and Mars data from LRO, MGS and MRO products processed by the pipeline.</p>

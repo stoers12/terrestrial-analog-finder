@@ -14,13 +14,13 @@ export function scoreColor(score: number, alpha = 1): string {
 export const STATUS_LABEL: Record<AnalogStatus, string> = {
   established: "Established",
   emerging: "Emerging",
-  proposed: "Proposed new",
+  proposed: "Proposed here",
 };
 
 export const STATUS_HINT: Record<AnalogStatus, string> = {
-  established: "Part of a formal analog programme today",
-  emerging: "Used in campaigns, not yet a standing programme",
-  proposed: "New candidate, no formal analog programme",
+  established: "A standing analog programme is documented",
+  emerging: "Documented analog missions or campaigns; no standing programme confirmed",
+  proposed: "Suggested by this project; prior analog use not fully checked",
 };
 
 export function verdict(score: number): { label: string; tone: "strong" | "partial" | "weak" } {
@@ -73,7 +73,7 @@ export function rehearsal(target: Site, site: Site, dims: Partial<DimensionScore
   }
   if (has("terrain")) {
     if ((dims.terrain ?? 0) >= 0.7)
-      tests.push(`Mobility and navigation drills: ${site.measured ? `${fmt.metres(site.measured.reliefM)} of relief within about 15 km` : "similar relief"} gives terrain close to the target's (match ${pct("terrain")}).`);
+      tests.push(`Mobility and navigation drills: ${site.measured ? `${fmt.metres(site.measured.reliefM)} of relief (9-sample height range, ring about 17 km)` : "similar relief"} gives terrain close to the target's (match ${pct("terrain")}).`);
     else
       gaps.push(`Terrain: relief of ${fmt.ten(site.ruggedness)} against ${fmt.ten(target.ruggedness)} on ${where}, so rover mobility results would not transfer directly (match ${pct("terrain")}).`);
   }
