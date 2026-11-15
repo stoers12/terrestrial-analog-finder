@@ -8,6 +8,7 @@
     "build": "node ./build.mjs",
     "start": "node --enable-source-maps ./dist/index.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test src/pipeline/*.test.ts",
     "ingest:targets": "esbuild src/pipeline/run.ts --bundle --platform=node --format=esm --outfile=dist-pipeline/run.mjs --log-level=warning && node dist-pipeline/run.mjs"
   },
   "dependencies": {
