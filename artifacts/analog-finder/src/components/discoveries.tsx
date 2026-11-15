@@ -85,7 +85,7 @@ export function Discoveries({ discoveries, progress, loadError, selectedKey, onS
         right={<Compass className="mb-1 h-4 w-4 text-primary" />}
       />
       <p className="mt-1.5 px-1 text-[11px] leading-snug text-muted-foreground">
-        Every measured land cell ({progress?.cellSizeDeg ?? 4}° grid) is scored on {MEASURABLE_DIMENSIONS.length} measurable dimensions. Cells within 600 km of a catalogued site are hidden.
+        Every measured land cell ({progress?.cellSizeDeg ?? 4}° grid) is scored on {MEASURABLE_DIMENSIONS.length} measurable dimensions. Cells within {EXCLUSION_KM} km of a catalogued site are hidden.
         Geology and isolation cannot be scored globally, so treat these as places to investigate.
       </p>
 
