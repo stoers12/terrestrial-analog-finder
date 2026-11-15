@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { GEOLOGY_LABELS, TARGET_REFERENCE, type Site } from "@/data/sites";
 import { KindBadge, formatDate } from "@/components/target-provenance";
 import { fmt } from "@/lib/analog-ui";
@@ -10,58 +10,110 @@ interface Props {
   onChange: (id: string) => void;
 }
 
-const GROUPS: { body: "moon" | "mars"; label: string; facts: string }[] = [
-  { body: "moon", label: "Moon", facts: "0.17 g · vacuum" },
-  { body: "mars", label: "Mars", facts: "0.38 g · 0.6 kPa CO2" },
+const WORLDS: { body: "moon" | "mars"; label: string; facts: string; descriptor: string }[] = [
+  { body: "moon", label: "Moon", facts: "0.17 g · vacuum", descriptor: "Lunar field sites" },
+  { body: "mars", label: "Mars", facts: "0.38 g · 0.6 kPa CO₂", descriptor: "Martian field sites" },
 ];
 
 export function TargetSelector({ target, targetSites, onChange }: Props) {
+  const reduceMotion = useReducedMotion();
+  const worlds = WORLDS.map((world) => ({
+    ...world,
+    sites: targetSites.filter((site) => site.body === world.body),
+  }));
+  const activeWorld = worlds.find((world) => world.body === target.body);
+
   return (
     <section className="grid gap-4 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
-      <div className="space-y-3">
-        {GROUPS.map((g) => (
-          <div key={g.body} className="flex flex-col gap-2 sm:flex-row sm:items-start">
-            <div className="w-24 shrink-0 pt-1.5">
-              <div className={cn("font-display text-lg font-extrabold leading-none", g.body === "moon" ? "text-[hsl(var(--moon))]" : "text-[hsl(var(--mars))]")}>{g.label}</div>
-              <div className="font-mono text-[10px] text-muted-foreground mt-1">{g.facts}</div>
+      <div className="space-y-3" data-testid="target-world-selector">
+        <div className="flex flex-wrap gap-2" role="group" aria-label="Choose destination world">
+          {worlds.map((world) => {
+            const active = world.body === target.body;
+            const firstSite = world.sites[0];
+            return (
+              <button
+                key={world.body}
+                type="button"
+                onClick={() => firstSite && onChange(active ? target.id : firstSite.id)}
+                data-testid={`button-world-${world.body}`}
+                aria-pressed={active}
+                className={cn(
+                  "group relative flex min-h-[74px] min-w-[142px] flex-1 items-center gap-3 overflow-hidden rounded-md border px-3 py-2.5 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                  active ? "border-body-accent bg-secondary text-secondary-foreground" : "border-foreground/15 bg-card/60 hover:border-foreground/35",
+                )}
+              >
+                {active && (
+                  <motion.span
+                    layoutId="active-world-frame"
+                    className="absolute inset-0 border-l-2 border-body-accent bg-secondary"
+                    transition={reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 360, damping: 34 }}
+                  />
+                )}
+                <motion.span
+                  className={cn("relative grid h-10 w-10 shrink-0 place-items-center rounded-full border", world.body === "moon" ? "border-[hsl(var(--moon)/.55)] bg-[radial-gradient(circle_at_34%_30%,hsl(228_28%_75%),hsl(228_22%_48%)_50%,hsl(222_28%_21%)_100%)]" : "border-[hsl(var(--mars)/.6)] bg-[radial-gradient(circle_at_34%_30%,hsl(18_65%_70%),hsl(8_53%_46%)_54%,hsl(3_48%_24%)_100%)]")}
+                  animate={active && !reduceMotion ? { rotate: 360 } : { rotate: 0 }}
+                  transition={active && !reduceMotion ? { repeat: Infinity, duration: 28, ease: "linear" } : { duration: 0.2 }}
+                  aria-hidden="true"
+                >
+                  <span className="absolute inset-[4px] rounded-full border border-secondary-foreground/25 border-t-transparent" />
+                  <span className="absolute left-[8px] top-[10px] h-2 w-2 rounded-full bg-secondary-foreground/15" />
+                </motion.span>
+                <span className="relative min-w-0">
+                  <span className={cn("block font-display text-lg font-extrabold leading-none", world.body === "moon" ? "text-[hsl(var(--moon))]" : "text-[hsl(var(--mars))]", active && "text-secondary-foreground")}>{world.label}</span>
+                  <span className={cn("mt-1 block font-mono text-[9px] uppercase tracking-wider", active ? "text-secondary-foreground/65" : "text-muted-foreground")}>{world.facts}</span>
+                </span>
+                <span className="relative ml-auto hidden font-mono text-[8px] uppercase tracking-widest opacity-60 sm:block">{active ? "Selected" : "Select"}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="rounded-md border border-foreground/15 bg-card/55 p-3.5" data-testid="group-target-sites">
+          <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
+            <div>
+              <div className="font-mono text-[9px] uppercase tracking-[.2em] text-muted-foreground">{activeWorld?.descriptor ?? "Target sites"}</div>
+              <div className="font-display text-sm font-bold">Select a target site</div>
             </div>
-            <div className="flex flex-wrap gap-1.5">
-              {targetSites.filter((t) => t.body === g.body).map((t) => {
-                const active = t.id === target.id;
-                return (
-                  <button
-                    key={t.id}
-                    onClick={() => onChange(t.id)}
-                    data-testid={`button-target-${t.id}`}
-                    className={cn(
-                      "relative rounded-[4px] border px-3 py-1.5 text-left text-sm transition-all duration-200 hover:-translate-y-0.5",
-                      active ? "border-transparent text-white" : "border-foreground/15 bg-card/70 hover:border-foreground/40",
-                    )}
-                  >
-                    {active && (
-                      <motion.span
-                        layoutId="target-pill"
-                        className="absolute inset-0 rounded-[4px]"
-                        style={{ background: `hsl(var(--${g.body}))` }}
-                        transition={{ type: "spring", stiffness: 420, damping: 34 }}
-                      />
-                    )}
-                    <span className="relative font-medium">{t.name}</span>
-                  </button>
-                );
-              })}
-            </div>
+            <span className="font-mono text-[9px] text-muted-foreground">{activeWorld?.sites.length ?? 0} available</span>
           </div>
-        ))}
+          <div className="flex flex-wrap gap-1.5">
+            {activeWorld?.sites.map((site) => {
+              const active = site.id === target.id;
+              return (
+                <button
+                  key={site.id}
+                  type="button"
+                  onClick={() => onChange(site.id)}
+                  data-testid={`button-target-${site.id}`}
+                  aria-pressed={active}
+                  className={cn(
+                    "relative rounded-[4px] border px-3 py-1.5 text-left text-sm transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+                    active ? "border-transparent text-white" : "border-foreground/15 bg-background/55 hover:border-foreground/40",
+                  )}
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="target-pill"
+                      className="absolute inset-0 rounded-[4px]"
+                      style={{ background: `hsl(var(--${target.body}))` }}
+                      transition={reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 420, damping: 34 }}
+                    />
+                  )}
+                  <span className="relative font-medium">{site.name}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
       </div>
 
       <AnimatePresence mode="wait">
         <motion.div
           key={target.id}
-          initial={{ opacity: 0, y: 8 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.28 }}
+          exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
+          transition={{ duration: reduceMotion ? 0 : 0.28 }}
           className="relative overflow-hidden rounded-md border border-foreground/15 bg-secondary p-4 text-secondary-foreground"
           data-testid="card-target"
         >
