@@ -29,12 +29,12 @@ export const DIMENSIONS: Dimension[] = [
   {
     key: "geology",
     label: "Geology",
-    description: "Shared rock, landform and resource types",
+    description: "Overlap of editorial geology tags; not computed from USGS or GLiM maps",
   },
   {
     key: "terrain",
     label: "Terrain",
-    description: "Slope and relief the vehicles must handle",
+    description: "Coarse 9-sample height range; not measured slope or rover driveability",
   },
   {
     key: "light",

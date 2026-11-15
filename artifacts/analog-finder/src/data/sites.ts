@@ -167,7 +167,7 @@ export const TARGET_SEEDS: TargetSeed[] = [
     isolation: 10,
     summary:
       "The deepest known lunar pit, about 100 m, on a flat basalt plain with radar evidence of a sublunar cave.",
-    mission: "Low-risk equatorial landing next to a cave entrance for exploration.",
+    mission: "Equatorial cave-entrance exploration concept. Local hazards and landing safety have not been assessed here.",
   },
   {
     id: "moon-schrodinger",
@@ -293,7 +293,7 @@ export const TARGET_SEEDS: TargetSeed[] = [
     isolation: 10,
     summary:
       "A flat plain covered in iron-magnesium clays, selected as the landing site for ESA's Rosalind Franklin rover.",
-    mission: "Low-slope landing zone over some of the oldest exposed clay deposits.",
+    mission: "Explore some of the oldest exposed clay deposits. This app does not assess landing safety.",
   },
   {
     id: "mars-arcadia",
@@ -304,7 +304,7 @@ export const TARGET_SEEDS: TargetSeed[] = [
     isolation: 10,
     summary:
       "A smooth mid-latitude plain with shallow ice buried under a few tens of centimetres of dust.",
-    mission: "Candidate crewed landing site: reachable ice for water and fuel on easy terrain.",
+    mission: "Candidate region for investigating ice as a water and fuel resource; accessibility and landing hazards require separate assessment.",
   },
   {
     id: "mars-arsia",
@@ -599,7 +599,7 @@ export const EARTH_SEEDS: EarthSeed[] = [
   },
 ];
 
-/** Relief (height range of 9 samples: the point and 8 neighbours about 15-17 km away) to the 0-10 ruggedness scale. */
+/** Coarse nine-sample height range to a 0-10 index, not slope or driveability. */
 export function reliefToRuggedness(reliefM: number): number {
   return Math.min(10, 10 * Math.sqrt(Math.max(0, reliefM) / 2500));
 }
@@ -699,7 +699,7 @@ export const VARIABLE_LABEL: Record<TargetVariable, string> = {
   minTempC: "Coldest surface temperature",
   maxTempC: "Warmest surface temperature",
   elevationM: "Elevation",
-  reliefM: "Relief (9-sample height range, ~15 km ring)",
+  reliefM: "Relief (9-sample height range, nominal 15 km grid spacing)",
   pressureKpa: "Surface pressure",
   windMs: "Wind",
 };

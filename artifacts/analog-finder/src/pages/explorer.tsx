@@ -101,24 +101,20 @@ function ExplorerLoaded({ earthSites, targets }: { earthSites: Site[]; targets: 
   const grid = useGrid();
   const cells = grid.data?.cells;
   const scored = useMemo(() => (cells ? scoreGrid(target, cells, weights) : null), [cells, target, weights]);
-  // Rock type is a context filter only; it never changes the underlying fit index.
-  const [rockClass, setRockClass] = useState("all");
+  // Rock type (GLiM) narrows which cells may become leads. It is a filter only and never changes a score.
+  const [rockClass, setRockClass] = useState<string>("all");
   const rockOptions = useMemo(() => {
-    const counts = new Map<string, number>();
-    for (const cell of cells ?? []) {
-      const code = LITHOLOGY.cells[`${cell.lat},${cell.lon}`];
-      if (code) counts.set(code, (counts.get(code) ?? 0) + 1);
+    const n = new Map<string, number>();
+    for (const c of cells ?? []) {
+      const code = LITHOLOGY.cells[`${c.lat},${c.lon}`];
+      if (code) n.set(code, (n.get(code) ?? 0) + 1);
     }
-    return [...counts.entries()]
-      .sort((a, b) => b[1] - a[1])
-      .map(([code, count]) => ({ code, name: LITHOLOGY.classes[code] ?? code, count }));
+    return [...n.entries()].sort((a, b) => b[1] - a[1]).map(([code, count]) => ({ code, name: LITHOLOGY.classes[code] ?? code, count }));
   }, [cells]);
   const discoveries = useMemo(() => {
     if (!scored) return [];
-    const filtered = rockClass === "all"
-      ? scored
-      : scored.filter((item) => LITHOLOGY.cells[`${item.cell.lat},${item.cell.lon}`] === rockClass);
-    return findDiscoveries(filtered, earthSites);
+    const pool = rockClass === "all" ? scored : scored.filter((c) => LITHOLOGY.cells[`${c.cell.lat},${c.cell.lon}`] === rockClass);
+    return findDiscoveries(pool, earthSites);
   }, [scored, earthSites, rockClass]);
   const activeDiscovery = discoveries.findIndex((d) => cellKey(d.cell) === selectedCell);
 
@@ -211,8 +207,8 @@ function ExplorerLoaded({ earthSites, targets }: { earthSites: Site[]; targets: 
                   onSelect={setSelectedCell}
                   rockOptions={rockOptions}
                   rockClass={rockClass}
-                  onRockClass={(code) => {
-                    setRockClass(code);
+                  onRockClass={(c) => {
+                    setRockClass(c);
                     setSelectedCell(null);
                   }}
                 />

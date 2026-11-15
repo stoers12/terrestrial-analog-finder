@@ -25,7 +25,7 @@ const py = (lat: number) => ((90 - lat) / 180) * H;
 function moonKm(a: { lat: number; lon: number }, b: { lat: number; lon: number }) {
   const r = Math.PI / 180;
   const h = Math.sin(((b.lat - a.lat) * r) / 2) ** 2 + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(((b.lon - a.lon) * r) / 2) ** 2;
-  return 2 * MOON_R_KM * Math.asin(Math.sqrt(h));
+  return 2 * MOON_R_KM * Math.asin(Math.sqrt(Math.min(1, Math.max(0, h))));
 }
 
 const settingColor = (s: PitSetting) => PIT_SETTINGS.find((x) => x.id === s)!.color;
@@ -43,8 +43,16 @@ export function LunarPitAtlas({ targetSites, currentTargetId, onUseTarget }: Pro
   const reduceMotion = useReducedMotion();
   const moonTargets = useMemo(() => targetSites.filter((s) => s.body === "moon"), [targetSites]);
   const targetByPit = useMemo(() => new Map(moonTargets.filter((t) => t.lrocPit).map((t) => [t.lrocPit!, t])), [moonTargets]);
-  // The two catalogued pits (Marius Hills and Tranquillitatis) sit within about 2 km of their atlas entries.
-  const linkedTarget = (p: LunarPit) => targetByPit.get(p.name) ?? moonTargets.find((t) => moonKm(t, p) < 3) ?? null;
+  // These legacy targets use rounded coordinates. Link by identity, never just proximity.
+  const legacyPitIds: Record<string, string> = {
+    "Marius Hills Pit": "moon-marius",
+    "Mare Tranquillitatis Pit": "moon-tranquillitatis",
+  };
+  const linkedTarget = (p: LunarPit) => {
+    const candidate = targetByPit.get(p.name) ?? moonTargets.find((t) => t.id === legacyPitIds[p.name]);
+    // Refuse a stale identity link if the coordinates no longer agree within the rounding allowance.
+    return candidate && moonKm(candidate, p) < 3 ? candidate : null;
+  };
 
   const [settings, setSettings] = useState<Set<PitSetting>>(new Set(PIT_SETTINGS.map((s) => s.id)));
   const [query, setQuery] = useState("");
@@ -371,7 +379,7 @@ export function LunarPitAtlas({ targetSites, currentTargetId, onUseTarget }: Pro
                       ["Funnel", fmtDims(selected.funnelMaxM, selected.funnelMinM)],
                       ["Inner opening", fmtDims(selected.innerMaxM, selected.innerMinM)],
                       ["Depth", fmtDepth(selected)],
-                      ["Nearest app target", nearest ? `${Math.round(nearest.km).toLocaleString("en-US")} km` : "n/a"],
+                      [linked ? "Nearest other target" : "Nearest app target", nearest ? `${Math.round(nearest.km).toLocaleString("en-US")} km` : "n/a"],
                     ] as const
                   ).map(([k, v]) => (
                     <div key={k} className="rounded-sm bg-secondary-foreground/8 px-2 py-1.5">
@@ -380,6 +388,8 @@ export function LunarPitAtlas({ targetSites, currentTargetId, onUseTarget }: Pro
                     </div>
                   ))}
                 </dl>
+                {linked && <p className="text-[10px] text-secondary-foreground/65">Linked target: {linked.name} · centre offset {moonKm(linked, selected).toFixed(2)} km. The distance above excludes this linked target.</p>}
+                {nearest && <p className="text-[10px] text-secondary-foreground/65">Nearest {linked ? "other " : ""}target: {nearest.t.name}. Distances are great-circle distances on the Moon, not travel routes.</p>}
                 {selected.depthIsLowerBound && <p className="text-[10px] text-secondary-foreground/65">The atlas gives this depth as a lower bound ("&gt;"), not a measurement.</p>}
 
                 {selected.unit && unitInfo && (

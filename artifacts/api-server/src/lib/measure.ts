@@ -1,6 +1,7 @@
 import { db, measurementsTable, type Measurement } from "@workspace/db";
 import { inArray } from "drizzle-orm";
 import { CLIMATE_SOURCE, ELEVATION_SOURCE, fetchElevations, fetchPower } from "./upstream";
+import { reliefGrid } from "./relief-grid";
 
 export interface Point {
   lat: number;
@@ -8,22 +9,6 @@ export interface Point {
 }
 
 export const keyOf = (p: Point) => `${p.lat.toFixed(2)},${p.lon.toFixed(2)}`;
-
-const RING_DEG = 0.15;
-
-/** Centre point followed by eight neighbours, used to estimate local relief. */
-function ringOf(p: Point): Point[] {
-  const lonScale = RING_DEG / Math.max(Math.cos((p.lat * Math.PI) / 180), 0.2);
-  const norm = (lon: number) => ((((lon + 180) % 360) + 360) % 360) - 180;
-  const pts: Point[] = [p];
-  for (const dy of [-1, 0, 1]) {
-    for (const dx of [-1, 0, 1]) {
-      if (dx === 0 && dy === 0) continue;
-      pts.push({ lat: Math.max(-89.9, Math.min(89.9, p.lat + dy * RING_DEG)), lon: norm(p.lon + dx * lonScale) });
-    }
-  }
-  return pts;
-}
 
 async function pool<T, R>(items: T[], size: number, fn: (item: T) => Promise<R>): Promise<PromiseSettledResult<R>[]> {
   const results: PromiseSettledResult<R>[] = new Array(items.length);
@@ -67,7 +52,7 @@ export async function measurePoints(points: Point[]): Promise<MeasureOutcome> {
   if (missing.length === 0) return { rows, failed };
 
   // Elevation ring for every missing point in one throttled pass, then climate with limited concurrency.
-  const rings = missing.map((m) => ringOf(m));
+  const rings = missing.map((m) => reliefGrid(m));
   let elevations: number[] | null = null;
   let elevationError = "";
   try {

@@ -2,16 +2,16 @@ import { KIND_HINT, KIND_LABEL, VARIABLE_LABEL, type Site, type TargetVariable, 
 import { cn } from "@/lib/utils";
 
 const KIND_STYLE: Record<ValueKind, string> = {
-  "raw-derived": "prov prov-derived",
-  derived: "prov prov-derived prov-dashed",
-  reference: "prov prov-reference",
+  "raw-derived": "border-secondary-foreground/50",
+  derived: "border-dashed border-secondary-foreground/50",
+  reference: "border-dotted border-secondary-foreground/40 opacity-80",
 };
 
 export const formatDate = (iso: string) => new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
 export function KindBadge({ kind, className }: { kind: ValueKind; className?: string }) {
   return (
-    <span title={KIND_HINT[kind]} className={cn("inline-flex items-center gap-1 rounded-[3px] border px-1.5 py-px font-mono text-[9px] font-medium uppercase tracking-wider", KIND_STYLE[kind], className)}>
+    <span title={KIND_HINT[kind]} className={cn("rounded-sm border px-1 py-px font-mono text-[9px] uppercase tracking-wider", KIND_STYLE[kind], className)}>
       {KIND_LABEL[kind]}
     </span>
   );
@@ -35,7 +35,7 @@ export function TargetProvenance({ target }: { target: Site }) {
             <li key={k} className="rounded-sm border border-foreground/10 bg-muted/40 px-2.5 py-2">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="font-semibold text-foreground">{VARIABLE_LABEL[k]}</span>
-                <KindBadge kind={v.kind} />
+                <KindBadge kind={v.kind} className="border-foreground/40" />
                 <span className="font-mono text-foreground">{v.value}</span>
               </div>
               <div className="mt-0.5">
