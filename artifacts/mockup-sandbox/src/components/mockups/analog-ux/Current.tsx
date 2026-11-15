@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Check, ChevronDown, CircleHelp, Info, MapPin } from "lucide-react";
+import { ChevronDown, CircleHelp, Info, MapPin } from "lucide-react";
 import "./_group.css";
 import "./Current.css";
 import { EARTH_SEEDS, TARGET_SEEDS, hydrateTargetSite, type TargetApiSite } from "./_source/data/sites";
@@ -92,18 +92,21 @@ export function Current() {
               </div>
             </div>
 
-            <div className="ux-world-picker" role="group" aria-label="Choose a world">
+            <div className="ux-world-picker" data-selected={world} role="group" aria-label="Choose a world">
+              <span className="ux-world-track" aria-hidden="true" />
+              <span className="ux-flight-marker" aria-hidden="true"><span /></span>
               <button type="button" className={`ux-world-option ${world === "moon" ? "is-selected" : ""}`} onClick={() => chooseWorld("moon")} aria-pressed={world === "moon"}>
                 <span className="ux-world-icon ux-moon-icon" aria-hidden="true"><span /></span>
                 <span className="ux-world-text"><strong>The Moon</strong><small>Low gravity · no atmosphere</small></span>
-                <span className="ux-radio">{world === "moon" && <Check size={13} aria-hidden="true" />}</span>
               </button>
               <button type="button" className={`ux-world-option ${world === "mars" ? "is-selected" : ""}`} onClick={() => chooseWorld("mars")} aria-pressed={world === "mars"}>
                 <span className="ux-world-icon ux-mars-icon" aria-hidden="true"><span /></span>
                 <span className="ux-world-text"><strong>Mars</strong><small>Thin air · dusty terrain</small></span>
-                <span className="ux-radio">{world === "mars" && <Check size={13} aria-hidden="true" />}</span>
               </button>
             </div>
+            <p className="ux-selection-feedback" aria-live="polite" key={world}>
+              <span aria-hidden="true" /> Destination selected: {world === "moon" ? "the Moon" : "Mars"}
+            </p>
 
             <label className="ux-select-label" htmlFor="target-select">Choose a specific site</label>
             <div className="ux-select-wrap">
