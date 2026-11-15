@@ -1,9 +1,16 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { SearchX } from "lucide-react";
+import type { AnalogStatus } from "@/data/sites";
 import type { Match } from "@/lib/similarity";
 import { scoreColor, STATUS_LABEL } from "@/lib/analog-ui";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+
+/** Same markers used in the instrument detail panel to identify a site's status. */
+export function StatusGlyph({ status, className }: { status: AnalogStatus; className?: string }) {
+  if (status === "proposed") return <i className={cn("inline-block h-2 w-2 shrink-0 rotate-45 border-[1.5px] border-primary bg-primary/30", className)} />;
+  return <i className={cn("inline-block h-2.5 w-2.5 shrink-0 rounded-full border-[1.5px] border-current", status === "emerging" && "border-dashed", className)} />;
+}
 
 interface Props {
   items: { match: Match; rank: number }[];

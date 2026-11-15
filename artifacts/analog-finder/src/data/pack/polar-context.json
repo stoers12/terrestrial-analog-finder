@@ -1,0 +1,105 @@
+{
+ "product": "LRO-L-DLRE-5-PRP-V2.0",
+ "productUrl": "https://pds-geosciences.wustl.edu/missions/lro/diviner.htm",
+ "depthClasses": [
+  {
+   "id": "surface",
+   "label": "Stable at the surface (0 m)",
+   "color": "rgb(125,232,255)"
+  },
+  {
+   "id": "shallow",
+   "label": "Above 0.5 m",
+   "color": "rgb(56,163,214)"
+  },
+  {
+   "id": "mid",
+   "label": "0.5 to 1 m",
+   "color": "rgb(44,98,186)"
+  },
+  {
+   "id": "deep",
+   "label": "1 to 2.87 m",
+   "color": "rgb(62,52,140)"
+  },
+  {
+   "id": "excluded",
+   "label": "No modelled depth (provider code -999)",
+   "color": "rgb(96,96,104)"
+  },
+  {
+   "id": "undocumented",
+   "label": "Undocumented code -1 (not interpreted)",
+   "color": "rgb(214,150,92)"
+  }
+ ],
+ "limits": [
+  "Modelled ice stability is not a detection or proof of available water ice.",
+  "The 2 cm temperature is an annual mean below the surface; it is not the surface skin temperature used elsewhere in the app.",
+  "Each 25 km circle mixes sunlit rims and shadowed ground. These are distributions, not a base-site temperature.",
+  "The circles are centred on the pack's representative points, not on a surveyed base site.",
+  "The XML label declares -999 as invalid. The retained source rows also contain -1, whose semantics are not established by that label."
+ ],
+ "sites": {
+  "moon-shackleton": {
+   "contextPoint": {
+    "lat": -89.66,
+    "lon": 129.2
+   },
+   "radiusKm": 25,
+   "imageFile": "pack/polar-shackleton.png",
+   "imageRangeKm": 27,
+   "rows": 15304,
+   "depthCounts": {
+    "surface": 362,
+    "shallow": 7055,
+    "mid": 1068,
+    "deep": 245,
+    "excluded": 4699,
+    "undocumented": 1875
+   },
+   "mean2cmK": {
+    "p10": 57,
+    "median": 102.2,
+    "p90": 138.8,
+    "n": 15304
+   },
+   "maxSurfaceK": {
+    "p10": 97.2,
+    "median": 233.8,
+    "p90": 280.8,
+    "n": 15304
+   }
+  },
+  "moon-malapert": {
+   "contextPoint": {
+    "lat": -85.9,
+    "lon": 0.6
+   },
+   "radiusKm": 25,
+   "imageFile": "pack/polar-malapert.png",
+   "imageRangeKm": 27,
+   "rows": 15341,
+   "depthCounts": {
+    "surface": 3,
+    "shallow": 5493,
+    "mid": 720,
+    "deep": 64,
+    "excluded": 9024,
+    "undocumented": 37
+   },
+   "mean2cmK": {
+    "p10": 84.5,
+    "median": 126,
+    "p90": 173.9,
+    "n": 15341
+   },
+   "maxSurfaceK": {
+    "p10": 221.6,
+    "median": 266.9,
+    "p90": 309.4,
+    "n": 15341
+   }
+  }
+ }
+}

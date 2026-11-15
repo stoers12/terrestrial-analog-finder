@@ -32,7 +32,7 @@ export interface SiteEvidence {
   sources: EvidenceSource[];
 }
 
-const LROC_PITS: EvidenceSource = {
+export const LROC_PITS: EvidenceSource = {
   publisher: "LROC, Arizona State University",
   title: "Lunar pit atlas",
   url: "https://www.lroc.asu.edu/atlases/pits/list",

@@ -7,7 +7,7 @@
  * values for every target site and writes src/pipeline/data/targets-snapshot.json. The API server loads that
  * snapshot into the `target_values` table at start-up.
  */
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
@@ -107,6 +107,12 @@ async function main() {
   const processedAt = new Date().toISOString();
   const log = (m: string) => console.log(`[${new Date().toISOString().slice(11, 19)}] ${m}`);
   const values: TargetValue[] = [];
+  const here = path.dirname(fileURLToPath(import.meta.url));
+  const outDir = path.resolve(here, "../src/pipeline/data");
+  const snapshotPath = path.join(outDir, "targets-snapshot.json");
+  // --moon-only recomputes every Moon target and keeps the Mars values of the previous run unchanged
+  // (with their own processedAt), so adding a lunar target does not re-download a Mars year of MCS files.
+  const moonOnly = process.argv.includes("--moon-only");
 
   log("Moon: LOLA elevation and Diviner temperatures");
   const shoemaker = await moonTemps(SHOEMAKER);
@@ -116,8 +122,20 @@ async function main() {
     log(`  ${site.id}: ${v.filter((x) => x.kind === "raw-derived").map((x) => `${x.variable}=${x.value}`).join(" ")}`);
   }
 
-  log("Mars: MOLA elevation");
   const marsSites = TARGETS.filter((t) => t.body === "mars");
+  if (moonOnly) {
+    const previous = JSON.parse(await readFile(snapshotPath, "utf8")) as Snapshot;
+    const kept = previous.values.filter((v) => v.body === "mars");
+    for (const s of marsSites) {
+      if (!kept.some((v) => v.siteId === s.id)) throw new Error(`--moon-only: the previous snapshot has no Mars values for ${s.id}; run the full pipeline`);
+    }
+    values.push(...kept);
+    log(`Mars: kept ${kept.length} values from the previous run (${previous.processedAt})`);
+    await finish(values, shoemaker.coldestC, processedAt, outDir, snapshotPath, log);
+    return;
+  }
+
+  log("Mars: MOLA elevation");
   const elevations = new Map<string, Awaited<ReturnType<typeof marsElevation>>>();
   for (const s of marsSites) elevations.set(s.id, await marsElevation(s));
 
@@ -136,15 +154,24 @@ async function main() {
     log(`  ${s.id}: ${v.map((x) => `${x.variable}=${x.value}`).join(" ")}`);
   }
 
+  await finish(values, shoemaker.coldestC, processedAt, outDir, snapshotPath, log);
+}
+
+async function finish(
+  values: TargetValue[],
+  shoemakerColdestC: number,
+  processedAt: string,
+  outDir: string,
+  snapshotPath: string,
+  log: (m: string) => void,
+) {
   const malapertColdest = get(values, "moon-malapert", "minTempC");
-  const validation = validate(values, shoemaker.coldestC, malapertColdest);
+  const validation = validate(values, shoemakerColdestC, malapertColdest);
   validation.forEach((v) => log(`  ok: ${v}`));
 
   const snapshot: Snapshot = { pipelineVersion: PIPELINE_VERSION, processedAt, values, datasets: DATASETS, validation };
-  const here = path.dirname(fileURLToPath(import.meta.url));
-  const outDir = path.resolve(here, "../src/pipeline/data");
   await mkdir(outDir, { recursive: true });
-  await writeFile(path.join(outDir, "targets-snapshot.json"), JSON.stringify(snapshot, null, 1) + "\n");
+  await writeFile(snapshotPath, JSON.stringify(snapshot, null, 1) + "\n");
   log(`Wrote ${values.length} values to src/pipeline/data/targets-snapshot.json`);
 }
 

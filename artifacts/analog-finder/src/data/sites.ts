@@ -104,6 +104,8 @@ export interface Site {
   summary: string;
   /** Moon/Mars sites: what a base or landing there is for */
   mission?: string;
+  /** Moon targets added from the LROC lunar pit atlas: the pit's name in that atlas */
+  lrocPit?: string;
 }
 
 /** Editorial fields of a Moon or Mars target. Every number comes from the pipeline. */
@@ -117,6 +119,8 @@ export interface TargetSeed {
   isolation: number;
   summary: string;
   mission: string;
+  /** Set for targets added from the LROC lunar pit atlas: the pit's name in that atlas. */
+  lrocPit?: string;
 }
 
 export const TARGET_SEEDS: TargetSeed[] = [
@@ -175,6 +179,86 @@ export const TARGET_SEEDS: TargetSeed[] = [
     summary:
       "A young 320 km peak-ring basin on the far side with exposed deep crust and volcanic vents.",
     mission: "Science outpost for deep-crust geology and quiet radio astronomy.",
+  },
+
+  // ---- Moon: pits added from the LROC lunar pit atlas (Terrestrial_Analog_Data pack, Nov 2026) ----
+  // Dimensions in these texts are copied from the atlas; the USGS map unit comes from the unified geologic map.
+  {
+    id: "moon-ingenii",
+    name: "Mare Ingenii pit",
+    body: "moon",
+    region: "Far side, South Pole-Aitken basin",
+    geology: ["basalt-volcanic", "lava-tubes", "fine-regolith-dust"],
+    isolation: 10,
+    summary: "A far-side pit in mare basalt (USGS unit Im2). The atlas lists a 180 × 157 m funnel and a depth of 55 m.",
+    mission: "Far-side cave-entrance rehearsal, with no direct line of sight to Earth for communications.",
+    lrocPit: "Mare Ingenii Pit",
+  },
+  {
+    id: "moon-lacus-mortis",
+    name: "Lacus Mortis pit",
+    body: "moon",
+    region: "Near side, northern mid-latitudes",
+    geology: ["basalt-volcanic", "lava-tubes", "fine-regolith-dust"],
+    isolation: 10,
+    summary: "A pit in the mare basalt of Lacus Mortis (USGS unit Im2). The atlas lists a 280 × 210 m funnel and a depth of 60 m.",
+    mission: "Near-side pit at 45° N: tests how a cave entrance is approached outside the equatorial belt.",
+    lrocPit: "Lacus Mortis Pit",
+  },
+  {
+    id: "moon-insularum",
+    name: "Mare Insularum pit",
+    body: "moon",
+    region: "Near side, equatorial",
+    geology: ["basalt-volcanic", "lava-tubes", "fine-regolith-dust"],
+    isolation: 10,
+    summary: "A pit in equatorial mare basalt (USGS unit Im2). The atlas lists a 315 × 255 m funnel, the widest among its mare pits, and a depth of 63 m.",
+    mission: "Equatorial cave-entrance site: a wide funnel for rehearsing descent and rope access.",
+    lrocPit: "Mare Insularum Pit",
+  },
+  {
+    id: "moon-moscoviense",
+    name: "Mare Moscoviense pit",
+    body: "moon",
+    region: "Far side, northern",
+    geology: ["basalt-volcanic", "lava-tubes", "fine-regolith-dust"],
+    isolation: 10,
+    summary: "A pit in one of the few far-side maria (USGS unit Im2). The atlas lists a 205 × 205 m funnel and a depth of 40 m.",
+    mission: "Far-side volcanic shelter concept that needs a relay for every communication with Earth.",
+    lrocPit: "Mare Moscoviense Pit",
+  },
+  {
+    id: "moon-fecunditatis",
+    name: "Mare Fecunditatis pit",
+    body: "moon",
+    region: "Near side, equatorial",
+    geology: ["basalt-volcanic", "lava-tubes", "fine-regolith-dust"],
+    isolation: 10,
+    summary: "A pit almost on the equator in mare basalt (USGS unit Im2). The atlas lists a 198 × 162 m funnel and a depth of 42 m.",
+    mission: "Equatorial cave-entrance site with Earth always in view from the near side.",
+    lrocPit: "Central Mare Fecunditatis Pit",
+  },
+  {
+    id: "moon-procellarum-north",
+    name: "North Procellarum pit",
+    body: "moon",
+    region: "Oceanus Procellarum, north",
+    geology: ["basalt-volcanic", "lava-tubes", "fine-regolith-dust"],
+    isolation: 10,
+    summary: "One of two pits about 2 km apart in northern Oceanus Procellarum (USGS unit Im2). The atlas lists a 195 × 175 m funnel and a depth of 54 m.",
+    mission: "Two neighbouring openings: a setting for planning traverses between cave entrances.",
+    lrocPit: "North Procellarum 1 Pit",
+  },
+  {
+    id: "moon-copernicus-lb4",
+    name: "Copernicus crater floor pit",
+    body: "moon",
+    region: "Copernicus crater",
+    geology: ["impact-crater", "fine-regolith-dust"],
+    isolation: 10,
+    summary: "A pit on the floor of the young Copernicus crater (USGS unit Cc), in impact melt rather than mare lava. The atlas lists a 375 × 340 m funnel and a depth of 78 m.",
+    mission: "Impact-melt pit for comparison with volcanic pits; it is not a lava-tube candidate.",
+    lrocPit: "Copernicus LB4",
   },
 
   // ---- Mars ----
@@ -631,6 +715,11 @@ export const DATA_SOURCES = [
   { name: "Mars pressure model (0.61 kPa, 11.1 km scale height)", body: "Mars", use: "Derived from MOLA elevation", kind: "derived" },
   { name: "Mars Climate Database v6.2 GCM climatology", body: "Mars", use: "Modeled: 10 m horizontal wind averaged across seasonal and local-time samples", kind: "derived" },
   { name: "GLiM global lithological map, 0.5° (Hartmann & Moosdorf 2012)", body: "Earth", use: "Reference: broad rock type at sites and grid cells; context only, not scored", kind: "reference" },
+  { name: "LROC lunar pit atlas (278 pits)", body: "Moon", use: "Reference: pit positions and sizes; seven pits added as comparison targets", kind: "reference" },
+  { name: "USGS Unified Geologic Map of the Moon, 1:5M", body: "Moon", use: "Reference: map unit at each pit and Moon target; context only, not scored", kind: "reference" },
+  { name: "LRO LOLA LDEM 4 px/deg", body: "Moon", use: "Reference: shaded-relief base map for the pit atlas", kind: "reference" },
+  { name: "LRO Diviner polar resource product (PRP)", body: "Moon", use: "Derived: modelled ice-stability depth and 2 cm temperature near the south-polar targets; a model, not ice detection", kind: "derived" },
+  { name: "NASA GIBS context tiles per site", body: "Earth", use: "Reference: about 1° regional image next to each Earth site", kind: "reference" },
   { name: "Evidence registry (ISRO, NASA, ESA, LROC pit atlas)", body: "Earth / Moon", use: "Editorial: documented missions, status corrections, pit sizes, scale caveats", kind: "editorial" },
   { name: "Published analog literature", body: "Earth", use: "Editorial: geology tags, isolation, analog status", kind: "editorial" },
 ] as const;

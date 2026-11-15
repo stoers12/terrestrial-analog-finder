@@ -17,6 +17,8 @@ import { WeightsPanel } from "@/components/weights-panel";
 import { SiteDetail } from "@/components/site-detail";
 import { BestNew } from "@/components/best-new";
 import { CoverageMatrix } from "@/components/coverage-matrix";
+import { LunarPitAtlas } from "@/components/lunar-pit-atlas";
+import { LITHOLOGY } from "@/data/evidence";
 import { AboutDialog } from "@/components/about-dialog";
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
@@ -99,7 +101,25 @@ function ExplorerLoaded({ earthSites, targets }: { earthSites: Site[]; targets: 
   const grid = useGrid();
   const cells = grid.data?.cells;
   const scored = useMemo(() => (cells ? scoreGrid(target, cells, weights) : null), [cells, target, weights]);
-  const discoveries = useMemo(() => (scored ? findDiscoveries(scored, earthSites) : []), [scored, earthSites]);
+  // Rock type is a context filter only; it never changes the underlying fit index.
+  const [rockClass, setRockClass] = useState("all");
+  const rockOptions = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const cell of cells ?? []) {
+      const code = LITHOLOGY.cells[`${cell.lat},${cell.lon}`];
+      if (code) counts.set(code, (counts.get(code) ?? 0) + 1);
+    }
+    return [...counts.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .map(([code, count]) => ({ code, name: LITHOLOGY.classes[code] ?? code, count }));
+  }, [cells]);
+  const discoveries = useMemo(() => {
+    if (!scored) return [];
+    const filtered = rockClass === "all"
+      ? scored
+      : scored.filter((item) => LITHOLOGY.cells[`${item.cell.lat},${item.cell.lon}`] === rockClass);
+    return findDiscoveries(filtered, earthSites);
+  }, [scored, earthSites, rockClass]);
   const activeDiscovery = discoveries.findIndex((d) => cellKey(d.cell) === selectedCell);
 
   const effectiveId = selectedId ?? visible[0]?.match.site.id ?? ranked[0]?.site.id ?? null;
@@ -189,6 +209,12 @@ function ExplorerLoaded({ earthSites, targets }: { earthSites: Site[]; targets: 
                   loadError={grid.error as Error | null}
                   selectedKey={selectedCell}
                   onSelect={setSelectedCell}
+                  rockOptions={rockOptions}
+                  rockClass={rockClass}
+                  onRockClass={(code) => {
+                    setRockClass(code);
+                    setSelectedCell(null);
+                  }}
                 />
                 <section className="rounded-md border border-foreground/15 bg-card/70 p-3">
                   <div className="mb-3 flex items-baseline justify-between px-1">
@@ -240,6 +266,17 @@ function ExplorerLoaded({ earthSites, targets }: { earthSites: Site[]; targets: 
                   onReset={() => setWeights(DEFAULT_WEIGHTS)}
                 />
               </aside>
+            </div>
+
+            <div className="mt-8">
+              <LunarPitAtlas
+                targetSites={targetSites}
+                currentTargetId={target.id}
+                onUseTarget={(id) => {
+                  changeTarget(id);
+                  window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+                }}
+              />
             </div>
 
             <div className="mt-8">
