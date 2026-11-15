@@ -68,87 +68,248 @@
 }
 
 /* LIGHT MODE */
-/* LIGHT MODE: "survey instrument" - bone paper, deep ink, signal orange */
 :root {
-  --button-outline: hsl(222 40% 12% / .12);
-  --badge-outline: hsl(222 40% 12% / .07);
-  --opaque-button-border-intensity: -8;
-  --elevate-1: hsl(222 40% 12% / .035);
-  --elevate-2: hsl(222 40% 12% / .08);
-  --background: 42 24% 93%;
-  --foreground: 224 42% 12%;
-  --border: 38 14% 80%;
-  --card: 44 33% 97%;
-  --card-foreground: 224 42% 12%;
-  --card-border: 38 14% 82%;
-  --sidebar: 42 22% 90%;
-  --sidebar-foreground: 224 42% 12%;
-  --sidebar-border: 38 14% 80%;
-  --sidebar-primary: 14 88% 52%;
-  --sidebar-primary-foreground: 40 60% 97%;
-  --sidebar-accent: 40 20% 87%;
-  --sidebar-accent-foreground: 224 42% 12%;
-  --sidebar-ring: 14 88% 52%;
-  --popover: 44 33% 97%;
-  --popover-foreground: 224 42% 12%;
-  --popover-border: 38 14% 80%;
-  --primary: 14 88% 52%;
-  --primary-foreground: 40 60% 97%;
-  --secondary: 224 42% 13%;
-  --secondary-foreground: 42 30% 92%;
-  --muted: 40 18% 88%;
-  --muted-foreground: 222 14% 38%;
-  --accent: 40 22% 87%;
-  --accent-foreground: 224 42% 12%;
-  --destructive: 354 70% 45%;
-  --destructive-foreground: 40 60% 97%;
-  --input: 38 12% 72%;
-  --ring: 14 88% 52%;
-  --chart-1: 14 88% 52%;
-  --chart-2: 224 42% 22%;
-  --chart-3: 226 48% 54%;
-  --chart-4: 174 52% 32%;
-  --chart-5: 40 80% 46%;
+  --button-outline: rgba(0, 0, 0, 0.1);
+  --badge-outline: rgba(0, 0, 0, 0.05);
 
-  /* provenance language */
-  --measured: 174 58% 30%;
-  --derived: 226 52% 50%;
-  --reference: 34 72% 40%;
+  /* Automatic computation of border around primary / danger buttons */
+  --opaque-button-border-intensity: -8; /* In terms of percentages */
+
+  /* Backgrounds applied on top of other backgrounds when hovered/active */
+  --elevate-1: rgba(0, 0, 0, 0.03);
+  --elevate-2: rgba(0, 0, 0, 0.08);
+
+  --background: 168 16% 91%;
+
+  --foreground: 222 47% 13%;
+
+  --border: 190 14% 78%;
+
+  --card: 160 20% 96%;
+
+  --card-foreground: 222 47% 13%;
+
+  --card-border: 190 14% 80%;
+
+  --sidebar: 168 16% 88%;
+
+  --sidebar-foreground: 222 47% 13%;
+
+  --sidebar-border: 190 14% 78%;
+
+  --sidebar-primary: 16 90% 52%;
+
+  --sidebar-primary-foreground: 30 60% 97%;
+
+  --sidebar-accent: 170 18% 84%;
+
+  --sidebar-accent-foreground: 222 47% 13%;
+
+  --sidebar-ring: 16 90% 52%;
+
+  --popover: 160 20% 96%;
+
+  --popover-foreground: 222 47% 13%;
+
+  --popover-border: 190 14% 78%;
+
+  --primary: 16 90% 52%;
+
+  --primary-foreground: 30 60% 97%;
+
+  --secondary: 222 47% 16%;
+
+  --secondary-foreground: 168 20% 92%;
+
+  --muted: 170 16% 85%;
+
+  --muted-foreground: 210 16% 36%;
+
+  --accent: 170 20% 84%;
+
+  --accent-foreground: 222 47% 13%;
+
+  --destructive: 356 72% 46%;
+
+  --destructive-foreground: 30 60% 97%;
+
+  --input: 190 14% 72%;
+  --ring: 16 90% 52%;
+  --chart-1: 16 90% 52%;
+  --chart-2: 222 47% 20%;
+  --chart-3: 228 45% 55%;
+  --chart-4: 8 68% 46%;
+  --chart-5: 168 30% 40%;
 
   --app-font-sans: 'DM Sans', sans-serif;
   --app-font-display: 'Bricolage Grotesque', sans-serif;
   --app-font-serif: 'Bricolage Grotesque', serif;
   --app-font-mono: 'JetBrains Mono', monospace;
-  --radius: 0.5rem;
-  --shadow-2xs: 0 1px 0 hsl(224 42% 12% / .04);
-  --shadow-xs: 0 1px 2px hsl(224 42% 12% / .05);
-  --shadow-sm: 0 1px 2px hsl(224 42% 12% / .06), 0 2px 6px -2px hsl(224 42% 12% / .06);
-  --shadow: 0 1px 2px hsl(224 42% 12% / .06), 0 4px 12px -4px hsl(224 42% 12% / .08);
-  --shadow-md: 0 2px 4px hsl(224 42% 12% / .06), 0 8px 20px -8px hsl(224 42% 12% / .12);
-  --shadow-lg: 0 4px 8px hsl(224 42% 12% / .06), 0 16px 32px -12px hsl(224 42% 12% / .16);
-  --shadow-xl: 0 8px 16px hsl(224 42% 12% / .08), 0 24px 48px -16px hsl(224 42% 12% / .2);
-  --shadow-2xl: 0 32px 64px -20px hsl(224 42% 12% / .28);
+  --radius: 0.375rem; /* 8px */
+  --shadow-2xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0); /*replace with H S L */
+  --shadow-xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0); /*replace with H S L */
+  --shadow-sm:
+    0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0),
+    0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0);
+  --shadow:
+    0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0),
+    0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0);
+  --shadow-md:
+    0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0),
+    0px 2px 4px -1px hsl(202.8169 89.1213% 53.1373% / 0);
+  --shadow-lg:
+    0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0),
+    0px 4px 6px -1px hsl(202.8169 89.1213% 53.1373% / 0);
+  --shadow-xl:
+    0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0),
+    0px 8px 10px -1px hsl(202.8169 89.1213% 53.1373% / 0);
+  --shadow-2xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0);
   --tracking-normal: 0em;
   --spacing: 0.25rem;
+
+  /* Automatically computed borders - intensity can be controlled by the user by the --opaque-button-border-intensity setting */
+
+  /* Fallback for older browsers */
   --sidebar-primary-border: hsl(var(--sidebar-primary));
+  --sidebar-primary-border: hsl(
+    from hsl(var(--sidebar-primary)) h s
+      calc(l + var(--opaque-button-border-intensity)) / alpha
+  );
+
+  /* Fallback for older browsers */
   --sidebar-accent-border: hsl(var(--sidebar-accent));
-  --primary-border: hsl(from hsl(var(--primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-  --secondary-border: hsl(from hsl(var(--secondary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-  --muted-border: hsl(from hsl(var(--muted)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-  --accent-border: hsl(from hsl(var(--accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
-  --destructive-border: hsl(from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  --sidebar-accent-border: hsl(
+    from hsl(var(--sidebar-accent)) h s
+      calc(l + var(--opaque-button-border-intensity)) / alpha
+  );
+
+  /* Fallback for older browsers */
+  --primary-border: hsl(var(--primary));
+  --primary-border: hsl(
+    from hsl(var(--primary)) h s
+      calc(l + var(--opaque-button-border-intensity)) / alpha
+  );
+
+  /* Fallback for older browsers */
+  --secondary-border: hsl(var(--secondary));
+  --secondary-border: hsl(
+    from hsl(var(--secondary)) h s
+      calc(l + var(--opaque-button-border-intensity)) / alpha
+  );
+
+  /* Fallback for older browsers */
+  --muted-border: hsl(var(--muted));
+  --muted-border: hsl(
+    from hsl(var(--muted)) h s calc(l + var(--opaque-button-border-intensity)) /
+      alpha
+  );
+
+  /* Fallback for older browsers */
+  --accent-border: hsl(var(--accent));
+  --accent-border: hsl(
+    from hsl(var(--accent)) h s
+      calc(l + var(--opaque-button-border-intensity)) / alpha
+  );
+
+  /* Fallback for older browsers */
+  --destructive-border: hsl(var(--destructive));
+  --destructive-border: hsl(
+    from hsl(var(--destructive)) h s
+      calc(l + var(--opaque-button-border-intensity)) / alpha
+  );
 }
 
 .dark {
-  --background: 224 38% 8%; --foreground: 42 24% 90%; --border: 222 22% 20%;
-  --card: 224 34% 11%; --card-foreground: 42 24% 90%; --card-border: 222 22% 20%;
-  --popover: 224 34% 11%; --popover-foreground: 42 24% 90%; --popover-border: 222 22% 20%;
-  --primary: 16 90% 56%; --primary-foreground: 224 38% 8%;
-  --secondary: 42 24% 88%; --secondary-foreground: 224 38% 10%;
-  --muted: 222 26% 16%; --muted-foreground: 40 10% 64%;
-  --accent: 222 26% 17%; --accent-foreground: 42 24% 90%;
-  --destructive: 354 70% 52%; --destructive-foreground: 42 24% 95%;
-  --input: 222 22% 28%; --ring: 16 90% 56%;
+  --button-outline: rgba(255, 255, 255, 0.1);
+  --badge-outline: rgba(255, 255, 255, 0.05);
+
+  --opaque-button-border-intensity: 9; /* In terms of percentages */
+
+  /* Backgrounds applied on top of other backgrounds when hovered/active */
+  --elevate-1: rgba(255, 255, 255, 0.04);
+  --elevate-2: rgba(255, 255, 255, 0.09);
+
+  --background: 222 40% 9%;
+
+  --foreground: 168 18% 90%;
+
+  --border: 220 22% 20%;
+
+  --card: 222 36% 12%;
+
+  --card-foreground: 168 18% 90%;
+
+  --card-border: 220 22% 20%;
+
+  --sidebar: 222 38% 11%;
+
+  --sidebar-foreground: 168 18% 90%;
+
+  --sidebar-border: 220 22% 20%;
+
+  --sidebar-primary: 18 92% 56%;
+
+  --sidebar-primary-foreground: 222 40% 9%;
+
+  --sidebar-accent: 220 26% 18%;
+
+  --sidebar-accent-foreground: 168 18% 90%;
+
+  --sidebar-ring: 18 92% 56%;
+
+  --popover: 222 36% 12%;
+
+  --popover-foreground: 168 18% 90%;
+
+  --popover-border: 220 22% 20%;
+
+  --primary: 18 92% 56%;
+
+  --primary-foreground: 222 40% 9%;
+
+  --secondary: 168 18% 88%;
+
+  --secondary-foreground: 222 40% 10%;
+
+  --muted: 220 26% 17%;
+
+  --muted-foreground: 190 12% 62%;
+
+  --accent: 220 26% 18%;
+
+  --accent-foreground: 168 18% 90%;
+
+  --destructive: 356 70% 52%;
+
+  --destructive-foreground: 168 18% 95%;
+
+  /* Used as the border around inputs. Dark mode: Should be a border that is light enough to have high contrast when rendered on a --card background. More contrast than standard --border */
+  --input: 220 22% 28%;
+  --ring: 18 92% 56%;
+  --chart-1: 18 92% 56%;
+  --chart-2: 168 18% 80%;
+  --chart-3: 228 60% 68%;
+  --chart-4: 8 70% 58%;
+  --chart-5: 168 30% 55%;
+
+  --shadow-2xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0);
+  --shadow-xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0);
+  --shadow-sm:
+    0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0),
+    0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0);
+  --shadow:
+    0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0),
+    0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0);
+  --shadow-md:
+    0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0),
+    0px 2px 4px -1px hsl(202.8169 89.1213% 53.1373% / 0);
+  --shadow-lg:
+    0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0),
+    0px 4px 6px -1px hsl(202.8169 89.1213% 53.1373% / 0);
+  --shadow-xl:
+    0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0),
+    0px 8px 10px -1px hsl(202.8169 89.1213% 53.1373% / 0);
+  --shadow-2xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0);
 }
 
 @layer base {
@@ -274,7 +435,7 @@
 }
 
 /* ---------- Analog Finder ---------- */
-:root { --moon: 226 46% 50%; --mars: 10 72% 46%; --body-accent: var(--moon); }
+:root { --moon: 228 45% 52%; --mars: 8 68% 46%; --body-accent: var(--moon); }
 [data-body="mars"] { --body-accent: var(--mars); }
 .font-display { font-family: var(--app-font-display); letter-spacing: -0.02em; }
 .text-body-accent { color: hsl(var(--body-accent)); transition: color .5s; }
@@ -282,102 +443,23 @@
 .border-body-accent { border-color: hsl(var(--body-accent)); }
 body::before {
   content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
-  background-image:
-    radial-gradient(1200px 600px at 85% -10%, hsl(var(--body-accent) / .10), transparent 60%),
-    linear-gradient(hsl(var(--foreground) / .04) 1px, transparent 1px),
-    linear-gradient(90deg, hsl(var(--foreground) / .04) 1px, transparent 1px),
-    linear-gradient(hsl(var(--foreground) / .025) 1px, transparent 1px),
-    linear-gradient(90deg, hsl(var(--foreground) / .025) 1px, transparent 1px);
-  background-size: auto, 96px 96px, 96px 96px, 16px 16px, 16px 16px;
+  background-image: linear-gradient(hsl(var(--foreground) / .045) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--foreground) / .045) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 #root { position: relative; z-index: 1; }
 .leaflet-container { background: hsl(190 20% 84%); font-family: var(--app-font-sans); }
 .leaflet-tooltip.mk-tip { background: hsl(var(--secondary)); color: hsl(var(--secondary-foreground)); border: 0; border-radius: 4px; box-shadow: 0 6px 18px hsl(222 47% 10% / .25); font-size: 12px; padding: 6px 9px; }
 .leaflet-tooltip.mk-tip::before { border-top-color: hsl(var(--secondary)); }
 .mk-wrap { background: transparent; border: 0; }
-@keyframes mkpulse { 0% { opacity: .9; transform: scale(.7); } 100% { opacity: 0; transform: scale(1.6); } }
-@keyframes scan { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
-.scanline { animation: scan 1.6s linear infinite; }
-
-/* ---------- instrument polish ---------- */
-::selection { background: hsl(var(--primary) / .25); }
-h1,h2,h3 { text-wrap: balance; }
-.font-mono { font-feature-settings: "zero" 1, "tnum" 1; }
-.panel { box-shadow: var(--shadow-sm); }
-.prov { border-color: hsl(var(--c) / .55); color: hsl(var(--c)); background: hsl(var(--c) / .08); }
-.prov::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: hsl(var(--c)); }
-.prov-measured { --c: var(--measured); }
-.prov-derived { --c: var(--derived); }
-.prov-dashed { border-style: dashed; }
-.prov-reference { --c: var(--reference); border-style: dotted; }
-.prov-reference::before { border-radius: 1px; rotate: 45deg; }
-.tick-rule { background-image: repeating-linear-gradient(90deg, hsl(var(--foreground) / .25) 0 1px, transparent 1px 8px); height: 6px; }
-@keyframes blink { 50% { opacity: .25; } }
-.live-dot { animation: blink 2s ease-in-out infinite; }
-::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-thumb { background: hsl(var(--foreground) / .18); border-radius: 8px; }
-::-webkit-scrollbar-track { background: transparent; }
-.leaflet-container { border-radius: inherit; }
-
-.prov-editorial { --c: 222 10% 45%; border-style: solid; }
-.prov-editorial::before { border-radius: 0; width: 6px; height: 1.5px; }
-.on-dark.prov-measured { --c: 172 55% 62%; }
-.on-dark.prov-derived { --c: 226 80% 78%; }
-.on-dark.prov-reference { --c: 38 85% 62%; }
-.on-dark.prov-editorial { --c: 40 15% 75%; }
-.zone-breaks { background: repeating-linear-gradient(135deg, hsl(var(--primary) / .14) 0 2px, transparent 2px 6px); }
-.zone-holds { background: hsl(var(--foreground) / .09); }
-.tick-scale { background-image: repeating-linear-gradient(90deg, hsl(var(--background) / .9) 0 1px, transparent 1px 10%); }
-.hatch-faint { background: repeating-linear-gradient(135deg, hsl(var(--foreground) / .035) 0 1px, transparent 1px 8px); }
-.hatch-light { background: repeating-linear-gradient(135deg, hsl(var(--primary-foreground) / .08) 0 1px, transparent 1px 9px); }
-.hatch-primary { background: repeating-linear-gradient(135deg, hsl(var(--primary)) 0 6px, hsl(var(--primary) / .3) 6px 12px); }
-.dossier-grid {
-  background-image: linear-gradient(hsl(var(--secondary-foreground) / .06) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--secondary-foreground) / .06) 1px, transparent 1px);
-  background-size: 24px 24px;
-  mask-image: linear-gradient(120deg, transparent 20%, #000 90%);
-}
-.planet { box-shadow: inset -6px -5px 10px hsl(224 40% 8% / .45), 0 2px 6px hsl(224 40% 8% / .2); }
-.planet-moon { background: radial-gradient(circle at 34% 30%, hsl(40 10% 88%), hsl(226 10% 62%) 55%, hsl(226 14% 40%)); }
-.planet-mars { background: radial-gradient(circle at 34% 30%, hsl(24 80% 70%), hsl(10 68% 46%) 55%, hsl(6 60% 28%)); }
-
-/* map frame */
-.map-frame .leaflet-container { background: hsl(224 40% 10%); }
-.map-frame::after { content: ""; position: absolute; inset: 0; z-index: 450; pointer-events: none;
-  background: radial-gradient(ellipse at center, transparent 60%, hsl(224 42% 8% / .35)); }
-.map-corner { position: absolute; z-index: 460; width: 18px; height: 18px; pointer-events: none; border-color: hsl(var(--primary)); }
-.map-corner.tl { top: 8px; left: 8px; border-top: 2px solid; border-left: 2px solid; }
-.map-corner.tr { top: 8px; right: 8px; border-top: 2px solid; border-right: 2px solid; }
-.map-corner.bl { bottom: 8px; left: 8px; border-bottom: 2px solid; border-left: 2px solid; }
-.map-corner.br { bottom: 8px; right: 8px; border-bottom: 2px solid; border-right: 2px solid; }
-.leaflet-control-zoom { border: 1px solid hsl(var(--foreground) / .2) !important; border-radius: 6px !important; overflow: hidden; }
-.leaflet-control-zoom a { background: hsl(var(--secondary) / .9) !important; color: hsl(var(--secondary-foreground)) !important; border-color: hsl(var(--secondary-foreground) / .15) !important; font-family: var(--app-font-mono); }
-.leaflet-control-attribution { background: hsl(var(--secondary) / .75) !important; color: hsl(var(--secondary-foreground) / .7) !important; font: 10px var(--app-font-mono); }
-.leaflet-control-attribution a { color: hsl(var(--secondary-foreground)) !important; }
-
-/* ranked markers: fill = score, ring = status, number = rank */
-.mk { width: 100%; height: 100%; display: grid; place-items: center; background: var(--c); border: 2px solid hsl(224 42% 12%); color: hsl(224 42% 12%);
-  font: 700 10px var(--app-font-mono); box-shadow: 0 0 0 2px hsl(42 30% 96% / .85), 0 3px 8px hsl(224 42% 8% / .45);
-  transition: scale .3s cubic-bezier(.3,1.6,.5,1), box-shadow .3s; cursor: pointer; position: relative; }
-.mk:hover { scale: 1.35; z-index: 10; }
+.mk { width: 100%; height: 100%; display: grid; place-items: center; background: var(--c); border: 2px solid hsl(var(--foreground)); color: hsl(var(--foreground)); font: 700 9px var(--app-font-mono); transition: scale .3s cubic-bezier(.3,1.6,.5,1), box-shadow .3s; box-shadow: 0 2px 6px hsl(222 47% 10% / .3); cursor: pointer; position: relative; }
+.mk:hover { scale: 1.4; z-index: 10; }
 .mk-established { border-radius: 50%; }
 .mk-emerging { border-radius: 50%; border-style: dashed; }
 .mk-proposed { border-radius: 3px; rotate: 45deg; border-color: hsl(var(--primary)); border-width: 3px; }
 .mk-proposed > span { rotate: -45deg; }
-.mk-sel { scale: 1.3; background: hsl(224 42% 12%); color: hsl(42 30% 96%); border-color: hsl(42 30% 96%);
-  box-shadow: 0 0 0 3px hsl(var(--primary)), 0 0 0 9px hsl(var(--primary) / .25), 0 6px 14px hsl(224 42% 8% / .5); z-index: 20; }
-.mk-label { position: absolute; left: calc(100% + 10px); top: 50%; translate: 0 -50%; white-space: nowrap; scale: .78; transform-origin: left center;
-  background: hsl(224 42% 12%); color: hsl(42 30% 96%); padding: 3px 7px; border-radius: 3px; border-left: 2px solid hsl(var(--primary));
-  font: 600 11px var(--app-font-sans); pointer-events: none; }
-.mk-proposed .mk-label { rotate: -45deg; left: auto; translate: none; top: auto; }
-.mk-top::after { content: ""; position: absolute; inset: -8px; border: 1.5px dashed hsl(var(--primary)); border-radius: inherit; animation: mkpulse 2.4s ease-out infinite; }
-@keyframes mkpulse { 0% { opacity: .95; transform: scale(.75); } 100% { opacity: 0; transform: scale(1.6); } }
-
-/* discovery pins */
-.dk { width: 100%; height: 100%; display: grid; place-items: center; rotate: 45deg; border-radius: 2px;
-  background: repeating-linear-gradient(135deg, hsl(var(--primary)) 0 3px, hsl(14 88% 44%) 3px 6px);
-  border: 2px solid hsl(42 30% 96%); color: hsl(42 30% 98%); font: 700 10px var(--app-font-mono);
-  box-shadow: 0 3px 10px hsl(224 42% 8% / .5); transition: scale .25s; cursor: pointer; }
-.dk > span { rotate: -45deg; }
-.dk:hover { scale: 1.2; }
-.dk-sel { background: hsl(42 30% 96%); color: hsl(var(--primary)); border-color: hsl(var(--primary)); border-width: 3px;
-  box-shadow: 0 0 0 6px hsl(var(--primary) / .3), 0 4px 12px hsl(224 42% 8% / .5); }
+.mk-sel { box-shadow: 0 0 0 3px hsl(var(--background)), 0 0 0 6px hsl(var(--foreground)); scale: 1.25; }
+.mk-top::after { content: ""; position: absolute; inset: -7px; border: 2px solid hsl(var(--primary)); border-radius: inherit; animation: mkpulse 2.2s ease-out infinite; }
+@keyframes mkpulse { 0% { opacity: .9; transform: scale(.7); } 100% { opacity: 0; transform: scale(1.6); } }
+@keyframes scan { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+.scanline { animation: scan 1.6s linear infinite; }
