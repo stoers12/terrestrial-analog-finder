@@ -1,0 +1,5101 @@
+{
+ "source": "https://www.lroc.asu.edu/atlases/pits/list",
+ "sourceTitle": "LROC Lunar Pit Atlas (Arizona State University)",
+ "unitSource": "USGS Unified Geologic Map of the Moon, 1:5,000,000 (Fortezzo, Spudis and Harrel 2020)",
+ "unitSourceUrl": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon",
+ "nullPolicy": "Keep N/A as unavailable; greater-than depths remain bounds, not exact measurements.",
+ "note": "Longitudes converted from 0-360 east to -180..180. Depths written as '>N' in the atlas are lower bounds, not measurements. The map unit is the smallest USGS polygon containing the pit centre; at 1:5M scale it describes the surrounding terrain, not the pit.",
+ "count": 278,
+ "units": {
+  "Cc": {
+   "name": "Copernican Crater",
+   "period": "Copernican",
+   "description": "Rim, wall and floor deposits of craters with sharp prominent rims, circular to polygonal outlines. High relative brightness and rays.",
+   "interpretation": null,
+   "color": "#FCDC0A"
+  },
+  "Ec": {
+   "name": "Eratosthenian Crater",
+   "period": "Eratosthenian",
+   "description": "Non-rayed, circular craters with sharp to partially subdued crater rim crests, partial circumferential ejecta present, and lower albedo compared to unit Cc.",
+   "interpretation": "Morphology and material from a primary impact event.",
+   "color": "#A5CF30"
+  },
+  "Im2": {
+   "name": "Imbrian Mare, Upper",
+   "period": "Imbrian",
+   "description": "Forms flat, smooth surfaces. Lower albedo and crater density than unit Im1. Numerous ridges. Difficult to distinguish from unit Id.",
+   "interpretation": "Basaltic lava flows",
+   "color": "#FF3361"
+  },
+  "Ip": {
+   "name": "Imbrian Plains",
+   "period": "Imbrian",
+   "description": "Smooth, flat to undulatory terrain of intermediate albedo occurring mostly in topographic lows and crater floors of Imbrian and older age.",
+   "interpretation": "Ambiguous origin, likely Orientale and other large impact crater ejecta.",
+   "color": "#CBA4CD"
+  },
+  "Ib": {
+   "name": "Imbrian Basin, Undivided",
+   "period": "Imbrian",
+   "description": "Gently rolling to hilly terrain containing aggregates of subdued irregular to circular craters. Also forms outer basin and ejecta of crater Schrodinger.",
+   "interpretation": "Materials emplaced during the formation of multi-ringed impact basins.",
+   "color": "#446589"
+  },
+  "Nt": {
+   "name": "Nectarian Terra",
+   "period": "Nectarian",
+   "description": "Moderately rough surface, rolling to moderately rugged overall relief, with diverse ages of superposed and buried craters.",
+   "interpretation": "Complex mixture of local erosional debris and crater and basin ejecta; megaregolith.",
+   "color": "#FBD5D3"
+  },
+  "Ic2": {
+   "name": "Imbrian Crater, Upper",
+   "period": "Imbrian",
+   "description": "Similar description to unit Ic, craters superpose materials of the Orientale group.",
+   "interpretation": "Subdued morphology and material from a primary impact event, younger than Orientale group materials but older than unit Im2.",
+   "color": "#1C7BF6"
+  },
+  "Iia": {
+   "name": "Imbrian Imbrium Alpes Formation",
+   "period": "Imbrian",
+   "description": "Angular blocky and knobby with smooth, mantled surface. Closely spaced hills and hummocks, ~2-5 km in diameter.",
+   "interpretation": "Possibly eroded ejecta, structurally deformed bedrock, or both.",
+   "color": "#2A5ED4"
+  },
+  "Ic1": {
+   "name": "Imbrian Crater, Lower",
+   "period": "Imbrian",
+   "description": "Similar description to unit Ic, craters mantled by materials of the Orientale group.",
+   "interpretation": "Subdued morphology and material from a primary impact event, younger than Imbrium group materials but older than Orientale group materials.",
+   "color": "#2016F8"
+  },
+  "EIp": {
+   "name": "Eratosthenian Imbrian Plateau",
+   "period": "Eratosthenian-Imbrian",
+   "description": "Forms high standing plateaus (relative to the mare surfaces in Oceanus Procellarum) with domes, cones, and dark mantling materials.",
+   "interpretation": "Volcanic constructs, flows, and pyroclastic materials.",
+   "color": "#E64D75"
+  },
+  "pNt": {
+   "name": "pre-Nectarian Terra",
+   "period": "Pre-Nectarian",
+   "description": "Rugged, diverse terrain, degraded partial crater rims, gradational with smoother unit Nt, and rougher units pNbm and pNc.",
+   "interpretation": "Complex mixture of local erosional debris and crater and basin ejecta; megaregolith.",
+   "color": "#DC9F91"
+  },
+  "Nc": {
+   "name": "Nectarian Crater",
+   "period": "Nectarian",
+   "description": "Considerably muted topographic relief compared to younger impact features, with broad flat floors typically another unit, and very little to no ejecta present.",
+   "interpretation": "Muted morphology and material from a primary impact event.",
+   "color": "#C96936"
+  }
+ },
+ "pits": [
+  {
+   "name": "Adams B 1",
+   "host": "Adams B",
+   "lat": -31.4121,
+   "lon": 65.6408,
+   "funnelMaxM": 19,
+   "funnelMinM": 10,
+   "innerMaxM": 10,
+   "innerMinM": null,
+   "depthM": 9,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Adams B 2",
+   "host": "Adams B",
+   "lat": -31.5449,
+   "lon": 65.7223,
+   "funnelMaxM": 21,
+   "funnelMinM": 17,
+   "innerMaxM": 14,
+   "innerMinM": null,
+   "depthM": 4,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Adams B 3",
+   "host": "Adams B",
+   "lat": -31.2886,
+   "lon": 65.7523,
+   "funnelMaxM": 38,
+   "funnelMinM": 17,
+   "innerMaxM": 14,
+   "innerMinM": null,
+   "depthM": 2,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Aristarchus 1",
+   "host": "Aristarchus",
+   "lat": 23.8889,
+   "lon": -47.6494,
+   "funnelMaxM": 31,
+   "funnelMinM": 16,
+   "innerMaxM": 27,
+   "innerMinM": 10,
+   "depthM": 13,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Aristarchus 2a",
+   "host": "Aristarchus",
+   "lat": 23.873,
+   "lon": -47.6971,
+   "funnelMaxM": 22,
+   "funnelMinM": 18,
+   "innerMaxM": 19,
+   "innerMinM": 16,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Aristarchus 2b",
+   "host": "Aristarchus",
+   "lat": 23.8726,
+   "lon": -47.6947,
+   "funnelMaxM": 22,
+   "funnelMinM": 13,
+   "innerMaxM": 13,
+   "innerMinM": 7,
+   "depthM": 14,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Aristarchus 2c",
+   "host": "Aristarchus",
+   "lat": 23.8716,
+   "lon": -47.6902,
+   "funnelMaxM": 38,
+   "funnelMinM": 35,
+   "innerMaxM": 22,
+   "innerMinM": 16,
+   "depthM": 14,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Aristarchus 3a",
+   "host": "Aristarchus",
+   "lat": 23.9331,
+   "lon": -47.5924,
+   "funnelMaxM": 30,
+   "funnelMinM": 25,
+   "innerMaxM": 25,
+   "innerMinM": 18,
+   "depthM": 13,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Aristarchus 3b",
+   "host": "Aristarchus",
+   "lat": 23.9339,
+   "lon": -47.5916,
+   "funnelMaxM": 23,
+   "funnelMinM": 18,
+   "innerMaxM": 18,
+   "innerMinM": 8,
+   "depthM": 10,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Aristarchus 3c",
+   "host": "Aristarchus",
+   "lat": 23.9344,
+   "lon": -47.593,
+   "funnelMaxM": 39,
+   "funnelMinM": 17,
+   "innerMaxM": 16,
+   "innerMinM": 8,
+   "depthM": 6,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Aristarchus 4",
+   "host": "Aristarchus",
+   "lat": 23.914,
+   "lon": -47.6087,
+   "funnelMaxM": 39,
+   "funnelMinM": 33,
+   "innerMaxM": 23,
+   "innerMinM": 22,
+   "depthM": 8,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Aristarchus 5",
+   "host": "Aristarchus",
+   "lat": 23.5984,
+   "lon": -47.5804,
+   "funnelMaxM": 30,
+   "funnelMinM": 16,
+   "innerMaxM": 21,
+   "innerMinM": 7,
+   "depthM": 17,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Aristarchus 6",
+   "host": "Aristarchus",
+   "lat": 23.4657,
+   "lon": -47.5765,
+   "funnelMaxM": 24,
+   "funnelMinM": 18,
+   "innerMaxM": 12,
+   "innerMinM": 7,
+   "depthM": 11,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Aristarchus 7a",
+   "host": "Aristarchus",
+   "lat": 23.4536,
+   "lon": -47.6033,
+   "funnelMaxM": 20,
+   "funnelMinM": 16,
+   "innerMaxM": 16,
+   "innerMinM": 11,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Aristarchus 7b",
+   "host": "Aristarchus",
+   "lat": 23.4532,
+   "lon": -47.6043,
+   "funnelMaxM": 30,
+   "funnelMinM": 27,
+   "innerMaxM": 24,
+   "innerMinM": 12,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Aristarchus 8",
+   "host": "Aristarchus",
+   "lat": 23.9091,
+   "lon": -47.6008,
+   "funnelMaxM": 36,
+   "funnelMinM": 30,
+   "innerMaxM": 28,
+   "innerMinM": 23,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Aristarchus 9",
+   "host": "Aristarchus",
+   "lat": 23.8631,
+   "lon": -47.685,
+   "funnelMaxM": 25,
+   "funnelMinM": 23,
+   "innerMaxM": 17,
+   "innerMinM": 10,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Aristillus 1",
+   "host": "Aristillus",
+   "lat": 33.6622,
+   "lon": 0.7149,
+   "funnelMaxM": 20,
+   "funnelMinM": 20,
+   "innerMaxM": 11,
+   "innerMinM": 10,
+   "depthM": 11,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Aristillus 2",
+   "host": "Aristillus",
+   "lat": 33.5874,
+   "lon": 1.019,
+   "funnelMaxM": 30,
+   "funnelMinM": 36,
+   "innerMaxM": 16,
+   "innerMinM": 9,
+   "depthM": 14,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Aristillus 3",
+   "host": "Aristillus",
+   "lat": 33.5169,
+   "lon": 0.9128,
+   "funnelMaxM": 51,
+   "funnelMinM": 34,
+   "innerMaxM": 33,
+   "innerMinM": 19,
+   "depthM": 8,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Aristillus 4",
+   "host": "Aristillus",
+   "lat": 33.4981,
+   "lon": 0.9447,
+   "funnelMaxM": 28,
+   "funnelMinM": 25,
+   "innerMaxM": null,
+   "innerMinM": null,
+   "depthM": 14,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Catalán B 1",
+   "host": "Catalán B",
+   "lat": -45.6547,
+   "lon": -88.574,
+   "funnelMaxM": 32,
+   "funnelMinM": 19,
+   "innerMaxM": 26,
+   "innerMinM": 15,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Ec",
+    "period": "Eratosthenian",
+    "name": "Eratosthenian Crater",
+    "color": "#A5CF30"
+   }
+  },
+  {
+   "name": "Central Mare Fecunditatis Pit",
+   "host": "Mare Fecunditatis",
+   "lat": -0.9182,
+   "lon": 48.6595,
+   "funnelMaxM": 198,
+   "funnelMinM": 162,
+   "innerMaxM": 122,
+   "innerMinM": 100,
+   "depthM": 42,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Im2",
+    "period": "Imbrian",
+    "name": "Imbrian Mare, Upper",
+    "color": "#FF3361"
+   }
+  },
+  {
+   "name": "Compton Pit",
+   "host": "Compton Crater",
+   "lat": 56.2247,
+   "lon": 106.1955,
+   "funnelMaxM": 230,
+   "funnelMinM": 140,
+   "innerMaxM": 110,
+   "innerMinM": 92,
+   "depthM": 35,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Ip",
+    "period": "Imbrian",
+    "name": "Imbrian Plains",
+    "color": "#CBA4CD"
+   }
+  },
+  {
+   "name": "Copernicus 1",
+   "host": "Copernicus",
+   "lat": 9.9277,
+   "lon": -19.2545,
+   "funnelMaxM": 31,
+   "funnelMinM": 25,
+   "innerMaxM": 11,
+   "innerMinM": 9,
+   "depthM": 8,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 10",
+   "host": "Copernicus",
+   "lat": 10.1083,
+   "lon": -20.0544,
+   "funnelMaxM": null,
+   "funnelMinM": 45,
+   "innerMaxM": 38,
+   "innerMinM": 11,
+   "depthM": 23,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 11",
+   "host": "Copernicus",
+   "lat": 9.9726,
+   "lon": -19.2716,
+   "funnelMaxM": 28,
+   "funnelMinM": 23,
+   "innerMaxM": 8,
+   "innerMinM": 4,
+   "depthM": 11,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 12",
+   "host": "Copernicus",
+   "lat": 9.5539,
+   "lon": -19.2749,
+   "funnelMaxM": 40,
+   "funnelMinM": 30,
+   "innerMaxM": 15,
+   "innerMinM": 10,
+   "depthM": 18,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 13a",
+   "host": "Copernicus",
+   "lat": 10.1857,
+   "lon": -20.1273,
+   "funnelMaxM": 123,
+   "funnelMinM": 68,
+   "innerMaxM": 14,
+   "innerMinM": 6,
+   "depthM": 11,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 13b",
+   "host": "Copernicus",
+   "lat": 10.1799,
+   "lon": -20.1189,
+   "funnelMaxM": 25,
+   "funnelMinM": 25,
+   "innerMaxM": 5,
+   "innerMinM": 5,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 14",
+   "host": "Copernicus",
+   "lat": 10.2215,
+   "lon": -20.0959,
+   "funnelMaxM": null,
+   "funnelMinM": 40,
+   "innerMaxM": 20,
+   "innerMinM": 7,
+   "depthM": 17,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 16",
+   "host": "Copernicus",
+   "lat": 9.4838,
+   "lon": -19.8384,
+   "funnelMaxM": 115,
+   "funnelMinM": 96,
+   "innerMaxM": 73,
+   "innerMinM": 71,
+   "depthM": 15,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 17a",
+   "host": "Copernicus",
+   "lat": 10.2403,
+   "lon": -20.3987,
+   "funnelMaxM": null,
+   "funnelMinM": 30,
+   "innerMaxM": 25,
+   "innerMinM": 15,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 17b",
+   "host": "Copernicus",
+   "lat": 10.2401,
+   "lon": -20.3988,
+   "funnelMaxM": 10,
+   "funnelMinM": 3,
+   "innerMaxM": 10,
+   "innerMinM": 3,
+   "depthM": 10,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 18",
+   "host": "Copernicus",
+   "lat": 10.2933,
+   "lon": -20.4019,
+   "funnelMaxM": 165,
+   "funnelMinM": 48,
+   "innerMaxM": 137,
+   "innerMinM": 26,
+   "depthM": 15,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 19a",
+   "host": "Copernicus",
+   "lat": 10.1326,
+   "lon": -20.3948,
+   "funnelMaxM": 57,
+   "funnelMinM": 51,
+   "innerMaxM": 11,
+   "innerMinM": 3,
+   "depthM": 15,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 19b",
+   "host": "Copernicus",
+   "lat": 10.1329,
+   "lon": -20.3945,
+   "funnelMaxM": 57,
+   "funnelMinM": 51,
+   "innerMaxM": 7,
+   "innerMinM": 4,
+   "depthM": 15,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 2",
+   "host": "Copernicus",
+   "lat": 9.9308,
+   "lon": -19.2704,
+   "funnelMaxM": 31,
+   "funnelMinM": 30,
+   "innerMaxM": 9,
+   "innerMinM": 6,
+   "depthM": 14,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 20",
+   "host": "Copernicus",
+   "lat": 10.3522,
+   "lon": -20.2649,
+   "funnelMaxM": null,
+   "funnelMinM": 48,
+   "innerMaxM": 95,
+   "innerMinM": 31,
+   "depthM": 14,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 21",
+   "host": "Copernicus",
+   "lat": 10.1943,
+   "lon": -20.153,
+   "funnelMaxM": 150,
+   "funnelMinM": 60,
+   "innerMaxM": 44,
+   "innerMinM": 17,
+   "depthM": 15,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 22",
+   "host": "Copernicus",
+   "lat": 10.2095,
+   "lon": -20.1127,
+   "funnelMaxM": 29,
+   "funnelMinM": 11,
+   "innerMaxM": 17,
+   "innerMinM": 3,
+   "depthM": 11,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 23",
+   "host": "Copernicus",
+   "lat": 10.2067,
+   "lon": -20.1022,
+   "funnelMaxM": 118,
+   "funnelMinM": 45,
+   "innerMaxM": 9,
+   "innerMinM": 6,
+   "depthM": 9,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 24",
+   "host": "Copernicus",
+   "lat": 10.181,
+   "lon": -19.5186,
+   "funnelMaxM": 130,
+   "funnelMinM": 70,
+   "innerMaxM": 85,
+   "innerMinM": 52,
+   "depthM": 16,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 3",
+   "host": "Copernicus",
+   "lat": 9.9929,
+   "lon": -19.2851,
+   "funnelMaxM": 36,
+   "funnelMinM": 36,
+   "innerMaxM": 13,
+   "innerMinM": 10,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 4",
+   "host": "Copernicus",
+   "lat": 10.3288,
+   "lon": -20.3794,
+   "funnelMaxM": 71,
+   "funnelMinM": 128,
+   "innerMaxM": 89,
+   "innerMinM": 49,
+   "depthM": 24,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 5",
+   "host": "Copernicus",
+   "lat": 9.0159,
+   "lon": -20.2549,
+   "funnelMaxM": 35,
+   "funnelMinM": 28,
+   "innerMaxM": 13,
+   "innerMinM": 7,
+   "depthM": 10,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 6a",
+   "host": "Copernicus",
+   "lat": 10.1053,
+   "lon": -20.005,
+   "funnelMaxM": 55,
+   "funnelMinM": 30,
+   "innerMaxM": 10,
+   "innerMinM": 9,
+   "depthM": 11,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 6b",
+   "host": "Copernicus",
+   "lat": 10.1048,
+   "lon": -20.0048,
+   "funnelMaxM": 55,
+   "funnelMinM": 30,
+   "innerMaxM": 10,
+   "innerMinM": 8,
+   "depthM": 13,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 7",
+   "host": "Copernicus",
+   "lat": 10.0763,
+   "lon": -19.9731,
+   "funnelMaxM": 26,
+   "funnelMinM": 24,
+   "innerMaxM": 6,
+   "innerMinM": 4,
+   "depthM": 21,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 8",
+   "host": "Copernicus",
+   "lat": 10.1462,
+   "lon": -20.0627,
+   "funnelMaxM": 70,
+   "funnelMinM": 50,
+   "innerMaxM": 57,
+   "innerMinM": 21,
+   "depthM": 12,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus 9",
+   "host": "Copernicus",
+   "lat": 10.1385,
+   "lon": -20.0613,
+   "funnelMaxM": 31,
+   "funnelMinM": 22,
+   "innerMaxM": 10,
+   "innerMinM": 7,
+   "depthM": 12,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus LB2",
+   "host": "Copernicus",
+   "lat": 10.0588,
+   "lon": -20.1962,
+   "funnelMaxM": 355,
+   "funnelMinM": 325,
+   "innerMaxM": 305,
+   "innerMinM": 260,
+   "depthM": 65,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus LB3",
+   "host": "Copernicus",
+   "lat": 10.0954,
+   "lon": -20.0769,
+   "funnelMaxM": 430,
+   "funnelMinM": 330,
+   "innerMaxM": 385,
+   "innerMinM": 315,
+   "depthM": 66,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus LB4",
+   "host": "Copernicus",
+   "lat": 10.2041,
+   "lon": -20.0015,
+   "funnelMaxM": 375,
+   "funnelMinM": 340,
+   "innerMaxM": 320,
+   "innerMinM": 275,
+   "depthM": 78,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus LB5",
+   "host": "Copernicus",
+   "lat": 10.2349,
+   "lon": -20.3101,
+   "funnelMaxM": 290,
+   "funnelMinM": 230,
+   "innerMaxM": 270,
+   "innerMinM": 220,
+   "depthM": 50,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Copernicus LB6",
+   "host": "Copernicus",
+   "lat": 10.3127,
+   "lon": -20.2737,
+   "funnelMaxM": 290,
+   "funnelMinM": 260,
+   "innerMaxM": 250,
+   "innerMinM": 225,
+   "depthM": 64,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Crookes 1",
+   "host": "Crookes",
+   "lat": -10.2424,
+   "lon": -165.2464,
+   "funnelMaxM": 259,
+   "funnelMinM": 77,
+   "innerMaxM": 213,
+   "innerMinM": 67,
+   "depthM": 17,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Crookes 10",
+   "host": "Crookes",
+   "lat": -10.1717,
+   "lon": -165.1698,
+   "funnelMaxM": 40,
+   "funnelMinM": 20,
+   "innerMaxM": 30,
+   "innerMinM": 12,
+   "depthM": 8,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Crookes 11a",
+   "host": "Crookes",
+   "lat": -10.2353,
+   "lon": -165.217,
+   "funnelMaxM": 57,
+   "funnelMinM": 38,
+   "innerMaxM": 41,
+   "innerMinM": 25,
+   "depthM": 9,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Crookes 11b",
+   "host": "Crookes",
+   "lat": -10.2372,
+   "lon": -165.2178,
+   "funnelMaxM": 55,
+   "funnelMinM": 34,
+   "innerMaxM": 28,
+   "innerMinM": 26,
+   "depthM": 9,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Crookes 2",
+   "host": "Crookes",
+   "lat": -10.1275,
+   "lon": -165.2554,
+   "funnelMaxM": null,
+   "funnelMinM": 20,
+   "innerMaxM": 18,
+   "innerMinM": 11,
+   "depthM": 10,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Crookes 3",
+   "host": "Crookes",
+   "lat": -10.0749,
+   "lon": -165.2663,
+   "funnelMaxM": 17,
+   "funnelMinM": 17,
+   "innerMaxM": 6,
+   "innerMinM": 6,
+   "depthM": 9,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Crookes 4",
+   "host": "Crookes",
+   "lat": -10.2294,
+   "lon": -165.2209,
+   "funnelMaxM": 84,
+   "funnelMinM": 41,
+   "innerMaxM": 15,
+   "innerMinM": 12,
+   "depthM": 25,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Crookes 5a",
+   "host": "Crookes",
+   "lat": -10.6859,
+   "lon": -165.1391,
+   "funnelMaxM": 32,
+   "funnelMinM": 30,
+   "innerMaxM": 22,
+   "innerMinM": 22,
+   "depthM": 10,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Crookes 5b",
+   "host": "Crookes",
+   "lat": -10.6825,
+   "lon": -165.1388,
+   "funnelMaxM": 25,
+   "funnelMinM": 23,
+   "innerMaxM": null,
+   "innerMinM": 5,
+   "depthM": 12,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Crookes 5c",
+   "host": "Crookes",
+   "lat": -10.6824,
+   "lon": -165.1354,
+   "funnelMaxM": 46,
+   "funnelMinM": 38,
+   "innerMaxM": 45,
+   "innerMinM": 34,
+   "depthM": 9,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Crookes 5d",
+   "host": "Crookes",
+   "lat": -10.6824,
+   "lon": -165.1374,
+   "funnelMaxM": 6,
+   "funnelMinM": 6,
+   "innerMaxM": 4,
+   "innerMinM": 4,
+   "depthM": 10,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Crookes 6",
+   "host": "Crookes",
+   "lat": -10.0854,
+   "lon": -165.1298,
+   "funnelMaxM": 28,
+   "funnelMinM": 20,
+   "innerMaxM": 17,
+   "innerMinM": 9,
+   "depthM": 21,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Crookes 7",
+   "host": "Crookes",
+   "lat": -10.5592,
+   "lon": -165.177,
+   "funnelMaxM": 23,
+   "funnelMinM": 23,
+   "innerMaxM": 20,
+   "innerMinM": 19,
+   "depthM": 8,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Crookes 9",
+   "host": "Crookes",
+   "lat": -10.1715,
+   "lon": -165.1625,
+   "funnelMaxM": 34,
+   "funnelMinM": 28,
+   "innerMaxM": 26,
+   "innerMinM": 22,
+   "depthM": 10,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Das 1a",
+   "host": "Das",
+   "lat": -26.3088,
+   "lon": -136.7397,
+   "funnelMaxM": null,
+   "funnelMinM": null,
+   "innerMaxM": 21,
+   "innerMinM": 5,
+   "depthM": 11,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Das 1b",
+   "host": "Das",
+   "lat": -26.3098,
+   "lon": -136.7401,
+   "funnelMaxM": 18,
+   "funnelMinM": 13,
+   "innerMaxM": 6,
+   "innerMinM": 5,
+   "depthM": 11,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Das 2",
+   "host": "Das",
+   "lat": -26.2518,
+   "lon": -136.9094,
+   "funnelMaxM": 18,
+   "funnelMinM": 10,
+   "innerMaxM": 14,
+   "innerMinM": 5,
+   "depthM": 4,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Das 3",
+   "host": "Das",
+   "lat": -26.2963,
+   "lon": -136.9271,
+   "funnelMaxM": 23,
+   "funnelMinM": 21,
+   "innerMaxM": 18,
+   "innerMinM": 13,
+   "depthM": 6,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Das 4a",
+   "host": "Das",
+   "lat": -26.4088,
+   "lon": -137.212,
+   "funnelMaxM": 28,
+   "funnelMinM": 27,
+   "innerMaxM": 18,
+   "innerMinM": 17,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Das 4b",
+   "host": "Das",
+   "lat": -26.4148,
+   "lon": -137.2127,
+   "funnelMaxM": 12,
+   "funnelMinM": 11,
+   "innerMaxM": null,
+   "innerMinM": null,
+   "depthM": 5,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Das 4c",
+   "host": "Das",
+   "lat": -26.4151,
+   "lon": -137.2136,
+   "funnelMaxM": 11,
+   "funnelMinM": 9,
+   "innerMaxM": 4,
+   "innerMinM": 2,
+   "depthM": 5,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Das 4d",
+   "host": "Das",
+   "lat": -26.4189,
+   "lon": -137.2093,
+   "funnelMaxM": 18,
+   "funnelMinM": 12,
+   "innerMaxM": 9,
+   "innerMinM": 6,
+   "depthM": 6,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Das 4e",
+   "host": "Das",
+   "lat": -26.4126,
+   "lon": -137.2013,
+   "funnelMaxM": 21,
+   "funnelMinM": 13,
+   "innerMaxM": null,
+   "innerMinM": null,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Dollond E 1a",
+   "host": "Dollond E",
+   "lat": -10.2737,
+   "lon": 15.7013,
+   "funnelMaxM": 47,
+   "funnelMinM": 35,
+   "innerMaxM": 36,
+   "innerMinM": 25,
+   "depthM": 50,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Ib",
+    "period": "Imbrian",
+    "name": "Imbrian Basin, Undivided",
+    "color": "#446589"
+   }
+  },
+  {
+   "name": "Dollond E 1b",
+   "host": "Dollond E",
+   "lat": -10.275,
+   "lon": 15.7004,
+   "funnelMaxM": 17,
+   "funnelMinM": 12,
+   "innerMaxM": 17,
+   "innerMinM": null,
+   "depthM": 28,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Ib",
+    "period": "Imbrian",
+    "name": "Imbrian Basin, Undivided",
+    "color": "#446589"
+   }
+  },
+  {
+   "name": "Dollond E 1c",
+   "host": "Dollond E",
+   "lat": -10.275,
+   "lon": 15.6998,
+   "funnelMaxM": 12,
+   "funnelMinM": 11,
+   "innerMaxM": 12,
+   "innerMinM": 11,
+   "depthM": 32,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Ib",
+    "period": "Imbrian",
+    "name": "Imbrian Basin, Undivided",
+    "color": "#446589"
+   }
+  },
+  {
+   "name": "Dollond E 1d",
+   "host": "Dollond E",
+   "lat": -10.2738,
+   "lon": 15.7035,
+   "funnelMaxM": 11,
+   "funnelMinM": 8,
+   "innerMaxM": 11,
+   "innerMinM": null,
+   "depthM": 14,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Ib",
+    "period": "Imbrian",
+    "name": "Imbrian Basin, Undivided",
+    "color": "#446589"
+   }
+  },
+  {
+   "name": "Fraunhofer G 1",
+   "host": "Fraunhofer G",
+   "lat": -38.5001,
+   "lon": 58.3638,
+   "funnelMaxM": 23,
+   "funnelMinM": 14,
+   "innerMaxM": 17,
+   "innerMinM": 11,
+   "depthM": 4,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Nt",
+    "period": "Nectarian",
+    "name": "Nectarian Terra",
+    "color": "#FBD5D3"
+   }
+  },
+  {
+   "name": "Harriot 1",
+   "host": "Harriot",
+   "lat": 33.2933,
+   "lon": 114.2911,
+   "funnelMaxM": 41,
+   "funnelMinM": 34,
+   "innerMaxM": 27,
+   "innerMinM": 25,
+   "depthM": 9,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Ic2",
+    "period": "Imbrian",
+    "name": "Imbrian Crater, Upper",
+    "color": "#1C7BF6"
+   }
+  },
+  {
+   "name": "Hayn 1",
+   "host": "Hayn",
+   "lat": 65.2233,
+   "lon": 84.2004,
+   "funnelMaxM": 35,
+   "funnelMinM": 27,
+   "innerMaxM": null,
+   "innerMinM": null,
+   "depthM": 7,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Highland 1",
+   "host": "Highland",
+   "lat": 43.9662,
+   "lon": 23.0836,
+   "funnelMaxM": 58,
+   "funnelMinM": 49,
+   "innerMaxM": 41,
+   "innerMinM": 37,
+   "depthM": 27,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Iia",
+    "period": "Imbrian",
+    "name": "Imbrian Imbrium Alpes Formation",
+    "color": "#2A5ED4"
+   }
+  },
+  {
+   "name": "Highland 2",
+   "host": "Highland",
+   "lat": 41.1563,
+   "lon": 18.8206,
+   "funnelMaxM": 42,
+   "funnelMinM": 39,
+   "innerMaxM": 34,
+   "innerMinM": 27,
+   "depthM": 24,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Iia",
+    "period": "Imbrian",
+    "name": "Imbrian Imbrium Alpes Formation",
+    "color": "#2A5ED4"
+   }
+  },
+  {
+   "name": "Highland 3",
+   "host": "Highland",
+   "lat": 42.3941,
+   "lon": -39.6924,
+   "funnelMaxM": 66,
+   "funnelMinM": 63,
+   "innerMaxM": 45,
+   "innerMinM": 41,
+   "depthM": 27,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Ic1",
+    "period": "Imbrian",
+    "name": "Imbrian Crater, Lower",
+    "color": "#2016F8"
+   }
+  },
+  {
+   "name": "Jackson 1a",
+   "host": "Jackson",
+   "lat": 22.4208,
+   "lon": -163.7132,
+   "funnelMaxM": 31,
+   "funnelMinM": 20,
+   "innerMaxM": 13,
+   "innerMinM": 8,
+   "depthM": 19,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Jackson 1b",
+   "host": "Jackson",
+   "lat": 22.4191,
+   "lon": -163.7172,
+   "funnelMaxM": 51,
+   "funnelMinM": 49,
+   "innerMaxM": 30,
+   "innerMinM": 26,
+   "depthM": 20,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Jackson 1c",
+   "host": "Jackson",
+   "lat": 22.4214,
+   "lon": -163.7093,
+   "funnelMaxM": 95,
+   "funnelMinM": 45,
+   "innerMaxM": null,
+   "innerMinM": 31,
+   "depthM": 15,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Jackson 2a",
+   "host": "Jackson",
+   "lat": 22.4967,
+   "lon": -163.7186,
+   "funnelMaxM": 44,
+   "funnelMinM": 27,
+   "innerMaxM": 25,
+   "innerMinM": 15,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Jackson 2b",
+   "host": "Jackson",
+   "lat": 22.4967,
+   "lon": -163.7186,
+   "funnelMaxM": null,
+   "funnelMinM": null,
+   "innerMaxM": 11,
+   "innerMinM": 9,
+   "depthM": 11,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Jackson 3",
+   "host": "Jackson",
+   "lat": 22.1992,
+   "lon": -162.8507,
+   "funnelMaxM": 34,
+   "funnelMinM": 27,
+   "innerMaxM": 18,
+   "innerMinM": 11,
+   "depthM": 17,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Jackson 4",
+   "host": "Jackson",
+   "lat": 21.7636,
+   "lon": -162.8803,
+   "funnelMaxM": 14,
+   "funnelMinM": 10,
+   "innerMaxM": 9,
+   "innerMinM": 5,
+   "depthM": 8,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Jackson 5",
+   "host": "Jackson",
+   "lat": 22.3063,
+   "lon": -162.9147,
+   "funnelMaxM": 17,
+   "funnelMinM": 15,
+   "innerMaxM": 11,
+   "innerMinM": 9,
+   "depthM": 19,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Jackson 6",
+   "host": "Jackson",
+   "lat": 22.4434,
+   "lon": -162.7447,
+   "funnelMaxM": 18,
+   "funnelMinM": 16,
+   "innerMaxM": 13,
+   "innerMinM": 13,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Kepler 1",
+   "host": "Kepler",
+   "lat": 8.2745,
+   "lon": -37.9499,
+   "funnelMaxM": 42,
+   "funnelMinM": 33,
+   "innerMaxM": 25,
+   "innerMinM": 12,
+   "depthM": 10,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Kepler 2",
+   "host": "Kepler",
+   "lat": 8.2724,
+   "lon": -37.9752,
+   "funnelMaxM": 14,
+   "funnelMinM": 11,
+   "innerMaxM": 6,
+   "innerMinM": 5,
+   "depthM": 9,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Kepler 3",
+   "host": "Kepler",
+   "lat": 8.1636,
+   "lon": -37.9551,
+   "funnelMaxM": 25,
+   "funnelMinM": 15,
+   "innerMaxM": 14,
+   "innerMinM": 8,
+   "depthM": 13,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Kepler 4a",
+   "host": "Kepler",
+   "lat": 7.946,
+   "lon": -37.8637,
+   "funnelMaxM": 70,
+   "funnelMinM": 45,
+   "innerMaxM": 56,
+   "innerMinM": 38,
+   "depthM": 22,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 10",
+   "host": "King",
+   "lat": 6.2504,
+   "lon": 119.5464,
+   "funnelMaxM": 25,
+   "funnelMinM": 18,
+   "innerMaxM": 15,
+   "innerMinM": 13,
+   "depthM": 6,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 11a",
+   "host": "King",
+   "lat": 6.4593,
+   "lon": 120.0017,
+   "funnelMaxM": 32,
+   "funnelMinM": 28,
+   "innerMaxM": 29,
+   "innerMinM": 26,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 11b",
+   "host": "King",
+   "lat": 6.4604,
+   "lon": 120.0023,
+   "funnelMaxM": 15,
+   "funnelMinM": 14,
+   "innerMaxM": 12,
+   "innerMinM": 7,
+   "depthM": 4,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 12",
+   "host": "King",
+   "lat": 6.2487,
+   "lon": 119.7506,
+   "funnelMaxM": 33,
+   "funnelMinM": 24,
+   "innerMaxM": 26,
+   "innerMinM": 22,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 13a",
+   "host": "King",
+   "lat": 6.2538,
+   "lon": 119.7626,
+   "funnelMaxM": 28,
+   "funnelMinM": 21,
+   "innerMaxM": 22,
+   "innerMinM": 15,
+   "depthM": 8,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 13b",
+   "host": "King",
+   "lat": 6.2551,
+   "lon": 119.7615,
+   "funnelMaxM": 10,
+   "funnelMinM": 8,
+   "innerMaxM": 7,
+   "innerMinM": 5,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 14",
+   "host": "King",
+   "lat": 6.2784,
+   "lon": 119.7635,
+   "funnelMaxM": 94,
+   "funnelMinM": 49,
+   "innerMaxM": 48,
+   "innerMinM": 38,
+   "depthM": 14,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 15a",
+   "host": "King",
+   "lat": 6.4782,
+   "lon": 119.7847,
+   "funnelMaxM": 19,
+   "funnelMinM": 15,
+   "innerMaxM": 13,
+   "innerMinM": 9,
+   "depthM": 4,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 15b",
+   "host": "King",
+   "lat": 6.4781,
+   "lon": 119.7853,
+   "funnelMaxM": 15,
+   "funnelMinM": 13,
+   "innerMaxM": 12,
+   "innerMinM": 7,
+   "depthM": 3,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 16",
+   "host": "King",
+   "lat": 6.3643,
+   "lon": 119.9304,
+   "funnelMaxM": 57,
+   "funnelMinM": 42,
+   "innerMaxM": 47,
+   "innerMinM": 29,
+   "depthM": 16,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 17",
+   "host": "King",
+   "lat": 6.6252,
+   "lon": 119.9847,
+   "funnelMaxM": 14,
+   "funnelMinM": 10,
+   "innerMaxM": 10,
+   "innerMinM": 7,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 18",
+   "host": "King",
+   "lat": 6.6235,
+   "lon": 119.9894,
+   "funnelMaxM": 19,
+   "funnelMinM": 18,
+   "innerMaxM": 14,
+   "innerMinM": 12,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 19",
+   "host": "King",
+   "lat": 6.5931,
+   "lon": 119.9861,
+   "funnelMaxM": 17,
+   "funnelMinM": 15,
+   "innerMaxM": 13,
+   "innerMinM": 11,
+   "depthM": 4,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 1a",
+   "host": "King",
+   "lat": 6.2408,
+   "lon": 119.7341,
+   "funnelMaxM": 30,
+   "funnelMinM": 22,
+   "innerMaxM": 27,
+   "innerMinM": 18,
+   "depthM": 11,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 1b",
+   "host": "King",
+   "lat": 6.2402,
+   "lon": 119.7351,
+   "funnelMaxM": 32,
+   "funnelMinM": 21,
+   "innerMaxM": 28,
+   "innerMinM": 18,
+   "depthM": 10,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 20a",
+   "host": "King",
+   "lat": 6.5098,
+   "lon": 119.9269,
+   "funnelMaxM": 29,
+   "funnelMinM": 29,
+   "innerMaxM": 22,
+   "innerMinM": 12,
+   "depthM": 12,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 20b",
+   "host": "King",
+   "lat": 6.5108,
+   "lon": 119.9289,
+   "funnelMaxM": 29,
+   "funnelMinM": 24,
+   "innerMaxM": 23,
+   "innerMinM": 23,
+   "depthM": 4,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 20c",
+   "host": "King",
+   "lat": 6.513,
+   "lon": 119.9269,
+   "funnelMaxM": 34,
+   "funnelMinM": 19,
+   "innerMaxM": 14,
+   "innerMinM": 3,
+   "depthM": 6,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 20d",
+   "host": "King",
+   "lat": 6.5142,
+   "lon": 119.9266,
+   "funnelMaxM": 23,
+   "funnelMinM": 11,
+   "innerMaxM": 19,
+   "innerMinM": 7,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 20e",
+   "host": "King",
+   "lat": 6.5149,
+   "lon": 119.9298,
+   "funnelMaxM": 22,
+   "funnelMinM": 14,
+   "innerMaxM": 6,
+   "innerMinM": 4,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 20f",
+   "host": "King",
+   "lat": 6.5153,
+   "lon": 119.9282,
+   "funnelMaxM": 21,
+   "funnelMinM": 11,
+   "innerMaxM": 10,
+   "innerMinM": 5,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 20g",
+   "host": "King",
+   "lat": 6.5165,
+   "lon": 119.9304,
+   "funnelMaxM": 13,
+   "funnelMinM": 10,
+   "innerMaxM": 5,
+   "innerMinM": 4,
+   "depthM": 4,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 20h",
+   "host": "King",
+   "lat": 6.5183,
+   "lon": 119.9299,
+   "funnelMaxM": 13,
+   "funnelMinM": 7,
+   "innerMaxM": 6,
+   "innerMinM": 2,
+   "depthM": 4,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 21",
+   "host": "King",
+   "lat": 6.517,
+   "lon": 119.9875,
+   "funnelMaxM": 19,
+   "funnelMinM": 14,
+   "innerMaxM": 15,
+   "innerMinM": 9,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 22",
+   "host": "King",
+   "lat": 6.4835,
+   "lon": 119.9941,
+   "funnelMaxM": 34,
+   "funnelMinM": 24,
+   "innerMaxM": 25,
+   "innerMinM": 18,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 23",
+   "host": "King",
+   "lat": 6.3794,
+   "lon": 119.9019,
+   "funnelMaxM": 18,
+   "funnelMinM": 11,
+   "innerMaxM": 15,
+   "innerMinM": 9,
+   "depthM": 8,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 24a",
+   "host": "King",
+   "lat": 6.3416,
+   "lon": 119.9914,
+   "funnelMaxM": 9,
+   "funnelMinM": 9,
+   "innerMaxM": 7,
+   "innerMinM": 5,
+   "depthM": 2,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 24b",
+   "host": "King",
+   "lat": 6.34,
+   "lon": 119.9907,
+   "funnelMaxM": 23,
+   "funnelMinM": 19,
+   "innerMaxM": 20,
+   "innerMinM": 14,
+   "depthM": 4,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 24c",
+   "host": "King",
+   "lat": 6.3389,
+   "lon": 119.9913,
+   "funnelMaxM": 13,
+   "funnelMinM": 12,
+   "innerMaxM": 12,
+   "innerMinM": 10,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 25",
+   "host": "King",
+   "lat": 6.2691,
+   "lon": 119.9429,
+   "funnelMaxM": 15,
+   "funnelMinM": 12,
+   "innerMaxM": 12,
+   "innerMinM": 8,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 26",
+   "host": "King",
+   "lat": 6.6385,
+   "lon": 119.82,
+   "funnelMaxM": 16,
+   "funnelMinM": 12,
+   "innerMaxM": 14,
+   "innerMinM": 11,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 27",
+   "host": "King",
+   "lat": 6.5044,
+   "lon": 119.8719,
+   "funnelMaxM": 9,
+   "funnelMinM": 6,
+   "innerMaxM": 6,
+   "innerMinM": 4,
+   "depthM": 9,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 28",
+   "host": "King",
+   "lat": 6.3016,
+   "lon": 119.8593,
+   "funnelMaxM": 223,
+   "funnelMinM": 20,
+   "innerMaxM": 156,
+   "innerMinM": 15,
+   "depthM": 22,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 29",
+   "host": "King",
+   "lat": 6.4827,
+   "lon": 119.8145,
+   "funnelMaxM": 18,
+   "funnelMinM": 15,
+   "innerMaxM": 14,
+   "innerMinM": 11,
+   "depthM": 6,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 2a",
+   "host": "King",
+   "lat": 6.3808,
+   "lon": 119.9992,
+   "funnelMaxM": 24,
+   "funnelMinM": 17,
+   "innerMaxM": 12,
+   "innerMinM": 12,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 2b",
+   "host": "King",
+   "lat": 6.3802,
+   "lon": 119.9972,
+   "funnelMaxM": 19,
+   "funnelMinM": 18,
+   "innerMaxM": 15,
+   "innerMinM": 9,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 30",
+   "host": "King",
+   "lat": 6.3339,
+   "lon": 119.9937,
+   "funnelMaxM": 20,
+   "funnelMinM": 15,
+   "innerMaxM": 13,
+   "innerMinM": 8,
+   "depthM": 6,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 31",
+   "host": "King",
+   "lat": 6.5229,
+   "lon": 119.9879,
+   "funnelMaxM": 12,
+   "funnelMinM": 12,
+   "innerMaxM": 9,
+   "innerMinM": 6,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 32",
+   "host": "King",
+   "lat": 6.3231,
+   "lon": 119.8067,
+   "funnelMaxM": 20,
+   "funnelMinM": 16,
+   "innerMaxM": 12,
+   "innerMinM": 11,
+   "depthM": 6,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 33",
+   "host": "King",
+   "lat": 6.4873,
+   "lon": 119.6998,
+   "funnelMaxM": 19,
+   "funnelMinM": 15,
+   "innerMaxM": 15,
+   "innerMinM": 11,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 34a",
+   "host": "King",
+   "lat": 6.3372,
+   "lon": 119.9975,
+   "funnelMaxM": 37,
+   "funnelMinM": 26,
+   "innerMaxM": 34,
+   "innerMinM": 12,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 34b",
+   "host": "King",
+   "lat": 6.3361,
+   "lon": 119.9972,
+   "funnelMaxM": 24,
+   "funnelMinM": 21,
+   "innerMaxM": 13,
+   "innerMinM": 10,
+   "depthM": 4,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 35",
+   "host": "King",
+   "lat": 6.4417,
+   "lon": 119.7252,
+   "funnelMaxM": 44,
+   "funnelMinM": 39,
+   "innerMaxM": 35,
+   "innerMinM": 24,
+   "depthM": 6,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 36",
+   "host": "King",
+   "lat": 6.214,
+   "lon": 119.7664,
+   "funnelMaxM": 51,
+   "funnelMinM": 45,
+   "innerMaxM": 46,
+   "innerMinM": 40,
+   "depthM": 11,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 37",
+   "host": "King",
+   "lat": 6.3814,
+   "lon": 120.0056,
+   "funnelMaxM": 21,
+   "funnelMinM": 20,
+   "innerMaxM": 14,
+   "innerMinM": 9,
+   "depthM": 9,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 38",
+   "host": "King",
+   "lat": 6.37,
+   "lon": 119.9252,
+   "funnelMaxM": 35,
+   "funnelMinM": 16,
+   "innerMaxM": 24,
+   "innerMinM": 11,
+   "depthM": 8,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 39",
+   "host": "King",
+   "lat": 6.6308,
+   "lon": 119.9842,
+   "funnelMaxM": 8,
+   "funnelMinM": 6,
+   "innerMaxM": 5,
+   "innerMinM": 4,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 3a",
+   "host": "King",
+   "lat": 6.4082,
+   "lon": 119.8108,
+   "funnelMaxM": 9,
+   "funnelMinM": 8,
+   "innerMaxM": 7,
+   "innerMinM": 6,
+   "depthM": 3,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 3b",
+   "host": "King",
+   "lat": 6.4081,
+   "lon": 119.8105,
+   "funnelMaxM": 9,
+   "funnelMinM": 9,
+   "innerMaxM": 6,
+   "innerMinM": 4,
+   "depthM": 6,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 40",
+   "host": "King",
+   "lat": 6.4779,
+   "lon": 119.9976,
+   "funnelMaxM": 50,
+   "funnelMinM": 31,
+   "innerMaxM": 26,
+   "innerMinM": 17,
+   "depthM": 6,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 41",
+   "host": "King",
+   "lat": 6.6376,
+   "lon": 119.8299,
+   "funnelMaxM": 16,
+   "funnelMinM": 7,
+   "innerMaxM": 12,
+   "innerMinM": 5,
+   "depthM": 6,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 42",
+   "host": "King",
+   "lat": 6.3321,
+   "lon": 120.0066,
+   "funnelMaxM": 30,
+   "funnelMinM": 16,
+   "innerMaxM": 16,
+   "innerMinM": 10,
+   "depthM": 6,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 4a",
+   "host": "King",
+   "lat": 6.2066,
+   "lon": 119.7815,
+   "funnelMaxM": 28,
+   "funnelMinM": 22,
+   "innerMaxM": 20,
+   "innerMinM": 16,
+   "depthM": 6,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 4b",
+   "host": "King",
+   "lat": 6.2061,
+   "lon": 119.7804,
+   "funnelMaxM": 21,
+   "funnelMinM": 19,
+   "innerMaxM": 15,
+   "innerMinM": 14,
+   "depthM": 8,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 5",
+   "host": "King",
+   "lat": 6.3371,
+   "lon": 119.8005,
+   "funnelMaxM": 23,
+   "funnelMinM": 20,
+   "innerMaxM": 16,
+   "innerMinM": 13,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 6",
+   "host": "King",
+   "lat": 6.2776,
+   "lon": 119.7247,
+   "funnelMaxM": 10,
+   "funnelMinM": 10,
+   "innerMaxM": 7,
+   "innerMinM": 6,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 7",
+   "host": "King",
+   "lat": 6.467,
+   "lon": 119.7378,
+   "funnelMaxM": 16,
+   "funnelMinM": 15,
+   "innerMaxM": 14,
+   "innerMinM": 11,
+   "depthM": 8,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 8a",
+   "host": "King",
+   "lat": 6.4369,
+   "lon": 119.8329,
+   "funnelMaxM": 15,
+   "funnelMinM": 14,
+   "innerMaxM": 12,
+   "innerMinM": 10,
+   "depthM": 8,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 8b",
+   "host": "King",
+   "lat": 6.4365,
+   "lon": 119.8335,
+   "funnelMaxM": 8,
+   "funnelMinM": 8,
+   "innerMaxM": 6,
+   "innerMinM": 6,
+   "depthM": 17,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 8c",
+   "host": "King",
+   "lat": 6.4412,
+   "lon": 119.8331,
+   "funnelMaxM": 12,
+   "funnelMinM": 7,
+   "innerMaxM": 7,
+   "innerMinM": 5,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 9a",
+   "host": "King",
+   "lat": 6.2281,
+   "lon": 119.5237,
+   "funnelMaxM": 41,
+   "funnelMinM": 15,
+   "innerMaxM": 22,
+   "innerMinM": 11,
+   "depthM": 4,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "King 9b",
+   "host": "King",
+   "lat": 6.2281,
+   "lon": 119.5214,
+   "funnelMaxM": 10,
+   "funnelMinM": 9,
+   "innerMaxM": 8,
+   "innerMinM": 7,
+   "depthM": 6,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Klute W 1",
+   "host": "Klute W",
+   "lat": 38.086,
+   "lon": -143.115,
+   "funnelMaxM": 25,
+   "funnelMinM": 19,
+   "innerMaxM": 16,
+   "innerMinM": 10,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Ec",
+    "period": "Eratosthenian",
+    "name": "Eratosthenian Crater",
+    "color": "#A5CF30"
+   }
+  },
+  {
+   "name": "Klute W 2",
+   "host": "Klute W",
+   "lat": 38.1157,
+   "lon": -143.1035,
+   "funnelMaxM": 30,
+   "funnelMinM": 19,
+   "innerMaxM": 12,
+   "innerMinM": 9,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Ec",
+    "period": "Eratosthenian",
+    "name": "Eratosthenian Crater",
+    "color": "#A5CF30"
+   }
+  },
+  {
+   "name": "Klute W 3",
+   "host": "Klute W",
+   "lat": 38.098,
+   "lon": -143.0615,
+   "funnelMaxM": 20,
+   "funnelMinM": 19,
+   "innerMaxM": 18,
+   "innerMinM": 13,
+   "depthM": 6,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Ec",
+    "period": "Eratosthenian",
+    "name": "Eratosthenian Crater",
+    "color": "#A5CF30"
+   }
+  },
+  {
+   "name": "Klute W 4",
+   "host": "Klute W",
+   "lat": 37.8581,
+   "lon": -143.1089,
+   "funnelMaxM": 16,
+   "funnelMinM": 12,
+   "innerMaxM": 6,
+   "innerMinM": 5,
+   "depthM": 8,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Ec",
+    "period": "Eratosthenian",
+    "name": "Eratosthenian Crater",
+    "color": "#A5CF30"
+   }
+  },
+  {
+   "name": "Klute W 5",
+   "host": "Klute W",
+   "lat": 38.1018,
+   "lon": -143.0677,
+   "funnelMaxM": 21,
+   "funnelMinM": 14,
+   "innerMaxM": 5,
+   "innerMinM": 4,
+   "depthM": 2,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Ec",
+    "period": "Eratosthenian",
+    "name": "Eratosthenian Crater",
+    "color": "#A5CF30"
+   }
+  },
+  {
+   "name": "Klute W 6",
+   "host": "Klute W",
+   "lat": 38.1256,
+   "lon": -143.099,
+   "funnelMaxM": 53,
+   "funnelMinM": 29,
+   "innerMaxM": 28,
+   "innerMinM": 12,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Ec",
+    "period": "Eratosthenian",
+    "name": "Eratosthenian Crater",
+    "color": "#A5CF30"
+   }
+  },
+  {
+   "name": "Lacus Mortis Pit",
+   "host": "Lacus Mortis",
+   "lat": 44.9608,
+   "lon": 25.6119,
+   "funnelMaxM": 280,
+   "funnelMinM": 210,
+   "innerMaxM": null,
+   "innerMinM": 110,
+   "depthM": 60,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Im2",
+    "period": "Imbrian",
+    "name": "Imbrian Mare, Upper",
+    "color": "#FF3361"
+   }
+  },
+  {
+   "name": "Lalande 1",
+   "host": "Lalande",
+   "lat": -4.4579,
+   "lon": -8.5333,
+   "funnelMaxM": 21,
+   "funnelMinM": 15,
+   "innerMaxM": 7,
+   "innerMinM": null,
+   "depthM": 8,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Lalande 12",
+   "host": "Lalande",
+   "lat": -4.4275,
+   "lon": -8.5564,
+   "funnelMaxM": 11,
+   "funnelMinM": 9,
+   "innerMaxM": 8,
+   "innerMinM": 4,
+   "depthM": 11,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Lalande 13",
+   "host": "Lalande",
+   "lat": -4.3571,
+   "lon": -8.6946,
+   "funnelMaxM": null,
+   "funnelMinM": 16,
+   "innerMaxM": 13,
+   "innerMinM": 10,
+   "depthM": 8,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Lalande 2",
+   "host": "Lalande",
+   "lat": -4.4949,
+   "lon": -8.5008,
+   "funnelMaxM": 22,
+   "funnelMinM": 15,
+   "innerMaxM": 19,
+   "innerMinM": 12,
+   "depthM": 6,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Lalande 3a",
+   "host": "Lalande",
+   "lat": -4.5322,
+   "lon": -8.5107,
+   "funnelMaxM": 13,
+   "funnelMinM": 10,
+   "innerMaxM": 8,
+   "innerMinM": 7,
+   "depthM": 8,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Lalande 3b",
+   "host": "Lalande",
+   "lat": -4.5328,
+   "lon": -8.5105,
+   "funnelMaxM": 31,
+   "funnelMinM": 28,
+   "innerMaxM": 28,
+   "innerMinM": 23,
+   "depthM": 4,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Lalande 3c",
+   "host": "Lalande",
+   "lat": -4.5312,
+   "lon": -8.51,
+   "funnelMaxM": 23,
+   "funnelMinM": 20,
+   "innerMaxM": 16,
+   "innerMinM": 15,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Lalande 5a",
+   "host": "Lalande",
+   "lat": -4.3408,
+   "lon": -8.5771,
+   "funnelMaxM": 13,
+   "funnelMinM": 12,
+   "innerMaxM": 7,
+   "innerMinM": 6,
+   "depthM": 4,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Mare Ingenii Pit",
+   "host": "Mare Ingenii",
+   "lat": -35.9494,
+   "lon": 166.0559,
+   "funnelMaxM": 180,
+   "funnelMinM": 157,
+   "innerMaxM": 104,
+   "innerMinM": 71,
+   "depthM": 55,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Im2",
+    "period": "Imbrian",
+    "name": "Imbrian Mare, Upper",
+    "color": "#FF3361"
+   }
+  },
+  {
+   "name": "Mare Insularum Pit",
+   "host": "Mare Insularum",
+   "lat": 8.6861,
+   "lon": -29.0335,
+   "funnelMaxM": 315,
+   "funnelMinM": 255,
+   "innerMaxM": null,
+   "innerMinM": 159,
+   "depthM": 63,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Im2",
+    "period": "Imbrian",
+    "name": "Imbrian Mare, Upper",
+    "color": "#FF3361"
+   }
+  },
+  {
+   "name": "Mare Moscoviense Pit",
+   "host": "Mare Moscoviense",
+   "lat": 29.5025,
+   "lon": 150.4647,
+   "funnelMaxM": 205,
+   "funnelMinM": 205,
+   "innerMaxM": 175,
+   "innerMinM": 160,
+   "depthM": 40,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Im2",
+    "period": "Imbrian",
+    "name": "Imbrian Mare, Upper",
+    "color": "#FF3361"
+   }
+  },
+  {
+   "name": "Mare Serenitatis Pit",
+   "host": "Mare Serenitatis",
+   "lat": 35.1041,
+   "lon": 17.4017,
+   "funnelMaxM": 60,
+   "funnelMinM": 55,
+   "innerMaxM": 21,
+   "innerMinM": 17,
+   "depthM": 25,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Im2",
+    "period": "Imbrian",
+    "name": "Imbrian Mare, Upper",
+    "color": "#FF3361"
+   }
+  },
+  {
+   "name": "Mare Tranquillitatis Pit",
+   "host": "Mare Tranquillitatis",
+   "lat": 8.3355,
+   "lon": 33.222,
+   "funnelMaxM": 146,
+   "funnelMinM": 140,
+   "innerMaxM": 100,
+   "innerMinM": 88,
+   "depthM": 105,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Im2",
+    "period": "Imbrian",
+    "name": "Imbrian Mare, Upper",
+    "color": "#FF3361"
+   }
+  },
+  {
+   "name": "Marius Hills Pit",
+   "host": "Marius Hills",
+   "lat": 14.0917,
+   "lon": -56.7701,
+   "funnelMaxM": 92,
+   "funnelMinM": 79,
+   "innerMaxM": 55,
+   "innerMinM": 49,
+   "depthM": 40,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "EIp",
+    "period": "Eratosthenian-Imbrian",
+    "name": "Eratosthenian Imbrian Plateau",
+    "color": "#E64D75"
+   }
+  },
+  {
+   "name": "Messier A 1",
+   "host": "Messier A",
+   "lat": -2.0279,
+   "lon": 46.8995,
+   "funnelMaxM": 13,
+   "funnelMinM": 9,
+   "innerMaxM": 8,
+   "innerMinM": 4,
+   "depthM": 15,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Messier A 2a",
+   "host": "Messier A",
+   "lat": -2.014,
+   "lon": 46.9059,
+   "funnelMaxM": 22,
+   "funnelMinM": 21,
+   "innerMaxM": 20,
+   "innerMinM": 17,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Messier A 2b",
+   "host": "Messier A",
+   "lat": -2.0166,
+   "lon": 46.9017,
+   "funnelMaxM": 11,
+   "funnelMinM": 8,
+   "innerMaxM": 5,
+   "innerMinM": 4,
+   "depthM": 10,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Messier A 4a",
+   "host": "Messier A",
+   "lat": -2.044,
+   "lon": 46.8825,
+   "funnelMaxM": 33,
+   "funnelMinM": 14,
+   "innerMaxM": 22,
+   "innerMinM": 9,
+   "depthM": 14,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Messier A 4b",
+   "host": "Messier A",
+   "lat": -2.0459,
+   "lon": 46.8839,
+   "funnelMaxM": null,
+   "funnelMinM": 16,
+   "innerMaxM": 16,
+   "innerMinM": 13,
+   "depthM": 20,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Milichius A 1",
+   "host": "Milichius A",
+   "lat": 9.2642,
+   "lon": -32.0732,
+   "funnelMaxM": 21,
+   "funnelMinM": 14,
+   "innerMaxM": 17,
+   "innerMinM": 9,
+   "depthM": 9,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Im2",
+    "period": "Imbrian",
+    "name": "Imbrian Mare, Upper",
+    "color": "#FF3361"
+   }
+  },
+  {
+   "name": "North Procellarum 1 Pit",
+   "host": "Oceanus Procellarum",
+   "lat": 35.4097,
+   "lon": -45.6398,
+   "funnelMaxM": 195,
+   "funnelMinM": 175,
+   "innerMaxM": 157,
+   "innerMinM": 108,
+   "depthM": 54,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Im2",
+    "period": "Imbrian",
+    "name": "Imbrian Mare, Upper",
+    "color": "#FF3361"
+   }
+  },
+  {
+   "name": "North Procellarum 2 Pit",
+   "host": "Oceanus Procellarum",
+   "lat": 35.3433,
+   "lon": -45.6553,
+   "funnelMaxM": 175,
+   "funnelMinM": 170,
+   "innerMaxM": 160,
+   "innerMinM": 155,
+   "depthM": 43,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Im2",
+    "period": "Imbrian",
+    "name": "Imbrian Mare, Upper",
+    "color": "#FF3361"
+   }
+  },
+  {
+   "name": "Oday 1",
+   "host": "Oday",
+   "lat": -30.9692,
+   "lon": 158.0535,
+   "funnelMaxM": 20,
+   "funnelMinM": 14,
+   "innerMaxM": 17,
+   "innerMinM": 9,
+   "depthM": 7,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Oday 2",
+   "host": "Oday",
+   "lat": -30.9463,
+   "lon": 158.0644,
+   "funnelMaxM": 34,
+   "funnelMinM": 16,
+   "innerMaxM": 14,
+   "innerMinM": 12,
+   "depthM": 4,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Ohm 1",
+   "host": "Ohm",
+   "lat": 18.0805,
+   "lon": -113.6813,
+   "funnelMaxM": 31,
+   "funnelMinM": 30,
+   "innerMaxM": 15,
+   "innerMinM": 13,
+   "depthM": 16,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Ec",
+    "period": "Eratosthenian",
+    "name": "Eratosthenian Crater",
+    "color": "#A5CF30"
+   }
+  },
+  {
+   "name": "Ohm 2",
+   "host": "Ohm",
+   "lat": 18.6687,
+   "lon": -113.5859,
+   "funnelMaxM": 36,
+   "funnelMinM": 26,
+   "innerMaxM": 12,
+   "innerMinM": null,
+   "depthM": 16,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Ec",
+    "period": "Eratosthenian",
+    "name": "Eratosthenian Crater",
+    "color": "#A5CF30"
+   }
+  },
+  {
+   "name": "Palitzsch B 1",
+   "host": "Palitzsch B",
+   "lat": -26.3162,
+   "lon": 68.1911,
+   "funnelMaxM": 32,
+   "funnelMinM": 28,
+   "innerMaxM": 15,
+   "innerMinM": 14,
+   "depthM": 13,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Philolaus 1",
+   "host": "Philolaus",
+   "lat": 72.4657,
+   "lon": -31.4196,
+   "funnelMaxM": 37,
+   "funnelMinM": 37,
+   "innerMaxM": null,
+   "innerMinM": null,
+   "depthM": 8,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Picard 1",
+   "host": "Picard",
+   "lat": 14.4714,
+   "lon": 54.6591,
+   "funnelMaxM": 25,
+   "funnelMinM": 17,
+   "innerMaxM": 12,
+   "innerMinM": 8,
+   "depthM": 10,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Ec",
+    "period": "Eratosthenian",
+    "name": "Eratosthenian Crater",
+    "color": "#A5CF30"
+   }
+  },
+  {
+   "name": "Proclus 1a",
+   "host": "Proclus",
+   "lat": 16.2972,
+   "lon": 46.8941,
+   "funnelMaxM": 40,
+   "funnelMinM": 32,
+   "innerMaxM": 33,
+   "innerMinM": 18,
+   "depthM": 11,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Proclus 1b",
+   "host": "Proclus",
+   "lat": 16.2959,
+   "lon": 46.8916,
+   "funnelMaxM": 42,
+   "funnelMinM": 30,
+   "innerMaxM": 36,
+   "innerMinM": 23,
+   "depthM": 14,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Runge Pit",
+   "host": "Runge Crater",
+   "lat": -2.7024,
+   "lon": 86.78,
+   "funnelMaxM": 31,
+   "funnelMinM": 28,
+   "innerMaxM": 14,
+   "innerMinM": 12,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Im2",
+    "period": "Imbrian",
+    "name": "Imbrian Mare, Upper",
+    "color": "#FF3361"
+   }
+  },
+  {
+   "name": "Rutherfurd 1a",
+   "host": "Rutherfurd",
+   "lat": -60.7788,
+   "lon": -11.8124,
+   "funnelMaxM": 18,
+   "funnelMinM": 17,
+   "innerMaxM": 14,
+   "innerMinM": 13,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Rutherfurd 1b",
+   "host": "Rutherfurd",
+   "lat": -60.7789,
+   "lon": -11.8138,
+   "funnelMaxM": 15,
+   "funnelMinM": 14,
+   "innerMaxM": 9,
+   "innerMinM": null,
+   "depthM": 3,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Rutherfurd 2",
+   "host": "Rutherfurd",
+   "lat": -60.7757,
+   "lon": -11.747,
+   "funnelMaxM": 36,
+   "funnelMinM": 30,
+   "innerMaxM": 24,
+   "innerMinM": 19,
+   "depthM": 9,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Rutherfurd 3",
+   "host": "Rutherfurd",
+   "lat": -60.7751,
+   "lon": -11.7924,
+   "funnelMaxM": 31,
+   "funnelMinM": 18,
+   "innerMaxM": 18,
+   "innerMinM": 8,
+   "depthM": 3,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Schlüter Pit",
+   "host": "Schlüter Crater",
+   "lat": -5.8395,
+   "lon": -83.05,
+   "funnelMaxM": 63,
+   "funnelMinM": 50,
+   "innerMaxM": 37,
+   "innerMinM": 23,
+   "depthM": 57,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Ic2",
+    "period": "Imbrian",
+    "name": "Imbrian Crater, Upper",
+    "color": "#1C7BF6"
+   }
+  },
+  {
+   "name": "Schomberger A 1",
+   "host": "Schomberger A",
+   "lat": -78.0579,
+   "lon": 25.3441,
+   "funnelMaxM": 13,
+   "funnelMinM": 9,
+   "innerMaxM": 10,
+   "innerMinM": 6,
+   "depthM": 1,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Sharonov 1a",
+   "host": "Sharonov",
+   "lat": 12.5745,
+   "lon": 173.4036,
+   "funnelMaxM": 19,
+   "funnelMinM": 13,
+   "innerMaxM": 7,
+   "innerMinM": 6,
+   "depthM": 12,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Sharonov 1b",
+   "host": "Sharonov",
+   "lat": 12.5762,
+   "lon": 173.4015,
+   "funnelMaxM": 15,
+   "funnelMinM": 12,
+   "innerMaxM": 7,
+   "innerMinM": 6,
+   "depthM": 8,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Sinus Iridum Pit",
+   "host": "Sinus Iridum",
+   "lat": 45.623,
+   "lon": -28.811,
+   "funnelMaxM": 145,
+   "funnelMinM": 125,
+   "innerMaxM": 66,
+   "innerMinM": 32,
+   "depthM": 16,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Im2",
+    "period": "Imbrian",
+    "name": "Imbrian Mare, Upper",
+    "color": "#FF3361"
+   }
+  },
+  {
+   "name": "Southwest Mare Fecunditatis Pit",
+   "host": "Mare Fecunditatis",
+   "lat": -6.7521,
+   "lon": 42.7595,
+   "funnelMaxM": 90,
+   "funnelMinM": 79,
+   "innerMaxM": 19,
+   "innerMinM": 15,
+   "depthM": 51,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Nt",
+    "period": "Nectarian",
+    "name": "Nectarian Terra",
+    "color": "#FBD5D3"
+   }
+  },
+  {
+   "name": "Southwest Mare Tranquillitatis B Pit",
+   "host": "Mare Tranquillitatis",
+   "lat": 4.1438,
+   "lon": 24.6867,
+   "funnelMaxM": null,
+   "funnelMinM": null,
+   "innerMaxM": 18,
+   "innerMinM": 10,
+   "depthM": 13,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Im2",
+    "period": "Imbrian",
+    "name": "Imbrian Mare, Upper",
+    "color": "#FF3361"
+   }
+  },
+  {
+   "name": "Southwest Mare Tranquillitatis Pit",
+   "host": "Mare Tranquillitatis",
+   "lat": 4.1438,
+   "lon": 24.6871,
+   "funnelMaxM": 100,
+   "funnelMinM": 80,
+   "innerMaxM": 32,
+   "innerMinM": 26,
+   "depthM": 25,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Im2",
+    "period": "Imbrian",
+    "name": "Imbrian Mare, Upper",
+    "color": "#FF3361"
+   }
+  },
+  {
+   "name": "Stefan L 1",
+   "host": "Stefan L",
+   "lat": 44.537,
+   "lon": -107.9698,
+   "funnelMaxM": 41,
+   "funnelMinM": 39,
+   "innerMaxM": 16,
+   "innerMinM": null,
+   "depthM": 13,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Ec",
+    "period": "Eratosthenian",
+    "name": "Eratosthenian Crater",
+    "color": "#A5CF30"
+   }
+  },
+  {
+   "name": "Stefan L 2",
+   "host": "Stefan L",
+   "lat": 44.4982,
+   "lon": -108.1656,
+   "funnelMaxM": 30,
+   "funnelMinM": 28,
+   "innerMaxM": 20,
+   "innerMinM": 19,
+   "depthM": 10,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Ec",
+    "period": "Eratosthenian",
+    "name": "Eratosthenian Crater",
+    "color": "#A5CF30"
+   }
+  },
+  {
+   "name": "Stevinus 1",
+   "host": "Stevinus",
+   "lat": -32.4259,
+   "lon": 54.6378,
+   "funnelMaxM": 69,
+   "funnelMinM": 39,
+   "innerMaxM": 60,
+   "innerMinM": 33,
+   "depthM": 16,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 10",
+   "host": "Stevinus",
+   "lat": -32.9383,
+   "lon": 54.7378,
+   "funnelMaxM": 16,
+   "funnelMinM": 10,
+   "innerMaxM": 7,
+   "innerMinM": 5,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 11",
+   "host": "Stevinus",
+   "lat": -32.3302,
+   "lon": 54.7743,
+   "funnelMaxM": 15,
+   "funnelMinM": 14,
+   "innerMaxM": 6,
+   "innerMinM": 4,
+   "depthM": 6,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 12",
+   "host": "Stevinus",
+   "lat": -32.3174,
+   "lon": 54.746,
+   "funnelMaxM": 30,
+   "funnelMinM": 24,
+   "innerMaxM": 24,
+   "innerMinM": 18,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 13",
+   "host": "Stevinus",
+   "lat": -32.449,
+   "lon": 54.6446,
+   "funnelMaxM": 8,
+   "funnelMinM": 7,
+   "innerMaxM": 4,
+   "innerMinM": 4,
+   "depthM": 4,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 14a",
+   "host": "Stevinus",
+   "lat": -32.1634,
+   "lon": 54.7124,
+   "funnelMaxM": 20,
+   "funnelMinM": 16,
+   "innerMaxM": 14,
+   "innerMinM": 12,
+   "depthM": 14,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 14b",
+   "host": "Stevinus",
+   "lat": -32.1643,
+   "lon": 54.7118,
+   "funnelMaxM": 12,
+   "funnelMinM": 9,
+   "innerMaxM": 9,
+   "innerMinM": 7,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 15",
+   "host": "Stevinus",
+   "lat": -32.3568,
+   "lon": 54.9433,
+   "funnelMaxM": 42,
+   "funnelMinM": 34,
+   "innerMaxM": 18,
+   "innerMinM": 11,
+   "depthM": 10,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 16",
+   "host": "Stevinus",
+   "lat": -32.1817,
+   "lon": 54.5943,
+   "funnelMaxM": 28,
+   "funnelMinM": 23,
+   "innerMaxM": 17,
+   "innerMinM": 13,
+   "depthM": 11,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 17",
+   "host": "Stevinus",
+   "lat": -32.3695,
+   "lon": 53.6121,
+   "funnelMaxM": 18,
+   "funnelMinM": 14,
+   "innerMaxM": 5,
+   "innerMinM": 4,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 18",
+   "host": "Stevinus",
+   "lat": -32.1226,
+   "lon": 54.8746,
+   "funnelMaxM": 21,
+   "funnelMinM": 13,
+   "innerMaxM": 9,
+   "innerMinM": 9,
+   "depthM": 6,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 19",
+   "host": "Stevinus",
+   "lat": -32.9337,
+   "lon": 53.7983,
+   "funnelMaxM": 25,
+   "funnelMinM": 14,
+   "innerMaxM": 16,
+   "innerMinM": 6,
+   "depthM": 13,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 2",
+   "host": "Stevinus",
+   "lat": -32.4828,
+   "lon": 54.5722,
+   "funnelMaxM": 22,
+   "funnelMinM": 18,
+   "innerMaxM": 9,
+   "innerMinM": 4,
+   "depthM": 7,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 22",
+   "host": "Stevinus",
+   "lat": -32.9349,
+   "lon": 53.9595,
+   "funnelMaxM": 44,
+   "funnelMinM": 41,
+   "innerMaxM": 38,
+   "innerMinM": 35,
+   "depthM": 9,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 23",
+   "host": "Stevinus",
+   "lat": -32.9642,
+   "lon": 54.0249,
+   "funnelMaxM": 14,
+   "funnelMinM": 14,
+   "innerMaxM": 7,
+   "innerMinM": 4,
+   "depthM": 8,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 24",
+   "host": "Stevinus",
+   "lat": -32.7823,
+   "lon": 54.2992,
+   "funnelMaxM": 12,
+   "funnelMinM": 12,
+   "innerMaxM": null,
+   "innerMinM": null,
+   "depthM": 4,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 25",
+   "host": "Stevinus",
+   "lat": -32.7393,
+   "lon": 54.2171,
+   "funnelMaxM": 14,
+   "funnelMinM": 13,
+   "innerMaxM": 4,
+   "innerMinM": 4,
+   "depthM": 6,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 26",
+   "host": "Stevinus",
+   "lat": -32.1328,
+   "lon": 54.865,
+   "funnelMaxM": 13,
+   "funnelMinM": 10,
+   "innerMaxM": 7,
+   "innerMinM": 3,
+   "depthM": 9,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 3",
+   "host": "Stevinus",
+   "lat": -32.8592,
+   "lon": 54.0796,
+   "funnelMaxM": 56,
+   "funnelMinM": 45,
+   "innerMaxM": 15,
+   "innerMinM": 6,
+   "depthM": 9,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 4",
+   "host": "Stevinus",
+   "lat": -32.7245,
+   "lon": 54.1735,
+   "funnelMaxM": 15,
+   "funnelMinM": 15,
+   "innerMaxM": 11,
+   "innerMinM": 10,
+   "depthM": 8,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 5",
+   "host": "Stevinus",
+   "lat": -32.4519,
+   "lon": 54.6746,
+   "funnelMaxM": 18,
+   "funnelMinM": 17,
+   "innerMaxM": 6,
+   "innerMinM": 6,
+   "depthM": 6,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 6",
+   "host": "Stevinus",
+   "lat": -32.3828,
+   "lon": 54.6579,
+   "funnelMaxM": 13,
+   "funnelMinM": 8,
+   "innerMaxM": 7,
+   "innerMinM": 4,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 7",
+   "host": "Stevinus",
+   "lat": -32.3554,
+   "lon": 54.7126,
+   "funnelMaxM": 14,
+   "funnelMinM": 12,
+   "innerMaxM": 7,
+   "innerMinM": 4,
+   "depthM": 7,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 8",
+   "host": "Stevinus",
+   "lat": -32.3088,
+   "lon": 54.6614,
+   "funnelMaxM": 10,
+   "funnelMinM": 8,
+   "innerMaxM": 5,
+   "innerMinM": 4,
+   "depthM": 6,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 9a",
+   "host": "Stevinus",
+   "lat": -32.9401,
+   "lon": 54.7446,
+   "funnelMaxM": 22,
+   "funnelMinM": 13,
+   "innerMaxM": 7,
+   "innerMinM": 7,
+   "depthM": 6,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Stevinus 9b",
+   "host": "Stevinus",
+   "lat": -32.9401,
+   "lon": 54.7446,
+   "funnelMaxM": null,
+   "funnelMinM": null,
+   "innerMaxM": 6,
+   "innerMinM": 4,
+   "depthM": 9,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tharp 1a",
+   "host": "Tharp",
+   "lat": -30.6002,
+   "lon": 145.6809,
+   "funnelMaxM": 140,
+   "funnelMinM": 121,
+   "innerMaxM": 116,
+   "innerMinM": 88,
+   "depthM": 23,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "pNt",
+    "period": "Pre-Nectarian",
+    "name": "pre-Nectarian Terra",
+    "color": "#DC9F91"
+   }
+  },
+  {
+   "name": "Tharp 1b",
+   "host": "Tharp",
+   "lat": -30.5999,
+   "lon": 145.6841,
+   "funnelMaxM": null,
+   "funnelMinM": null,
+   "innerMaxM": 21,
+   "innerMinM": 10,
+   "depthM": 16,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "pNt",
+    "period": "Pre-Nectarian",
+    "name": "pre-Nectarian Terra",
+    "color": "#DC9F91"
+   }
+  },
+  {
+   "name": "Tharp 2",
+   "host": "Tharp",
+   "lat": -30.5395,
+   "lon": 145.5548,
+   "funnelMaxM": 91,
+   "funnelMinM": 70,
+   "innerMaxM": 88,
+   "innerMinM": 56,
+   "depthM": 24,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "pNt",
+    "period": "Pre-Nectarian",
+    "name": "pre-Nectarian Terra",
+    "color": "#DC9F91"
+   }
+  },
+  {
+   "name": "Tharp 3",
+   "host": "Tharp",
+   "lat": -30.5713,
+   "lon": 145.6634,
+   "funnelMaxM": 40,
+   "funnelMinM": 37,
+   "innerMaxM": 31,
+   "innerMinM": null,
+   "depthM": 16,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "pNt",
+    "period": "Pre-Nectarian",
+    "name": "pre-Nectarian Terra",
+    "color": "#DC9F91"
+   }
+  },
+  {
+   "name": "Tharp 4",
+   "host": "Tharp",
+   "lat": -30.6063,
+   "lon": 145.7057,
+   "funnelMaxM": 12,
+   "funnelMinM": 12,
+   "innerMaxM": 10,
+   "innerMinM": 8,
+   "depthM": 9,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "pNt",
+    "period": "Pre-Nectarian",
+    "name": "pre-Nectarian Terra",
+    "color": "#DC9F91"
+   }
+  },
+  {
+   "name": "Tharp 5",
+   "host": "Tharp",
+   "lat": -30.6106,
+   "lon": 145.7199,
+   "funnelMaxM": 17,
+   "funnelMinM": 17,
+   "innerMaxM": 14,
+   "innerMinM": 12,
+   "depthM": 12,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "pNt",
+    "period": "Pre-Nectarian",
+    "name": "pre-Nectarian Terra",
+    "color": "#DC9F91"
+   }
+  },
+  {
+   "name": "Tycho 12",
+   "host": "Tycho",
+   "lat": -43.2169,
+   "lon": -10.4213,
+   "funnelMaxM": 47,
+   "funnelMinM": 31,
+   "innerMaxM": 34,
+   "innerMinM": 16,
+   "depthM": 15,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 13",
+   "host": "Tycho",
+   "lat": -43.1399,
+   "lon": -11.7311,
+   "funnelMaxM": 45,
+   "funnelMinM": 39,
+   "innerMaxM": 33,
+   "innerMinM": 27,
+   "depthM": 12,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 14",
+   "host": "Tycho",
+   "lat": -43.1467,
+   "lon": -10.9282,
+   "funnelMaxM": 30,
+   "funnelMinM": 27,
+   "innerMaxM": 16,
+   "innerMinM": 10,
+   "depthM": 12,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 15a",
+   "host": "Tycho",
+   "lat": -43.1445,
+   "lon": -10.3668,
+   "funnelMaxM": 27,
+   "funnelMinM": 16,
+   "innerMaxM": 18,
+   "innerMinM": 9,
+   "depthM": 4,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 15b",
+   "host": "Tycho",
+   "lat": -43.1456,
+   "lon": -10.3675,
+   "funnelMaxM": 37,
+   "funnelMinM": 22,
+   "innerMaxM": 26,
+   "innerMinM": 6,
+   "depthM": 9,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 16",
+   "host": "Tycho",
+   "lat": -43.102,
+   "lon": -12.2201,
+   "funnelMaxM": 68,
+   "funnelMinM": 48,
+   "innerMaxM": 60,
+   "innerMinM": 40,
+   "depthM": 18,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 17a",
+   "host": "Tycho",
+   "lat": -43.0855,
+   "lon": -11.7578,
+   "funnelMaxM": 86,
+   "funnelMinM": 61,
+   "innerMaxM": 72,
+   "innerMinM": 42,
+   "depthM": 16,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 17b",
+   "host": "Tycho",
+   "lat": -43.0794,
+   "lon": -11.7573,
+   "funnelMaxM": 98,
+   "funnelMinM": 76,
+   "innerMaxM": 68,
+   "innerMinM": 53,
+   "depthM": 20,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 18",
+   "host": "Tycho",
+   "lat": -43.2779,
+   "lon": -12.1741,
+   "funnelMaxM": 70,
+   "funnelMinM": 61,
+   "innerMaxM": 61,
+   "innerMinM": 40,
+   "depthM": 17,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 19",
+   "host": "Tycho",
+   "lat": -43.0996,
+   "lon": -10.5818,
+   "funnelMaxM": 15,
+   "funnelMinM": 14,
+   "innerMaxM": 11,
+   "innerMinM": 9,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 2",
+   "host": "Tycho",
+   "lat": -42.5978,
+   "lon": -12.1804,
+   "funnelMaxM": 18,
+   "funnelMinM": 12,
+   "innerMaxM": 13,
+   "innerMinM": 6,
+   "depthM": 3,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 29a",
+   "host": "Tycho",
+   "lat": -42.8468,
+   "lon": -11.4576,
+   "funnelMaxM": 20,
+   "funnelMinM": 12,
+   "innerMaxM": 18,
+   "innerMinM": 9,
+   "depthM": 10,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 29b",
+   "host": "Tycho",
+   "lat": -42.8473,
+   "lon": -11.4585,
+   "funnelMaxM": 18,
+   "funnelMinM": 14,
+   "innerMaxM": 14,
+   "innerMinM": 9,
+   "depthM": 8,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 29c",
+   "host": "Tycho",
+   "lat": -42.8478,
+   "lon": -11.4595,
+   "funnelMaxM": 37,
+   "funnelMinM": 35,
+   "innerMaxM": 25,
+   "innerMinM": 17,
+   "depthM": 10,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 3",
+   "host": "Tycho",
+   "lat": -42.9449,
+   "lon": -12.2143,
+   "funnelMaxM": 43,
+   "funnelMinM": 40,
+   "innerMaxM": 18,
+   "innerMinM": 9,
+   "depthM": 6,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 5a",
+   "host": "Tycho",
+   "lat": -42.6199,
+   "lon": -11.3668,
+   "funnelMaxM": 54,
+   "funnelMinM": 35,
+   "innerMaxM": 31,
+   "innerMinM": 21,
+   "depthM": 22,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 5b",
+   "host": "Tycho",
+   "lat": -42.6179,
+   "lon": -11.3637,
+   "funnelMaxM": 86,
+   "funnelMinM": 50,
+   "innerMaxM": 77,
+   "innerMinM": 42,
+   "depthM": 15,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 5c",
+   "host": "Tycho",
+   "lat": -42.6152,
+   "lon": -11.3583,
+   "funnelMaxM": 57,
+   "funnelMinM": 34,
+   "innerMaxM": null,
+   "innerMinM": null,
+   "depthM": 10,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 5d",
+   "host": "Tycho",
+   "lat": -42.612,
+   "lon": -11.3517,
+   "funnelMaxM": 88,
+   "funnelMinM": 51,
+   "innerMaxM": 62,
+   "innerMinM": 37,
+   "depthM": 10,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 5e",
+   "host": "Tycho",
+   "lat": -42.6218,
+   "lon": -11.3628,
+   "funnelMaxM": 20,
+   "funnelMinM": 19,
+   "innerMaxM": 15,
+   "innerMinM": 14,
+   "depthM": 5,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 6",
+   "host": "Tycho",
+   "lat": -42.8894,
+   "lon": -10.6704,
+   "funnelMaxM": 30,
+   "funnelMinM": 27,
+   "innerMaxM": 20,
+   "innerMinM": 19,
+   "depthM": 7,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 7",
+   "host": "Tycho",
+   "lat": -42.8468,
+   "lon": -11.4653,
+   "funnelMaxM": 24,
+   "funnelMinM": 21,
+   "innerMaxM": 16,
+   "innerMinM": 12,
+   "depthM": 15,
+   "depthIsLowerBound": true,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 8",
+   "host": "Tycho",
+   "lat": -42.7882,
+   "lon": -11.2259,
+   "funnelMaxM": 42,
+   "funnelMinM": 37,
+   "innerMaxM": 8,
+   "innerMinM": 8,
+   "depthM": 10,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Tycho 9",
+   "host": "Tycho",
+   "lat": -42.6506,
+   "lon": -10.4585,
+   "funnelMaxM": 77,
+   "funnelMinM": 29,
+   "innerMaxM": 58,
+   "innerMinM": 16,
+   "depthM": 11,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "Virtanen F 1",
+   "host": "Virtanen F",
+   "lat": 15.7946,
+   "lon": 177.2069,
+   "funnelMaxM": 49,
+   "funnelMinM": 42,
+   "innerMaxM": 20,
+   "innerMinM": 14,
+   "depthM": 17,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Ec",
+    "period": "Eratosthenian",
+    "name": "Eratosthenian Crater",
+    "color": "#A5CF30"
+   }
+  },
+  {
+   "name": "Weiner F 1",
+   "host": "Weiner F",
+   "lat": 41.0722,
+   "lon": 149.9284,
+   "funnelMaxM": 82,
+   "funnelMinM": 82,
+   "innerMaxM": 63,
+   "innerMinM": 62,
+   "depthM": 22,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "color": "#FCDC0A"
+   }
+  },
+  {
+   "name": "West Marius Hills Pit",
+   "host": "Marius Hills",
+   "lat": 13.5507,
+   "lon": -58.1733,
+   "funnelMaxM": 95,
+   "funnelMinM": 70,
+   "innerMaxM": null,
+   "innerMinM": 47,
+   "depthM": 16,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Im2",
+    "period": "Imbrian",
+    "name": "Imbrian Mare, Upper",
+    "color": "#FF3361"
+   }
+  },
+  {
+   "name": "Wood T 1a",
+   "host": "Wood T",
+   "lat": 43.8876,
+   "lon": -124.246,
+   "funnelMaxM": 46,
+   "funnelMinM": 33,
+   "innerMaxM": 40,
+   "innerMinM": 25,
+   "depthM": 11,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Nc",
+    "period": "Nectarian",
+    "name": "Nectarian Crater",
+    "color": "#C96936"
+   }
+  },
+  {
+   "name": "Wood T 1b",
+   "host": "Wood T",
+   "lat": 43.8862,
+   "lon": -124.2387,
+   "funnelMaxM": 23,
+   "funnelMinM": 18,
+   "innerMaxM": 17,
+   "innerMinM": 14,
+   "depthM": 11,
+   "depthIsLowerBound": false,
+   "unit": {
+    "code": "Nc",
+    "period": "Nectarian",
+    "name": "Nectarian Crater",
+    "color": "#C96936"
+   }
+  }
+ ]
+}

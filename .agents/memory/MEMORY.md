@@ -1,3 +1,5 @@
 - [Data honesty rule](data-sources-gotchas.md) — measured vs reference vs editorial labelling; UI definitions must match the calculation
 - [Pipeline source quirks](pipeline-data-sources.md) — TLS, MCS sampling times, polar map orientation, unit-label oddities for the Moon/Mars raw data
 - [Design subagent scope](design-subagent-scope.md) — restyling an existing multi-panel UI needs a per-component list or you get a theme swap
+- [Hydrating a Git repo into a new project](hydrate-repo-into-project.md) — transitionToProject parks staged files in .local/conversation-workspace/files; createArtifact's install then rewrites the lockfile.
+- [Analog data pack rules](analog-data-pack.md) — wording/scoring limits from the team's data pack (fit index, PRP is a model, GLiM/USGS not scored).

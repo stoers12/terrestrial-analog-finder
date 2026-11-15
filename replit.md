@@ -54,3 +54,10 @@ Pick a Moon or Mars target; see ranked Earth analogs on a map, per-site comparis
 ## Pointers
 
 - See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details
+
+## Lunar data pack
+
+- Rebuild processed files with `node artifacts/analog-finder/scripts/build-pack-data.mjs <pack dir>`; the original pack archive is intentionally excluded from git.
+- Run `pnpm --filter @workspace/api-server run ingest:targets -- --moon-only` to refresh Moon targets without downloading Mars MCS data.
+- LROC pit dimensions, USGS map units, GLiM rock classes and PRP polar values are context or filters, never scored dimensions. PRP is a thermal model, not ice detection.
+- Every displayed number must come from a source file or the data pipeline.

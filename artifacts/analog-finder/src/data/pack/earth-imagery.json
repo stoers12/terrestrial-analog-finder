@@ -1,0 +1,339 @@
+{
+ "source": "NASA GIBS, Blue Marble shaded relief and bathymetry",
+ "note": "Composite context imagery about 1° of latitude across. Not a dated single acquisition, a geologic measurement or a terrain model.",
+ "sites": {
+  "earth-askja": {
+   "file": "pack/earth/earth-askja.jpg",
+   "layer": "BlueMarble_ShadedRelief_Bathymetry",
+   "bbox": [
+    -17.93443090537988,
+    64.53,
+    -15.56556909462012,
+    65.53
+   ],
+   "retrievedAt": "2026-11-15T10:53:09.135473+00:00",
+   "requestUrl": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=BlueMarble_ShadedRelief_Bathymetry&STYLES=&SRS=EPSG%3A4326&BBOX=-17.93443090537988%2C64.53%2C-15.56556909462012%2C65.53&WIDTH=512&HEIGHT=512&FORMAT=image%2Fjpeg",
+   "marker": {
+    "x": 0.5,
+    "y": 0.5300000000000011
+   }
+  },
+  "earth-atacama": {
+   "file": "pack/earth/earth-atacama.jpg",
+   "layer": "BlueMarble_ShadedRelief_Bathymetry",
+   "bbox": [
+    -70.40765912885459,
+    -24.58,
+    -69.31234087114541,
+    -23.58
+   ],
+   "retrievedAt": "2026-11-15T10:52:52.487955+00:00",
+   "requestUrl": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=BlueMarble_ShadedRelief_Bathymetry&STYLES=&SRS=EPSG%3A4326&BBOX=-70.40765912885459%2C-24.58%2C-69.31234087114541%2C-23.58&WIDTH=512&HEIGHT=512&FORMAT=image%2Fjpeg",
+   "marker": {
+    "x": 0.46348093376653393,
+    "y": 0.5200000000000031
+   }
+  },
+  "earth-svalbard": {
+   "file": "pack/earth/earth-svalbard.jpg",
+   "layer": "BlueMarble_ShadedRelief_Bathymetry",
+   "bbox": [
+    10.569154946607446,
+    78.95,
+    16.030845053392554,
+    79.95
+   ],
+   "retrievedAt": "2026-11-15T10:52:55.884133+00:00",
+   "requestUrl": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=BlueMarble_ShadedRelief_Bathymetry&STYLES=&SRS=EPSG%3A4326&BBOX=10.569154946607446%2C78.95%2C16.030845053392554%2C79.95&WIDTH=512&HEIGHT=512&FORMAT=image%2Fjpeg",
+   "marker": {
+    "x": 0.5366187015538538,
+    "y": 0.5499999999999972
+   }
+  },
+  "earth-craters-moon": {
+   "file": "pack/earth/earth-craters-moon.jpg",
+   "layer": "BlueMarble_ShadedRelief_Bathymetry",
+   "bbox": [
+    -114.20838779074454,
+    42.92,
+    -112.83161220925545,
+    43.92
+   ],
+   "retrievedAt": "2026-11-15T10:53:00.571905+00:00",
+   "requestUrl": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=BlueMarble_ShadedRelief_Bathymetry&STYLES=&SRS=EPSG%3A4326&BBOX=-114.20838779074454%2C42.92%2C-112.83161220925545%2C43.92&WIDTH=512&HEIGHT=512&FORMAT=image%2Fjpeg",
+   "marker": {
+    "x": 0.5145266957584798,
+    "y": 0.5200000000000031
+   }
+  },
+  "earth-lanzarote": {
+   "file": "pack/earth/earth-lanzarote.jpg",
+   "layer": "BlueMarble_ShadedRelief_Bathymetry",
+   "bbox": [
+    -14.01256555259648,
+    28.66,
+    -12.86743444740352,
+    29.66
+   ],
+   "retrievedAt": "2026-11-15T10:53:20.611841+00:00",
+   "requestUrl": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=BlueMarble_ShadedRelief_Bathymetry&STYLES=&SRS=EPSG%3A4326&BBOX=-14.01256555259648%2C28.66%2C-12.86743444740352%2C29.66&WIDTH=512&HEIGHT=512&FORMAT=image%2Fjpeg",
+   "marker": {
+    "x": 0.508732624548099,
+    "y": 0.5100000000000016
+   }
+  },
+  "earth-danakil": {
+   "file": "pack/earth/earth-danakil.jpg",
+   "layer": "BlueMarble_ShadedRelief_Bathymetry",
+   "bbox": [
+    39.78414991646277,
+    13.74,
+    40.81585008353722,
+    14.74
+   ],
+   "retrievedAt": "2026-11-15T10:53:20.652791+00:00",
+   "requestUrl": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=BlueMarble_ShadedRelief_Bathymetry&STYLES=&SRS=EPSG%3A4326&BBOX=39.78414991646277%2C13.74%2C40.81585008353722%2C14.74&WIDTH=512&HEIGHT=512&FORMAT=image%2Fjpeg",
+   "marker": {
+    "x": 0.5,
+    "y": 0.5
+   }
+  },
+  "earth-lut": {
+   "file": "pack/earth/earth-lut.jpg",
+   "layer": "BlueMarble_ShadedRelief_Bathymetry",
+   "bbox": [
+    57.81910585946362,
+    30.1,
+    58.98089414053638,
+    31.1
+   ],
+   "retrievedAt": "2026-11-15T10:53:00.615852+00:00",
+   "requestUrl": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=BlueMarble_ShadedRelief_Bathymetry&STYLES=&SRS=EPSG%3A4326&BBOX=57.81910585946362%2C30.1%2C58.98089414053638%2C31.1&WIDTH=512&HEIGHT=512&FORMAT=image%2Fjpeg",
+   "marker": null
+  },
+  "earth-deathvalley": {
+   "file": "pack/earth/earth-deathvalley.jpg",
+   "layer": "BlueMarble_ShadedRelief_Bathymetry",
+   "bbox": [
+    -117.43992606403222,
+    35.74,
+    -116.20007393596777,
+    36.74
+   ],
+   "retrievedAt": "2026-11-15T10:52:51.651904+00:00",
+   "requestUrl": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=BlueMarble_ShadedRelief_Bathymetry&STYLES=&SRS=EPSG%3A4326&BBOX=-117.43992606403222%2C35.74%2C-116.20007393596777%2C36.74&WIDTH=512&HEIGHT=512&FORMAT=image%2Fjpeg",
+   "marker": {
+    "x": 0.2741666174037128,
+    "y": 0.240000000000002
+   }
+  },
+  "earth-pinacate": {
+   "file": "pack/earth/earth-pinacate.jpg",
+   "layer": "BlueMarble_ShadedRelief_Bathymetry",
+   "bbox": [
+    -114.08811871523176,
+    31.27,
+    -112.91188128476824,
+    32.269999999999996
+   ],
+   "retrievedAt": "2026-11-15T10:53:09.114150+00:00",
+   "requestUrl": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=BlueMarble_ShadedRelief_Bathymetry&STYLES=&SRS=EPSG%3A4326&BBOX=-114.08811871523176%2C31.27%2C-112.91188128476824%2C32.269999999999996&WIDTH=512&HEIGHT=512&FORMAT=image%2Fjpeg",
+   "marker": {
+    "x": 0.5,
+    "y": 0.3699999999999988
+   }
+  },
+  "earth-haughton": {
+   "file": "pack/earth/earth-haughton.jpg",
+   "layer": "BlueMarble_ShadedRelief_Bathymetry",
+   "bbox": [
+    -91.66092655277927,
+    74.88,
+    -87.69907344722074,
+    75.88
+   ],
+   "retrievedAt": "2026-11-15T10:52:45.131733+00:00",
+   "requestUrl": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=BlueMarble_ShadedRelief_Bathymetry&STYLES=&SRS=EPSG%3A4326&BBOX=-91.66092655277927%2C74.88%2C-87.69907344722074%2C75.88&WIDTH=512&HEIGHT=512&FORMAT=image%2Fjpeg",
+   "marker": {
+    "x": 0.4949518572579241,
+    "y": 0.47999999999998977
+   }
+  },
+  "earth-kilauea": {
+   "file": "pack/earth/earth-kilauea.jpg",
+   "layer": "BlueMarble_ShadedRelief_Bathymetry",
+   "bbox": [
+    -155.74999987562222,
+    18.87,
+    -154.69000012437778,
+    19.87
+   ],
+   "retrievedAt": "2026-11-15T10:53:09.131526+00:00",
+   "requestUrl": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=BlueMarble_ShadedRelief_Bathymetry&STYLES=&SRS=EPSG%3A4326&BBOX=-155.74999987562222%2C18.87%2C-154.69000012437778%2C19.87&WIDTH=512&HEIGHT=512&FORMAT=image%2Fjpeg",
+   "marker": {
+    "x": 0.424528284175452,
+    "y": 0.4700000000000024
+   }
+  },
+  "earth-drivalleys": {
+   "file": "pack/earth/earth-drivalleys.jpg",
+   "layer": "BlueMarble_ShadedRelief_Bathymetry",
+   "bbox": [
+    159.48988684232737,
+    -78,
+    164.11011315767266,
+    -77
+   ],
+   "retrievedAt": "2026-11-15T10:52:46.072912+00:00",
+   "requestUrl": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=BlueMarble_ShadedRelief_Bathymetry&STYLES=&SRS=EPSG%3A4326&BBOX=159.48988684232737%2C-78.0%2C164.11011315767266%2C-77.0&WIDTH=512&HEIGHT=512&FORMAT=image%2Fjpeg",
+   "marker": {
+    "x": 0.6515077297566698,
+    "y": 0.5
+   }
+  },
+  "earth-meteor": {
+   "file": "pack/earth/earth-meteor.jpg",
+   "layer": "BlueMarble_ShadedRelief_Bathymetry",
+   "bbox": [
+    -111.63258883513133,
+    34.527,
+    -110.41141116486868,
+    35.527
+   ],
+   "retrievedAt": "2026-11-15T10:52:45.095859+00:00",
+   "requestUrl": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=BlueMarble_ShadedRelief_Bathymetry&STYLES=&SRS=EPSG%3A4326&BBOX=-111.63258883513133%2C34.527%2C-110.41141116486868%2C35.527&WIDTH=512&HEIGHT=512&FORMAT=image%2Fjpeg",
+   "marker": {
+    "x": 0.5016377633236443,
+    "y": 0.4969999999999999
+   }
+  },
+  "earth-qaidam": {
+   "file": "pack/earth/earth-qaidam.jpg",
+   "layer": "BlueMarble_ShadedRelief_Bathymetry",
+   "bbox": [
+    94.86976379299487,
+    37,
+    96.13023620700513,
+    38
+   ],
+   "retrievedAt": "2026-11-15T10:52:55.879734+00:00",
+   "requestUrl": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=BlueMarble_ShadedRelief_Bathymetry&STYLES=&SRS=EPSG%3A4326&BBOX=94.86976379299487%2C37.0%2C96.13023620700513%2C38.0&WIDTH=512&HEIGHT=512&FORMAT=image%2Fjpeg",
+   "marker": {
+    "x": 0.10332332985437846,
+    "y": 0.6000000000000014
+   }
+  },
+  "earth-riotinto": {
+   "file": "pack/earth/earth-riotinto.jpg",
+   "layer": "BlueMarble_ShadedRelief_Bathymetry",
+   "bbox": [
+    -7.231932670309673,
+    37.2,
+    -5.968067329690326,
+    38.2
+   ],
+   "retrievedAt": "2026-11-15T10:53:20.583754+00:00",
+   "requestUrl": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=BlueMarble_ShadedRelief_Bathymetry&STYLES=&SRS=EPSG%3A4326&BBOX=-7.231932670309673%2C37.2%2C-5.968067329690326%2C38.2&WIDTH=512&HEIGHT=512&FORMAT=image%2Fjpeg",
+   "marker": {
+    "x": 0.5395611766483743,
+    "y": 0.5
+   }
+  },
+  "earth-uyuni": {
+   "file": "pack/earth/earth-uyuni.jpg",
+   "layer": "BlueMarble_ShadedRelief_Bathymetry",
+   "bbox": [
+    -68.02253003175889,
+    -20.63,
+    -66.9574699682411,
+    -19.63
+   ],
+   "retrievedAt": "2026-11-15T10:53:14.687865+00:00",
+   "requestUrl": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=BlueMarble_ShadedRelief_Bathymetry&STYLES=&SRS=EPSG%3A4326&BBOX=-68.02253003175889%2C-20.63%2C-66.9574699682411%2C-19.63&WIDTH=512&HEIGHT=512&FORMAT=image%2Fjpeg",
+   "marker": {
+    "x": 0.490610858164209,
+    "y": 0.5700000000000003
+   }
+  },
+  "earth-oman": {
+   "file": "pack/earth/earth-oman.jpg",
+   "layer": "BlueMarble_ShadedRelief_Bathymetry",
+   "bbox": [
+    56.95681981129735,
+    22.5,
+    58.04318018870265,
+    23.5
+   ],
+   "retrievedAt": "2026-11-15T10:53:14.636163+00:00",
+   "requestUrl": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=BlueMarble_ShadedRelief_Bathymetry&STYLES=&SRS=EPSG%3A4326&BBOX=56.95681981129735%2C22.5%2C58.04318018870265%2C23.5&WIDTH=512&HEIGHT=512&FORMAT=image%2Fjpeg",
+   "marker": {
+    "x": 0.960252426726219,
+    "y": 0.1999999999999993
+   }
+  },
+  "earth-teide": {
+   "file": "pack/earth/earth-teide.jpg",
+   "layer": "BlueMarble_ShadedRelief_Bathymetry",
+   "bbox": [
+    -17.207660528472434,
+    27.76,
+    -16.072339471527567,
+    28.76
+   ],
+   "retrievedAt": "2026-11-15T10:52:55.859723+00:00",
+   "requestUrl": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=BlueMarble_ShadedRelief_Bathymetry&STYLES=&SRS=EPSG%3A4326&BBOX=-17.207660528472434%2C27.76%2C-16.072339471527567%2C28.76&WIDTH=512&HEIGHT=512&FORMAT=image%2Fjpeg",
+   "marker": {
+    "x": 0.5,
+    "y": 0.490000000000002
+   }
+  },
+  "earth-tibesti": {
+   "file": "pack/earth/earth-tibesti.jpg",
+   "layer": "BlueMarble_ShadedRelief_Bathymetry",
+   "bbox": [
+    17.464427503181486,
+    20.5,
+    18.535572496818514,
+    21.5
+   ],
+   "retrievedAt": "2026-11-15T10:52:51.339939+00:00",
+   "requestUrl": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=BlueMarble_ShadedRelief_Bathymetry&STYLES=&SRS=EPSG%3A4326&BBOX=17.464427503181486%2C20.5%2C18.535572496818514%2C21.5&WIDTH=512&HEIGHT=512&FORMAT=image%2Fjpeg",
+   "marker": {
+    "x": 0.03320978675139834,
+    "y": 0.5
+   }
+  },
+  "earth-ladakh": {
+   "file": "pack/earth/earth-ladakh.jpg",
+   "layer": "BlueMarble_ShadedRelief_Bathymetry",
+   "bbox": [
+    77.4016387907238,
+    32.82,
+    78.5983612092762,
+    33.82
+   ],
+   "retrievedAt": "2026-11-15T10:53:00.552422+00:00",
+   "requestUrl": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=BlueMarble_ShadedRelief_Bathymetry&STYLES=&SRS=EPSG%3A4326&BBOX=77.4016387907238%2C32.82%2C78.5983612092762%2C33.82&WIDTH=512&HEIGHT=512&FORMAT=image%2Fjpeg",
+   "marker": {
+    "x": 0.5,
+    "y": 0.7199999999999989
+   }
+  },
+  "earth-wadirum": {
+   "file": "pack/earth/earth-wadirum.jpg",
+   "layer": "BlueMarble_ShadedRelief_Bathymetry",
+   "bbox": [
+    34.845067490741854,
+    29.08,
+    35.99493250925815,
+    30.08
+   ],
+   "retrievedAt": "2026-11-15T10:53:14.643734+00:00",
+   "requestUrl": "https://gibs.earthdata.nasa.gov/wms/epsg4326/best/wms.cgi?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=BlueMarble_ShadedRelief_Bathymetry&STYLES=&SRS=EPSG%3A4326&BBOX=34.845067490741854%2C29.08%2C35.99493250925815%2C30.08&WIDTH=512&HEIGHT=512&FORMAT=image%2Fjpeg",
+   "marker": {
+    "x": 0.482606654104662,
+    "y": 0.4799999999999969
+   }
+  }
+ }
+}

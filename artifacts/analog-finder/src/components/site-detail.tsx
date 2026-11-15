@@ -8,6 +8,7 @@ import { buildLedgerRows } from "@/components/ledger-rows";
 import { explain, fmt, limits, rehearsal, scoreColor, STATUS_HINT, STATUS_LABEL, verdict } from "@/lib/analog-ui";
 import { StatusGlyph } from "@/components/ranked-list";
 import { TargetProvenance, TemperatureDefinitions } from "@/components/target-provenance";
+import { EarthImageContext } from "@/components/evidence-panel";
 
 function CountUp({ value }: { value: number }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -182,6 +183,7 @@ export function SiteDetail({ target, match, rank }: Props) {
               <div className="space-y-2 border-l-2 border-body-accent pl-3 text-[13px] leading-relaxed">
                 {explain(target, match).map((p, i) => <p key={i}>{p}</p>)}
               </div>
+              <EarthImageContext site={e} />
             </div>
 
             <div className="min-w-0 space-y-5">

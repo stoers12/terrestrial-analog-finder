@@ -34,6 +34,10 @@ export function TargetSelector({ target, targetSites, onChange }: Props) {
       <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-1">
         {GROUPS.map((g) => {
           const sites = targetSites.filter((t) => t.body === g.body);
+          const siteGroups = [
+            { id: "catalogued", label: "Catalogued sites", sites: sites.filter((site) => !site.lrocPit) },
+            { id: "lroc", label: "Pits added from the LROC atlas", sites: sites.filter((site) => Boolean(site.lrocPit)) },
+          ].filter((group) => group.sites.length > 0);
           const bodyActive = target.body === g.body;
           return (
             <div key={g.body} className={cn("panel rounded-lg border bg-card/85 p-3 transition-colors", bodyActive ? "border-foreground/25" : "border-foreground/10")}>
@@ -52,8 +56,18 @@ export function TargetSelector({ target, targetSites, onChange }: Props) {
                   ))}
                 </div>
               </div>
-              <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-2 xl:grid-cols-3">
-                {sites.map((t, i) => {
+              <div className="space-y-3">
+                {siteGroups.map((group) => (
+                  <div key={group.id}>
+                    {g.body === "moon" && siteGroups.length > 1 && (
+                      <div className="mb-2 flex items-center gap-2">
+                        <span className={cn("font-mono text-[9px] uppercase tracking-[.18em]", group.id === "lroc" ? "text-primary" : "text-muted-foreground")}>{group.label}</span>
+                        <span className="h-px flex-1 bg-foreground/10" />
+                        <span className="font-mono text-[9px] text-muted-foreground">{group.sites.length}</span>
+                      </div>
+                    )}
+                    <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-2 xl:grid-cols-3">
+                {group.sites.map((t, i) => {
                   const active = t.id === target.id;
                   return (
                     <button
@@ -62,7 +76,7 @@ export function TargetSelector({ target, targetSites, onChange }: Props) {
                       data-testid={`button-target-${t.id}`}
                       className={cn(
                         "group relative overflow-hidden rounded-md border px-2.5 py-2 text-left transition-all duration-200",
-                        active ? "border-transparent text-white shadow-md" : "border-foreground/10 bg-background/50 hover:-translate-y-0.5 hover:border-foreground/35 hover:bg-card",
+                        active ? "border-transparent text-white shadow-md" : group.id === "lroc" ? "border-dashed border-primary/45 bg-background/50 hover:-translate-y-0.5 hover:border-primary hover:bg-card" : "border-foreground/10 bg-background/50 hover:-translate-y-0.5 hover:border-foreground/35 hover:bg-card",
                       )}
                     >
                       {active && (
@@ -83,6 +97,9 @@ export function TargetSelector({ target, targetSites, onChange }: Props) {
                     </button>
                   );
                 })}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           );

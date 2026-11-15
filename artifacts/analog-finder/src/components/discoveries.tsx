@@ -1,6 +1,7 @@
 import { Compass, TriangleAlert } from "lucide-react";
 import type { Discovery } from "@/lib/discoveries";
-import { cellKey } from "@/lib/discoveries";
+import { cellKey, EXCLUSION_KM } from "@/lib/discoveries";
+import { LITHOLOGY } from "@/data/evidence";
 import { DIMENSIONS, MEASURABLE_DIMENSIONS } from "@/lib/similarity";
 import { scoreColor } from "@/lib/analog-ui";
 import { Panel, PanelHead, ProvTag } from "@/components/instrument";
@@ -21,6 +22,9 @@ interface Props {
   loadError: Error | null;
   selectedKey: string | null;
   onSelect: (key: string) => void;
+  rockOptions: { code: string; name: string; count: number }[];
+  rockClass: string;
+  onRockClass: (code: string) => void;
 }
 
 const SLOTS = 96;
@@ -68,7 +72,8 @@ function GridFill({ progress }: { progress: GridProgress | null }) {
   );
 }
 
-export function Discoveries({ discoveries, progress, loadError, selectedKey, onSelect }: Props) {
+export function Discoveries({ discoveries, progress, loadError, selectedKey, onSelect, rockOptions, rockClass, onRockClass }: Props) {
+  const rockName = rockOptions.find((o) => o.code === rockClass)?.name ?? null;
   const filling = progress && progress.phase !== "done" && progress.phase !== "error";
   return (
     <Panel className="p-3" data-testid="panel-discoveries">
@@ -83,6 +88,17 @@ export function Discoveries({ discoveries, progress, loadError, selectedKey, onS
         Every measured land cell ({progress?.cellSizeDeg ?? 4}° grid) is scored on {MEASURABLE_DIMENSIONS.length} measurable dimensions. Cells within 600 km of a catalogued site are hidden.
         Geology and isolation cannot be scored globally, so treat these as places to investigate.
       </p>
+
+      {rockOptions.length > 0 && (
+        <div className="mt-2 flex items-center gap-2 px-1" data-testid="filter-rock-type">
+          <label htmlFor="rock-type" className="shrink-0 text-[11px] text-muted-foreground">Rock type (GLiM)</label>
+          <select id="rock-type" value={rockClass} onChange={(e) => onRockClass(e.target.value)} className="h-7 min-w-0 flex-1 rounded-sm border border-foreground/20 bg-background px-1.5 text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" data-testid="select-rock-type">
+            <option value="all">Any rock type</option>
+            {rockOptions.map((o) => <option key={o.code} value={o.code}>{o.name} ({o.count} cells)</option>)}
+          </select>
+        </div>
+      )}
+      {rockName && <p className="mt-1 px-1 text-[10px] text-muted-foreground">Showing only cells whose {LITHOLOGY.resolutionDeg}° GLiM class at the cell centre is {rockName.toLowerCase()}. A filter only; it does not change any fit index.</p>}
 
       <div className="mt-3">
         <GridFill progress={progress} />
@@ -103,7 +119,7 @@ export function Discoveries({ discoveries, progress, loadError, selectedKey, onS
         {discoveries.length === 0 && !filling && !loadError && (
           <li className="relative overflow-hidden rounded-md border border-dashed border-foreground/25 p-4 text-center text-xs text-muted-foreground">
             <div className="absolute inset-0 hatch-faint" />
-            <span className="relative">No uncatalogued cells measured yet.</span>
+            {rockName ? <>No measured {rockName.toLowerCase()} cell lies more than {EXCLUSION_KM} km from the catalogued sites. <button type="button" onClick={() => onRockClass("all")} className="ml-1 underline decoration-foreground/30">Show any rock type</button></> : <span className="relative">No uncatalogued cells measured yet.</span>}
           </li>
         )}
         {discoveries.length === 0 && filling && (

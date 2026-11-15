@@ -1,0 +1,152 @@
+{
+ "source": "USGS Unified Geologic Map of the Moon, 1:5,000,000 (Fortezzo, Spudis and Harrel 2020)",
+ "url": "https://astrogeology.usgs.gov/search/map/Moon/Geology/Unified_Geologic_Map_of_the_Moon",
+ "scale": "1:5,000,000",
+ "note": "Map unit of the smallest polygon containing the app's target coordinates. Regional context; it does not resolve pits, caves, ice or the exact landing area.",
+ "targets": {
+  "moon-shackleton": {
+   "lat": -89.9,
+   "lon": 0,
+   "unit": {
+    "code": "Ec",
+    "period": "Eratosthenian",
+    "name": "Eratosthenian Crater",
+    "description": "Non-rayed, circular craters with sharp to partially subdued crater rim crests, partial circumferential ejecta present, and lower albedo compared to unit Cc.",
+    "interpretation": "Morphology and material from a primary impact event.",
+    "color": "#A5CF30"
+   }
+  },
+  "moon-malapert": {
+   "lat": -85.9,
+   "lon": 2.9,
+   "unit": {
+    "code": "pNbm",
+    "period": "Pre-Nectarian",
+    "name": "pre-Nectarian Basin Massif",
+    "description": "Large mountainous landforms commonly lying along arc, both continuous and discontinuous, gradational with generally finer-scale topography.",
+    "interpretation": "Uplifted bedrock during the formation of basins.",
+    "color": "#4E3A37"
+   }
+  },
+  "moon-marius": {
+   "lat": 14.1,
+   "lon": -56.7,
+   "unit": {
+    "code": "EIp",
+    "period": "Eratosthenian-Imbrian",
+    "name": "Eratosthenian Imbrian Plateau",
+    "description": "Forms high standing plateaus (relative to the mare surfaces in Oceanus Procellarum) with domes, cones, and dark mantling materials.",
+    "interpretation": "Volcanic constructs, flows, and pyroclastic materials.",
+    "color": "#E64D75"
+   }
+  },
+  "moon-tranquillitatis": {
+   "lat": 8.3,
+   "lon": 33.2,
+   "unit": {
+    "code": "Im2",
+    "period": "Imbrian",
+    "name": "Imbrian Mare, Upper",
+    "description": "Forms flat, smooth surfaces. Lower albedo and crater density than unit Im1. Numerous ridges. Difficult to distinguish from unit Id.",
+    "interpretation": "Basaltic lava flows",
+    "color": "#FF3361"
+   }
+  },
+  "moon-schrodinger": {
+   "lat": -75,
+   "lon": 132.4,
+   "unit": {
+    "code": "Ip",
+    "period": "Imbrian",
+    "name": "Imbrian Plains",
+    "description": "Smooth, flat to undulatory terrain of intermediate albedo occurring mostly in topographic lows and crater floors of Imbrian and older age.",
+    "interpretation": "Ambiguous origin, likely Orientale and other large impact crater ejecta.",
+    "color": "#CBA4CD"
+   }
+  },
+  "moon-ingenii": {
+   "lat": -35.9494,
+   "lon": 166.0559,
+   "unit": {
+    "code": "Im2",
+    "period": "Imbrian",
+    "name": "Imbrian Mare, Upper",
+    "description": "Forms flat, smooth surfaces. Lower albedo and crater density than unit Im1. Numerous ridges. Difficult to distinguish from unit Id.",
+    "interpretation": "Basaltic lava flows",
+    "color": "#FF3361"
+   }
+  },
+  "moon-lacus-mortis": {
+   "lat": 44.9608,
+   "lon": 25.6119,
+   "unit": {
+    "code": "Im2",
+    "period": "Imbrian",
+    "name": "Imbrian Mare, Upper",
+    "description": "Forms flat, smooth surfaces. Lower albedo and crater density than unit Im1. Numerous ridges. Difficult to distinguish from unit Id.",
+    "interpretation": "Basaltic lava flows",
+    "color": "#FF3361"
+   }
+  },
+  "moon-insularum": {
+   "lat": 8.6861,
+   "lon": -29.0335,
+   "unit": {
+    "code": "Im2",
+    "period": "Imbrian",
+    "name": "Imbrian Mare, Upper",
+    "description": "Forms flat, smooth surfaces. Lower albedo and crater density than unit Im1. Numerous ridges. Difficult to distinguish from unit Id.",
+    "interpretation": "Basaltic lava flows",
+    "color": "#FF3361"
+   }
+  },
+  "moon-moscoviense": {
+   "lat": 29.5025,
+   "lon": 150.4647,
+   "unit": {
+    "code": "Im2",
+    "period": "Imbrian",
+    "name": "Imbrian Mare, Upper",
+    "description": "Forms flat, smooth surfaces. Lower albedo and crater density than unit Im1. Numerous ridges. Difficult to distinguish from unit Id.",
+    "interpretation": "Basaltic lava flows",
+    "color": "#FF3361"
+   }
+  },
+  "moon-fecunditatis": {
+   "lat": -0.9182,
+   "lon": 48.6595,
+   "unit": {
+    "code": "Im2",
+    "period": "Imbrian",
+    "name": "Imbrian Mare, Upper",
+    "description": "Forms flat, smooth surfaces. Lower albedo and crater density than unit Im1. Numerous ridges. Difficult to distinguish from unit Id.",
+    "interpretation": "Basaltic lava flows",
+    "color": "#FF3361"
+   }
+  },
+  "moon-procellarum-north": {
+   "lat": 35.4097,
+   "lon": -45.6398,
+   "unit": {
+    "code": "Im2",
+    "period": "Imbrian",
+    "name": "Imbrian Mare, Upper",
+    "description": "Forms flat, smooth surfaces. Lower albedo and crater density than unit Im1. Numerous ridges. Difficult to distinguish from unit Id.",
+    "interpretation": "Basaltic lava flows",
+    "color": "#FF3361"
+   }
+  },
+  "moon-copernicus-lb4": {
+   "lat": 10.2041,
+   "lon": -20.0015,
+   "unit": {
+    "code": "Cc",
+    "period": "Copernican",
+    "name": "Copernican Crater",
+    "description": "Rim, wall and floor deposits of craters with sharp prominent rims, circular to polygonal outlines. High relative brightness and rays.",
+    "interpretation": null,
+    "color": "#FCDC0A"
+   }
+  }
+ }
+}
